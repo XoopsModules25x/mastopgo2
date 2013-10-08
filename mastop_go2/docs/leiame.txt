@@ -1,0 +1,28 @@
+### =============================================================
+### Mastop InfoDigital - Paixão por Internet
+### =============================================================
+### Informações para uso do Mastop Go2
+### =============================================================
+### Developer: Fernando Santos (topet05), fernando@mastop.com.br
+### Copyright: Mastop InfoDigital © 2003-2007
+### -------------------------------------------------------------
+### www.mastop.com.br
+### =============================================================
+### $Id: leiame.txt,v 1.1.1.1 2007/04/30 23:18:58 topet05 Exp $
+### =============================================================
+
+Obrigado por usar o Mastop Go2!
+
+Este módulo foi desenvolvido para rodar na atual versão estável do Xoops: 2.0.16
+Funciona em PHP 4 e PHP 5
+
+Instruções:
+- Instale como um módulo normal
+- Configure as permissões do módulo para que visitantes possam acessar (só assim você poderá usar o gerador de códigos e poderá colocar seus destaques em qualquer lugar através do código gerado).
+- Vá até a administração e cadastre as seções e os destaques.
+- Vá até a administração de blocos do Mastop Go2 e ative / configure / clone blocos da forma que você desejar.
+- Caso queira usar os destaques cadastrados em outro site (ou se quiser permitir que seus visitantes divulguem seus destaques), vá até a Home do módulo e use o Gerador de Códigos.
+
+Dúvidas / Críticas / Sugestões e Bugs: go2@mastop.com.br
+
+Mais informações: http://www.mastop.com.br/produtos/go2/
