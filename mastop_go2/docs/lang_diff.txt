@@ -1,0 +1,28 @@
+LANGUAGE DIFFERENCES
+=====================
+
+Below are language differences from a version to next version.
+
+Version 1.01
+----------------
+
+admin.php
+----------
+
+define("MGO_ADM_HOME", "Home");
+define("MGO_ADM_ABOUT", "About");
+
+define("_AM_TOPPAGE", "Top Page");
+define("_AM_ALLPAGES", "All Pages");
+define("_AM_BADMIN", "Page");
+define("_AM_TITLE", "Title");
+define("_AM_SIDE", "Side");
+define("_AM_WEIGHT", "Weight");
+define("_AM_VISIBLE", "Visible");
+define("_AM_VISIBLEIN", "Visible In");
+define("_AM_ACTION", "Action");
+
+// Text for Admin footer
+define("_AM_ADMIN_FOOTER", "<div class='center smallsmall italic pad5'>Mastop Go2 is maintained by the <a class='tooltip' rel='external' href='http://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
+
+define("MGO_ADM_NONATIVO", "Inactive");
