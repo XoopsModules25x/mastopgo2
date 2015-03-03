@@ -13,8 +13,8 @@
 ### =============================================================
 include XOOPS_ROOT_PATH."/header.php";
 if ( file_exists("language/".$xoopsConfig['language']."/modinfo.php") ) {
-	include_once("language/".$xoopsConfig['language']."/modinfo.php");
+    include_once("language/".$xoopsConfig['language']."/modinfo.php");
 } else {
-	include_once("language/portuguesebr/modinfo.php");
+    include_once("language/portuguesebr/modinfo.php");
 }
 include_once XOOPS_ROOT_PATH."/modules/".MGO_MOD_DIR."/include/funcoes.inc.php";

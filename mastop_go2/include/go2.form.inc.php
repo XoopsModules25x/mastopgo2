@@ -40,7 +40,6 @@ $statofftxt
 
 $go2_form->addElement(new XoopsFormRadioYN(MGO_ADM_ATIVO, 'go2_12_ativo', $go2_classe->getVar("go2_12_ativo"), $statontxt, $statofftxt));
 
-
 $go2_form->addElement(new XoopsFormHidden('go2_10_id', $go2_classe->getVar("go2_10_id")));
 $go2_form->addElement(new XoopsFormHidden('op', "salvar"));
 $go2botoes_tray  = new XoopsFormElementTray("", "&nbsp;&nbsp;");

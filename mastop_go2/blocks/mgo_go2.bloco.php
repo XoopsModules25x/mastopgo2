@@ -31,6 +31,7 @@ function mgo_go2_exibe($options){
     }else{
         return false;
     }
+
     return $block;
 }
 function mgo_go2_edita($options){
@@ -128,5 +129,6 @@ PICKER;
     $form .= MGO_BLO_BGCOLOR. ' #<input size="6" type="text" name="options[5]" id="options[5]" value="'.$options[5].'" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[5]_img" align="absmiddle" src="'.$picker_url.'/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[5]"), event)\' style="border: 2px solid #DEE3E7; background: #'.$options[5].'"><br />';
     $form .= MGO_BLO_TXTCOLOR. ' #<input size="6" type="text" name="options[6]" id="options[6]" value="'.$options[6].'" onblur=\'$S(this.name+"_img").background="#"+this.value;\'><img id="options[6]_img" align="absmiddle" src="'.$picker_url.'/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[6]"), event)\' style="border: 2px solid #DEE3E7; background: #'.$options[6].'"><br />';
     $form .= MGO_BLO_TRANSP." <input type='text' size='3' name='options[7]' value='".$options[7]."' />%<br />";
+
     return $form;
 }

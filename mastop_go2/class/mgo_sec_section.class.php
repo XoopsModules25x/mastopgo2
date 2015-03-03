@@ -33,6 +33,7 @@ class mgo_sec_section extends mastop_geral {
         $id = (empty($sec_10_id)) ? $this->getVar($this->id) : $sec_10_id;
         $sec_dstac_query = $this->db->query("select count(*) as count from " . $this->db->prefix(MGO_MOD_TABELA1) . " where sec_10_id = " . $id);
         $sec_query = $this->db->fetchArray($sec_dstac_query);
+
         return intval($sec_query['count']);
     }
     function montaGaleria($altura, $section = 0, $setas = 1, $barra = 1, $delay = 6, $transp = 50, $largura="100%"){
@@ -45,7 +46,7 @@ class mgo_sec_section extends mastop_geral {
         $go2_classe =& mgo_getClass(MGO_MOD_TABELA1);
         $dstacs = $go2_classe->PegaTudo($criterio);
         if (is_int($largura)) {
-        	$largura = $largura."px";
+            $largura = $largura."px";
         }
         if ($dstacs) {
             $ret = '
@@ -81,7 +82,7 @@ window.onDomReady(start_dstacs_'.$section.');
             $ret .= '<div align="center"><div id="dstacs_'.$section.'">';
             foreach ($dstacs as $v) {
                 if ($v->getVar("go2_11_target") == 0) {
-                	$target = "";
+                    $target = "";
                 }else{
                     $target = "target='_blank'";
                 }
@@ -92,6 +93,7 @@ window.onDomReady(start_dstacs_'.$section.');
                 $ret .= '</div>';
             }
             $ret .= '</div></div>';
+
             return $ret;
         }else{
             return false;

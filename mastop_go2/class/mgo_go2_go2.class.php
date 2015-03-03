@@ -39,6 +39,7 @@ class mgo_go2_go2 extends mastop_geral {
         if (!$result = $this->db->queryF($sql)) {
             return false;
         }
+
         return true;
     }
 
@@ -47,6 +48,7 @@ class mgo_go2_go2 extends mastop_geral {
         if (!$result = $this->db->queryF($sql)) {
             return false;
         }
+
         return true;
     }
     function pegaImagem($html = false) {
@@ -82,6 +84,7 @@ class mgo_go2_go2 extends mastop_geral {
         if (!$result = $this->db->queryF($sql)) {
             return false;
         }
+
         return true;
     }
 }

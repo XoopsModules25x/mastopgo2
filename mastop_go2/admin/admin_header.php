@@ -13,9 +13,9 @@
 ### =============================================================
 include '../../../include/cp_header.php';
 if ( file_exists("../language/".$xoopsConfig['language']."/modinfo.php") ) {
-	include_once("../language/".$xoopsConfig['language']."/modinfo.php");
+    include_once("../language/".$xoopsConfig['language']."/modinfo.php");
 } else {
-	include_once("../language/portuguesebr/modinfo.php");
+    include_once("../language/portuguesebr/modinfo.php");
 }
 include_once XOOPS_ROOT_PATH."/modules/".MGO_MOD_DIR."/include/funcoes.inc.php";
 $c['lang']['filtros'] = MGO_ADM_FILTROS;
@@ -49,16 +49,14 @@ $pathIcon16 = '../'.$xoopsModule->getInfo('icons16');
 $pathIcon32 = '../'.$xoopsModule->getInfo('icons32');
 $pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
 
-
 include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
 
-
 function mgo_adm_menu(){
-	global $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
-	$adm_url = XOOPS_URL."/modules/".MGO_MOD_DIR."/admin/";
-	$links[] = array(0 => XOOPS_URL.'/modules/system/admin.php?fct=preferences&op=showmod&mod='.$xoopsModule->getVar('mid'), 1 => _PREFERENCES);
-	//xoops_cp_header();
-	echo '
+    global $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
+    $adm_url = XOOPS_URL."/modules/".MGO_MOD_DIR."/admin/";
+    $links[] = array(0 => XOOPS_URL.'/modules/system/admin.php?fct=preferences&op=showmod&mod='.$xoopsModule->getVar('mid'), 1 => _PREFERENCES);
+    //xoops_cp_header();
+    echo '
 <link rel="stylesheet" type="text/css" href="menu/style_menu.css" />
 <script type="text/javascript" src="menu/jsdomenu.js"></script>
 <script type="text/javascript" src="menu/jsdomenubar.js"></script>
@@ -96,4 +94,3 @@ function createjsDOMenu() {
 </script>
 ';
 }
-?>

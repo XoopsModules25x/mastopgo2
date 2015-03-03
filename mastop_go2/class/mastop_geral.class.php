@@ -73,12 +73,15 @@ if (!class_exists('mastop_geral')) {
             $this->afetadas = $this->db->getAffectedRows();
             if (!$result) {
                 $this->setErrors("Erro ao gravar dados na Base de Dados. <br />".$this->db->error());
+
                 return false;
             }
             if (is_null($this->getVar($this->id)) || $this->getVar($this->id) == 0) {
                 $this->setVar($this->id, $this->db->getInsertId());
+
                 return $this->db->getInsertId();
             }
+
             return $this->getVar($this->id);
         }
 
@@ -92,6 +95,7 @@ if (!class_exists('mastop_geral')) {
             if (!$result = $this->db->query($sql)) {
                 return false;
             }
+
             return true;
         }
 
@@ -102,6 +106,7 @@ if (!class_exists('mastop_geral')) {
                 return false;
             }
             $this->afetadas = $this->db->getAffectedRows();
+
             return true;
         }
 
@@ -115,6 +120,7 @@ if (!class_exists('mastop_geral')) {
                 return false;
             }
             $this->afetadas = $this->db->getAffectedRows();
+
             return true;
         }
 
@@ -124,6 +130,7 @@ if (!class_exists('mastop_geral')) {
             $myrow = $this->db->fetchArray($this->db->query($sql));
             if (is_array($myrow) && count($myrow) > 0) {
                 $this->assignVars($myrow);
+
                 return true;
             }else{
                 return false;
@@ -151,6 +158,7 @@ if (!class_exists('mastop_geral')) {
                     while ( $myrow = $this->db->fetchArray($result) ) {
                         $ret[] = $myrow[$this->id];
                     }
+
                     return $ret;
                 }else{
                     return false;
@@ -171,6 +179,7 @@ if (!class_exists('mastop_geral')) {
                     while ( $myrow = $this->db->fetchArray($result) ) {
                         $ret[] = new $classe($myrow);
                     }
+
                     return $ret;
                 }else{
                     return false;
@@ -211,6 +220,7 @@ if (!class_exists('mastop_geral')) {
                 }
                 $hiddens['op'] = $campos['op'];
                 $hiddens['group_action'] = 'group_del_ok';
+
                 return xoops_confirm($hiddens, $url, $campos['lang']['group_del_sure'], _SUBMIT)."<br />";
             }
             $busca_url = '';
@@ -446,7 +456,7 @@ global $pathIcon16;
                                 }elseif (!empty($campos['show'][$l])){
                                     $ret.= eval('return '.$campos["show"][$l].';');
                                 }else{
-                                    $ret.= 	(isset($campos['options'][$l][$reg->getVar($campos['nome'][$l])])) ? $campos['options'][$l][$reg->getVar($campos['nome'][$l])]:$reg->getVar($campos['nome'][$l]) ;
+                                    $ret.=    (isset($campos['options'][$l][$reg->getVar($campos['nome'][$l])])) ? $campos['options'][$l][$reg->getVar($campos['nome'][$l])]:$reg->getVar($campos['nome'][$l]) ;
                                 }
                                 break;
                             case "simnao":
@@ -518,6 +528,7 @@ global $pathIcon16;
                 $ret.="<tbody><tr class='bx'><td colspan='".$colunas."' align='left'>".$this->paginar($url_full_pg, $criterio, $precrit_url)."</td></tr></tbody>";
             }
             $ret.="</table></div></td></tr></table><br />";
+
             return $ret;
         }
 
@@ -531,6 +542,7 @@ global $pathIcon16;
                 return 0;
             }
             list($count) = $this->db->fetchRow($result);
+
             return $count;
         }
 
@@ -544,6 +556,7 @@ global $pathIcon16;
                 return 0;
             }
             list($soma) = $this->db->fetchRow($result);
+
             return $soma;
         }
 
@@ -588,6 +601,7 @@ global $pathIcon16;
                     $ret .= ("|");
                 }
             }
+
             return $ret;
         }
     }

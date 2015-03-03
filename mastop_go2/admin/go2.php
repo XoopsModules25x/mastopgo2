@@ -342,7 +342,6 @@ switch ($op) {
         $c['group_action'][3]['texto'] = MGO_ADM_GO2_ZERA_COUNT;
         $c['group_action'][3]['valor'] = "zera_count";
 
-
         // Tradução
         $c['lang']['titulo'] = MGO_ADM_GO2_TITULO;
 

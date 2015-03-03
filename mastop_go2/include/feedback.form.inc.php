@@ -12,7 +12,7 @@
 ### $Id: feedback.form.inc.php 8102 2011-11-06 12:19:15Z beckmi $
 ### =============================================================
 if (!defined('XOOPS_ROOT_PATH')) {
-	die("Ooops!");
+    die("Ooops!");
 }
 include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
 $feedbackform = new XoopsThemeForm($form['titulo'], "mpu_feedbackform", $_SERVER['PHP_SELF'], "post");
