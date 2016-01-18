@@ -1,0 +1,12 @@
+1.02 Final 2012-12-19
+=================================
+- URL is not required anymore (mjoel)
+
+1.01  Final 2012-12-17
+=================================
+- updated to  XOOPS 2.5.x GUI (mamba)
+- replaced action text with icons (mamba)
+
+1.00  2007-05-01
+=================================
+- First Release (topet05)
