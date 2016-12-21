@@ -9,7 +9,7 @@
 ### -------------------------------------------------------------
 ### www.mastop.com.br
 ### =============================================================
-### $Id: index.php 8102 2011-11-06 12:19:15Z beckmi $
+### $Id: index.php 12503 2014-04-25 15:02:18Z beckmi $
 ### =============================================================
 include_once "../../mainfile.php";
 include_once "header.php";
@@ -18,7 +18,7 @@ if (!$_POST) {
     echo MGO_MAI_DESC."<br /><br />";
     include_once XOOPS_ROOT_PATH."/modules/".MGO_MOD_DIR."/include/generator.form.inc.php";
     $dstac_form->display();
-}else{
+} else {
     if (isset($_POST)) {
         foreach ($_POST as $k => $v) {
             $$k = $v;
@@ -27,7 +27,7 @@ if (!$_POST) {
     $sec_classe =& mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
     if (empty($sec_10_id) || $sec_classe->getVar('sec_10_id') == '' || $sec_classe->contaDestaques() == 0) {
         xoops_error(sprintf(MGO_MAI_SEC_404, $sec_classe->getVar("sec_30_nome")));
-    }else{
+    } else {
         $iframe = '<iframe src="'.XOOPS_URL.'/modules/'.MGO_MOD_DIR.'/tac.php?sec_id='.$sec_10_id;
         $iframe .= ($mgo_w != "100%") ? '&w='.$mgo_w : '';
         $iframe .= ($mgo_h != 200) ? '&h='.intval($mgo_h) : '';

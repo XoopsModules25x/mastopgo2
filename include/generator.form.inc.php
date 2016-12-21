@@ -1,18 +1,18 @@
 <?php
 ### =============================================================
-### Mastop InfoDigital - Paixão por Internet
+### Mastop InfoDigital - PaixÃ£o por Internet
 ### =============================================================
-### Formulário Gerador de Código para Destaques
+### FormulÃ¡rio Gerador de CÃ³digo para Destaques
 ### =============================================================
 ### Developer: Fernando Santos (topet05), fernando@mastop.com.br
-### Copyright: Mastop InfoDigital © 2003-2007
+### Copyright: Mastop InfoDigital Â© 2003-2007
 ### -------------------------------------------------------------
 ### www.mastop.com.br
 ### =============================================================
-### $Id: generator.form.inc.php 8102 2011-11-06 12:19:15Z beckmi $
+### $Id: generator.form.inc.php 12503 2014-04-25 15:02:18Z beckmi $
 ### =============================================================
 include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
-$picker_url = XOOPS_URL.'/modules/'.MGO_MOD_DIR.'/admin/color_picker';
+$picker_url = XOOPS_URL.'/modules/'.MGO_MOD_DIR.'/assets/js/color_picker';
 echo '
     <style type="text/css">
 <!--
@@ -53,16 +53,16 @@ $S(atual_color).background="#"+v;
 $(atual_campo).value=v;
 }
 function troca(campo, nome){
-if(campo.checked){
+if (campo.checked) {
 $(nome).value = 1;
-}else{
+} else {
 $(nome).value = 0;
 }
 }
 </script>
-	';
+    ';
 echo <<< PICKER
-	<div id="plugin" onmousedown="HSVslide('drag','plugin',event)" style="Z-INDEX: 20; display:none">
+    <div id="plugin" onmousedown="HSVslide('drag','plugin',event)" style="Z-INDEX: 20; display:none">
  <div id="plugHEX" onmousedown="stop=0; setTimeout('stop=1',100); toggle('plugin');">&nbsp</div><div id="plugCLOSE" onmousedown="toggle('plugin')">X</div><br>
  <div id="SV" onmousedown="HSVslide('SVslide','plugin',event)" title="Saturation + Value">
   <div id="SVslide" style="TOP: -4px; LEFT: -4px;"><br /></div>
@@ -73,13 +73,14 @@ echo <<< PICKER
  </div>
 </div>
 PICKER;
+
 $sec_classe =& mgo_getClass(MGO_MOD_TABELA0);
 $sec_todos = $sec_classe->pegaTudo();
 $sec_select = array();
 if ($sec_todos) {
-    foreach ($sec_todos as $v) {
-        $sec_select[$v->getVar($v->id)] = $v->getVar("sec_30_nome");
-    }
+  foreach ($sec_todos as $v) {
+    $sec_select[$v->getVar($v->id)] = $v->getVar("sec_30_nome");
+  }
 }
 $dstac_form = new XoopsThemeForm(MGO_MAI_FORM_TITLE, 'dstacform', $_SERVER['PHP_SELF'], 'post');
 $section_select = new XoopsFormSelect(MGO_MAI_SECTION, "sec_10_id", ((!empty($sec_10_id)) ? $sec_10_id : null));

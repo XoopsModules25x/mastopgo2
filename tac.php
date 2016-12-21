@@ -9,7 +9,7 @@
 ### -------------------------------------------------------------
 ### www.mastop.com.br
 ### =============================================================
-### $Id: tac.php 8102 2011-11-06 12:19:15Z beckmi $
+### $Id: tac.php 12503 2014-04-25 15:02:18Z beckmi $
 ### =============================================================
 /**
  * Valores esperados:
@@ -37,7 +37,7 @@ $tac = (!empty($_GET['sec_id'])) ? intval($_GET['sec_id']) : 0;
 $sec_classe =& mgo_getClass(MGO_MOD_TABELA0, $tac);
 if (empty($tac) || $sec_classe->getVar('sec_10_id') == '' || $sec_classe->contaDestaques() ==0) {
     exit();
-}else{
+} else {
     $w = !empty($w) ? $w : "100%";
     $h = !empty($h) ? intval($h) : 200;
     $setas = empty($noarrows) ? 1 : 0;
@@ -50,27 +50,27 @@ if (empty($tac) || $sec_classe->getVar('sec_10_id') == '' || $sec_classe->contaD
 <style type="text/css">
 div#dstacs_'.$tac.'.jdGallery .slideInfoZone
 {
-	position: absolute;
-	z-index: 17;
-	width: 100%;
-	margin: 0px;
-	left: 0;
-	bottom: 0;
-	height: 30px;
-	background: #'.$barcolor.';
-	color: #'.$textcolor.';
-	text-indent: 0;
-	overflow: hidden;
+    position: absolute;
+    z-index: 17;
+    width: 100%;
+    margin: 0px;
+    left: 0;
+    bottom: 0;
+    height: 30px;
+    background: #'.$barcolor.';
+    color: #'.$textcolor.';
+    text-indent: 0;
+    overflow: hidden;
 }
 div#dstacs_'.$tac.'.jdGallery .slideInfoZone div a
 {
-	padding: 0;
-	margin: 0;
-	font-family: Tahoma, Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	font-weight: normal !important;
-	color:#'.$textcolor.' !important;
-	text-decoration:none;
+    padding: 0;
+    margin: 0;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: normal !important;
+    color:#'.$textcolor.' !important;
+    text-decoration:none;
 }
 </style>
 ';

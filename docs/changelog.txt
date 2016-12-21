@@ -1,12 +1,22 @@
-1.02 Final 2012-12-19
+1.04 Beta 1       2014-04-23
+=================================
+- moved all images, CSS, and JS files to /assets (mamba)
+- renamed .html Smarty templates to .tpl (mamba)
+
+1.03 Final          2014-01-18
+=================================
+- Site softcored for Smartphons (bleek)
+- Language revised (muki)
+
+1.02 Final          2012-12-19
 =================================
 - URL is not required anymore (mjoel)
 
-1.01  Final 2012-12-17
+1.01 Final          2012-12-17
 =================================
-- updated to  XOOPS 2.5.x GUI (mamba)
+- updated to XOOPS 2.5.x GUI (mamba)
 - replaced action text with icons (mamba)
 
-1.00  2007-05-01
+1.00                2007-05-01
 =================================
 - First Release (topet05)

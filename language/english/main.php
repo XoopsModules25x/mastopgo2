@@ -9,7 +9,7 @@
 ### -------------------------------------------------------------
 ### www.mastop.com.br
 ### =============================================================
-### $Id: main.php 10037 2012-08-08 11:35:43Z beckmi $
+### $Id: main.php 12503 2014-04-25 15:02:18Z beckmi $
 ### =============================================================
 define("MGO_MAI_DESC","Promote us! Use the form below to create the code to put in your site.");
 define("MGO_MAI_FORM_TITLE","Code Generator");

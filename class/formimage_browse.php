@@ -9,13 +9,15 @@
 ### -------------------------------------------------------------
 ### www.mastop.com.br
 ### =============================================================
-### $Id: formimage_browse.php 8102 2011-11-06 12:19:15Z beckmi $
+### $Id: formimage_browse.php 12503 2014-04-25 15:02:18Z beckmi $
 ### =============================================================
+
 if ( file_exists("../../../mainfile.php") ) {
     include_once("../../../mainfile.php");
 } elseif (file_exists("../../../../mainfile.php")) {
     include_once("../../../../mainfile.php");
 }
+
 $target = $_REQUEST['target'];
 include_once XOOPS_ROOT_PATH.'/class/xoopsformloader.php';
 $op = (empty($_GET['op'])) ? 'list' : $_GET['op'];
@@ -183,7 +185,7 @@ if ($op == 'delcatok' && $admin) {
     $errors = array();
     foreach (array_keys($images) as $i) {
         $image_handler->delete($images[$i]);
-        if (file_exists(XOOPS_UPLOAD_PATH.'/'.$images[$i]->getVar('image_name'))){
+        if (file_exists(XOOPS_UPLOAD_PATH.'/'.$images[$i]->getVar('image_name'))) {
             @unlink(XOOPS_UPLOAD_PATH.'/'.$images[$i]->getVar('image_name'));
         }
     }
@@ -197,70 +199,71 @@ if ($op == 'delcatok' && $admin) {
 <title><?PHP echo _MD_IMGMAIN ?></title>
 <script language="javascript" type="text/javascript">
 function tabberObj(argsObj)
-{var arg;this.div=null;this.classMain="tabber";this.classMainLive="tabberlive";this.classTab="tabbertab";this.classTabDefault="tabbertabdefault";this.classNav="tabbernav";this.classTabHide="tabbertabhide";this.classNavActive="tabberactive";this.titleElements=['h2','h3','h4','h5','h6'];this.titleElementsStripHTML=true;this.removeTitle=true;this.addLinkId=false;this.linkIdFormat='<tabberid>nav<tabnumberone>';for(arg in argsObj){this[arg]=argsObj[arg];}
-this.REclassMain=new RegExp('\\b'+this.classMain+'\\b','gi');this.REclassMainLive=new RegExp('\\b'+this.classMainLive+'\\b','gi');this.REclassTab=new RegExp('\\b'+this.classTab+'\\b','gi');this.REclassTabDefault=new RegExp('\\b'+this.classTabDefault+'\\b','gi');this.REclassTabHide=new RegExp('\\b'+this.classTabHide+'\\b','gi');this.tabs=new Array();if(this.div){this.init(this.div);this.div=null;}}
+{var arg;this.div=null;this.classMain="tabber";this.classMainLive="tabberlive";this.classTab="tabbertab";this.classTabDefault="tabbertabdefault";this.classNav="tabbernav";this.classTabHide="tabbertabhide";this.classNavActive="tabberactive";this.titleElements=['h2','h3','h4','h5','h6'];this.titleElementsStripHTML=true;this.removeTitle=true;this.addLinkId=false;this.linkIdFormat='<tabberid>nav<tabnumberone>';for (arg in argsObj) {this[arg]=argsObj[arg];}
+this.REclassMain=new RegExp('\\b'+this.classMain+'\\b','gi');this.REclassMainLive=new RegExp('\\b'+this.classMainLive+'\\b','gi');this.REclassTab=new RegExp('\\b'+this.classTab+'\\b','gi');this.REclassTabDefault=new RegExp('\\b'+this.classTabDefault+'\\b','gi');this.REclassTabHide=new RegExp('\\b'+this.classTabHide+'\\b','gi');this.tabs=new Array();if (this.div) {this.init(this.div);this.div=null;}}
 tabberObj.prototype.init=function(e)
 {var
-childNodes,i,i2,t,defaultTab=0,DOM_ul,DOM_li,DOM_a,aId,headingElement;if(!document.getElementsByTagName){return false;}
-if(e.id){this.id=e.id;}
-this.tabs.length=0;childNodes=e.childNodes;for(i=0;i<childNodes.length;i++){if(childNodes[i].className&&childNodes[i].className.match(this.REclassTab)){t=new Object();t.div=childNodes[i];this.tabs[this.tabs.length]=t;if(childNodes[i].className.match(this.REclassTabDefault)){defaultTab=this.tabs.length-1;}}}
-DOM_ul=document.createElement("ul");DOM_ul.className=this.classNav;for(i=0;i<this.tabs.length;i++){t=this.tabs[i];t.headingText=t.div.title;if(this.removeTitle){t.div.title='';}
-if(!t.headingText){for(i2=0;i2<this.titleElements.length;i2++){headingElement=t.div.getElementsByTagName(this.titleElements[i2])[0];if(headingElement){t.headingText=headingElement.innerHTML;if(this.titleElementsStripHTML){t.headingText.replace(/<br>/gi," ");t.headingText=t.headingText.replace(/<[^>]+>/g,"");}
+childNodes,i,i2,t,defaultTab=0,DOM_ul,DOM_li,DOM_a,aId,headingElement;if (!document.getElementsByTagName) {return false;}
+if (e.id) {this.id=e.id;}
+this.tabs.length=0;childNodes=e.childNodes;for (i=0;i<childNodes.length;i++) {if(childNodes[i].className&&childNodes[i].className.match(this.REclassTab)){t=new Object();t.div=childNodes[i];this.tabs[this.tabs.length]=t;if(childNodes[i].className.match(this.REclassTabDefault)) {defaultTab=this.tabs.length-1;}}}
+DOM_ul=document.createElement("ul");DOM_ul.className=this.classNav;for (i=0;i<this.tabs.length;i++) {t=this.tabs[i];t.headingText=t.div.title;if (this.removeTitle) {t.div.title='';}
+if (!t.headingText) {for (i2=0;i2<this.titleElements.length;i2++) {headingElement=t.div.getElementsByTagName(this.titleElements[i2])[0];if (headingElement) {t.headingText=headingElement.innerHTML;if (this.titleElementsStripHTML) {t.headingText.replace(/<br>/gi," ");t.headingText=t.headingText.replace(/<[^>]+>/g,"");}
 break;}}}
-if(!t.headingText){t.headingText=i+1;}
-DOM_li=document.createElement("li");t.li=DOM_li;DOM_a=document.createElement("a");DOM_a.appendChild(document.createTextNode(t.headingText));DOM_a.href="javascript:void(null);";DOM_a.title=t.headingText;DOM_a.onclick=this.navClick;DOM_a.tabber=this;DOM_a.tabberIndex=i;if(this.addLinkId&&this.linkIdFormat){aId=this.linkIdFormat;aId=aId.replace(/<tabberid>/gi,this.id);aId=aId.replace(/<tabnumberzero>/gi,i);aId=aId.replace(/<tabnumberone>/gi,i+1);aId=aId.replace(/<tabtitle>/gi,t.headingText.replace(/[^a-zA-Z0-9\-]/gi,''));DOM_a.id=aId;}
+if (!t.headingText) {t.headingText=i+1;}
+DOM_li=document.createElement("li");t.li=DOM_li;DOM_a=document.createElement("a");DOM_a.appendChild(document.createTextNode(t.headingText));DOM_a.href="javascript:void(null);";DOM_a.title=t.headingText;DOM_a.onclick=this.navClick;DOM_a.tabber=this;DOM_a.tabberIndex=i;if (this.addLinkId&&this.linkIdFormat) {aId=this.linkIdFormat;aId=aId.replace(/<tabberid>/gi,this.id);aId=aId.replace(/<tabnumberzero>/gi,i);aId=aId.replace(/<tabnumberone>/gi,i+1);aId=aId.replace(/<tabtitle>/gi,t.headingText.replace(/[^a-zA-Z0-9\-]/gi,''));DOM_a.id=aId;}
 DOM_li.appendChild(DOM_a);DOM_ul.appendChild(DOM_li);}
-e.insertBefore(DOM_ul,e.firstChild);e.className=e.className.replace(this.REclassMain,this.classMainLive);this.tabShow(defaultTab);if(typeof this.onLoad=='function'){this.onLoad({tabber:this});}
+e.insertBefore(DOM_ul,e.firstChild);e.className=e.className.replace(this.REclassMain,this.classMainLive);this.tabShow(defaultTab);if (typeof this.onLoad=='function') {this.onLoad({tabber:this});}
 return this;};tabberObj.prototype.navClick=function(event)
 {var
-rVal,a,self,tabberIndex,onClickArgs;a=this;if(!a.tabber){return false;}
-self=a.tabber;tabberIndex=a.tabberIndex;a.blur();if(typeof self.onClick=='function'){onClickArgs={'tabber':self,'index':tabberIndex,'event':event};if(!event){onClickArgs.event=window.event;}
-rVal=self.onClick(onClickArgs);if(rVal===false){return false;}}
+rVal,a,self,tabberIndex,onClickArgs;a=this;if (!a.tabber) {return false;}
+self=a.tabber;tabberIndex=a.tabberIndex;a.blur();if (typeof self.onClick=='function') {onClickArgs={'tabber':self,'index':tabberIndex,'event':event};if (!event) {onClickArgs.event=window.event;}
+rVal=self.onClick(onClickArgs);if (rVal===false) {return false;}}
 self.tabShow(tabberIndex);return false;};tabberObj.prototype.tabHideAll=function()
-{var i;for(i=0;i<this.tabs.length;i++){this.tabHide(i);}};tabberObj.prototype.tabHide=function(tabberIndex)
-{var div;if(!this.tabs[tabberIndex]){return false;}
-div=this.tabs[tabberIndex].div;if(!div.className.match(this.REclassTabHide)){div.className+=' '+this.classTabHide;}
+{var i;for (i=0;i<this.tabs.length;i++) {this.tabHide(i);}};tabberObj.prototype.tabHide=function(tabberIndex)
+{var div;if (!this.tabs[tabberIndex]) {return false;}
+div=this.tabs[tabberIndex].div;if (!div.className.match(this.REclassTabHide)) {div.className+=' '+this.classTabHide;}
 this.navClearActive(tabberIndex);return this;};tabberObj.prototype.tabShow=function(tabberIndex)
-{var div;if(!this.tabs[tabberIndex]){return false;}
-this.tabHideAll();div=this.tabs[tabberIndex].div;div.className=div.className.replace(this.REclassTabHide,'');this.navSetActive(tabberIndex);if(typeof this.onTabDisplay=='function'){this.onTabDisplay({'tabber':this,'index':tabberIndex});}
+{var div;if (!this.tabs[tabberIndex]) {return false;}
+this.tabHideAll();div=this.tabs[tabberIndex].div;div.className=div.className.replace(this.REclassTabHide,'');this.navSetActive(tabberIndex);if (typeof this.onTabDisplay=='function') {this.onTabDisplay({'tabber':this,'index':tabberIndex});}
 return this;};tabberObj.prototype.navSetActive=function(tabberIndex)
 {this.tabs[tabberIndex].li.className=this.classNavActive;return this;};tabberObj.prototype.navClearActive=function(tabberIndex)
 {this.tabs[tabberIndex].li.className='';return this;};function tabberAutomatic(tabberArgs)
 {var
-tempObj,divs,i;if(!tabberArgs){tabberArgs={};}
-tempObj=new tabberObj(tabberArgs);divs=document.getElementsByTagName("div");for(i=0;i<divs.length;i++){if(divs[i].className&&divs[i].className.match(tempObj.REclassMain)){tabberArgs.div=divs[i];divs[i].tabber=new tabberObj(tabberArgs);}}
+tempObj,divs,i;if (!tabberArgs) {tabberArgs={};}
+tempObj=new tabberObj(tabberArgs);divs=document.getElementsByTagName("div");for (i=0;i<divs.length;i++) {if(divs[i].className&&divs[i].className.match(tempObj.REclassMain)) {tabberArgs.div=divs[i];divs[i].tabber=new tabberObj(tabberArgs);}}
 return this;}
 function tabberAutomaticOnLoad(tabberArgs)
-{var oldOnLoad;if(!tabberArgs){tabberArgs={};}
-oldOnLoad=window.onload;if(typeof window.onload!='function'){window.onload=function(){tabberAutomatic(tabberArgs);};}else{window.onload=function(){oldOnLoad();tabberAutomatic(tabberArgs);};}}
-if(typeof tabberOptions=='undefined'){tabberAutomaticOnLoad();}else{if(!tabberOptions['manualStartup']){tabberAutomaticOnLoad(tabberOptions);}}
+{var oldOnLoad;if (!tabberArgs) {tabberArgs={};}
+oldOnLoad=window.onload;if (typeof window.onload!='function') {window.onload=function(){tabberAutomatic(tabberArgs);};} else {window.onload=function() {oldOnLoad();tabberAutomatic(tabberArgs);};}}
+if (typeof tabberOptions=='undefined') {tabberAutomaticOnLoad();} else {if (!tabberOptions['manualStartup']) {tabberAutomaticOnLoad(tabberOptions);}}
 </script>
 <script language="javascript" type="text/javascript">
 <!--
 function addItem(itemurl, name, target, cat) {
-	var win = opener;
-	var campo = win.document.getElementById(target);
-	var opcoes = win.document.getElementById('img_cat_'+cat);
-	var imagem = win.document.getElementById(target+'_img');
-	if(opcoes){
-		for(x=0; x<campo.options.length; x++){
-			if(campo.options[x].value == itemurl){
-				campo.options[x].selected = true;
-				imagem.src = "<?php echo XOOPS_URL?>"+itemurl;
-				var found = true;
-			}
-		}
-		if(!found){
-			var newOption = win.document.createElement("option");
-			opcoes.appendChild(newOption);
-			newOption.text = name;
-			newOption.value = itemurl;
-			newOption.selected = true;
-			imagem.src = "<?php echo XOOPS_URL?>"+itemurl;
-		}
-	}
-	window.close();
-	return;
+    var win = opener;
+    var campo = win.document.getElementById(target);
+    var opcoes = win.document.getElementById('img_cat_'+cat);
+    var imagem = win.document.getElementById(target+'_img');
+    if (opcoes) {
+        for (x=0; x<campo.options.length; x++) {
+            if (campo.options[x].value == itemurl) {
+                campo.options[x].selected = true;
+                imagem.src = "<?php echo XOOPS_URL?>"+itemurl;
+                var found = true;
+            }
+        }
+        if (!found) {
+            var newOption = win.document.createElement("option");
+            opcoes.appendChild(newOption);
+            newOption.text = name;
+            newOption.value = itemurl;
+            newOption.selected = true;
+            imagem.src = "<?php echo XOOPS_URL?>"+itemurl;
+        }
+    }
+    window.close();
+
+    return;
 }
 //-->
 </script>
@@ -352,12 +355,12 @@ ul.tabbernav li.tabberactive a:hover
 </head>
 <body>
 <div class="tabber">
-		<div class="tabbertab<?php echo ($op == "listimg" || $op == "editcat" || $op == "delcat" || $op == "list") ? ' tabbertabdefault' : '';?>">
-				<h2><?php echo _SEARCH ?></h2>
+        <div class="tabbertab<?php echo ($op == "listimg" || $op == "editcat" || $op == "delcat" || $op == "list") ? ' tabbertabdefault' : '';?>">
+                <h2><?php echo _SEARCH ?></h2>
 <?PHP
 if ($op == 'delcat' && $admin) {
     xoops_confirm(array('op' => 'delcatok', 'target' => $target, 'imgcat_id' => $_GET['imgcat_id']), $_SERVER['PHP_SELF'], _MD_RUDELIMGCAT);
-}elseif ($op == 'editcat' && $admin) {
+} elseif ($op == 'editcat' && $admin) {
     $imgcat_id = $_GET['imgcat_id'];
     if ($imgcat_id <= 0) {
         redirect_header($_SERVER['PHP_SELF'],1);
@@ -385,7 +388,7 @@ if ($op == 'delcat' && $admin) {
     $form->addElement(new XoopsFormButton('', 'imgcat_button', _SUBMIT, 'submit'));
     echo '<a href="'.$_SERVER['PHP_SELF'].'?target='.$target.'">'. _MD_IMGMAIN .'</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;'.$imagecategory->getVar('imgcat_name').'<br /><br />';
     $form->display();
-}elseif ($op == 'listimg') {
+} elseif ($op == 'listimg') {
     $imgcat_id = intval($_GET['imgcat_id']);
     $imgcat_handler = xoops_gethandler('imagecategory');
     $imagecategory =& $imgcat_handler->get($imgcat_id);
@@ -401,12 +404,12 @@ if ($op == 'delcat' && $admin) {
     $criteria->setLimit(20);
     $images =& $image_handler->getObjects($criteria, true, false);
     echo '<table style="width:100%;"><thead><tr>
-	<td>&nbsp;</td>
-	<td style="border: 1px double black; text-align: center">'._IMAGENAME.'</td>
-	<td style="border: 1px double black; text-align: center">'._IMAGEMIME.'</td>
-	<td style="border: 1px double black; text-align: center">'._OPTIONS.'</td>
-	</tr></thead><tbody>
-	';
+    <td>&nbsp;</td>
+    <td style="border: 1px double black; text-align: center">'._IMAGENAME.'</td>
+    <td style="border: 1px double black; text-align: center">'._IMAGEMIME.'</td>
+    <td style="border: 1px double black; text-align: center">'._OPTIONS.'</td>
+    </tr></thead><tbody>
+    ';
     foreach (array_keys($images) as $i) {
         echo '<tr><td width="30%" style="text-align: center">';
         if ($imagecategory->getVar('imgcat_storetype') == 'db') {
@@ -428,7 +431,7 @@ if ($op == 'delcat' && $admin) {
             echo '<div style="text-align:right">'.$nav->renderNav().'</div>';
         }
     }
-}else{
+} else {
     echo '<ul>';
     $catcount = count($imagecategorys);
     $image_handler =& xoops_gethandler('image');
@@ -445,10 +448,10 @@ if ($op == 'delcat' && $admin) {
 ?>
 </div>
 <?PHP
-if(count($imagecategorysWrite) > 0){
+if (count($imagecategorysWrite) > 0) {
 ?>
-	<div class="tabbertab<?php echo ($op == "addfile") ? ' tabbertabdefault' : '';?>">
-				<h2><?PHP echo _ADDIMAGE ?></h2>
+    <div class="tabbertab<?php echo ($op == "addfile") ? ' tabbertabdefault' : '';?>">
+                <h2><?PHP echo _ADDIMAGE ?></h2>
 <?PHP
 if ($op == 'addfile') {
     if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -499,15 +502,15 @@ if ($op == 'addfile') {
         echo "<fieldset><legend>"._ERRORS."</legend>";
         xoops_error($err);
         echo "</fieldset>";
-    }else{
+    } else {
         echo "<fieldset><legend>"._IMGMANAGER."</legend>";
         echo '<table style="width:100%;"><thead><tr>
-	<td>&nbsp;</td>
-	<td style="border: 1px double black; text-align: center">'._IMAGENAME.'</td>
-	<td style="border: 1px double black; text-align: center">'._IMAGEMIME.'</td>
-	<td style="border: 1px double black; text-align: center">'._OPTIONS.'</td>
-	</tr></thead><tbody>
-	';
+    <td>&nbsp;</td>
+    <td style="border: 1px double black; text-align: center">'._IMAGENAME.'</td>
+    <td style="border: 1px double black; text-align: center">'._IMAGEMIME.'</td>
+    <td style="border: 1px double black; text-align: center">'._OPTIONS.'</td>
+    </tr></thead><tbody>
+    ';
         echo '<tr><td width="30%" style="text-align: center">';
         if ($imagecategory->getVar('imgcat_storetype') == 'db') {
             $imagem_url = XOOPS_URL.'/image.php?id='.$image->getVar('image_id');
@@ -568,12 +571,13 @@ $form->display();
 ?>
 </div>
 <?php } ?>
-			<div style="float: right">
-				<input type="button" id="cancel" name="cancel" value="<?php echo _CLOSE ?>" onclick="window.close();" />
-			</div>
+            <div style="float: right">
+                <input type="button" id="cancel" name="cancel" value="<?php echo _CLOSE ?>" onclick="window.close();" />
+            </div>
 </div>
 <!--
 <!--{xo-logger-output}-->
 -->
 </body>
 </html>
+?>
