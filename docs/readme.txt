@@ -16,13 +16,13 @@ Advantages
 - You can put yourssSpotlights anywhere
 
 Requirements
------------------- 
+------------------
 - PHP version >= 5.2.0
-- ModuleClasses in /Frameworks (download it from here: http://goo.gl/Bmknt)  
+- ModuleClasses in /Frameworks (download it from here: http://goo.gl/Bmknt)
 
 Install/uninstall
 ------------------
-No special measures necessary, follow the standard installation process – extract the /mastop_go2 folder into the ../modules directory. Install the module through Admin -> System Module -> Modules. 
+No special measures necessary, follow the standard installation process â€“ extract the /mastop_go2 folder into the ../modules directory. Install the module through Admin -> System Module -> Modules.
 
 Detailed instructions on installing modules are available in the XOOPS Operations Manual (http://goo.gl/adT2i)
 

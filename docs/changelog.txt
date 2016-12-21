@@ -1,3 +1,27 @@
+1.04 Beta 2       2016-12-21
+=================================
+- adjusted to XOOPS 2.5.8 Admin GUI (Mamba)
+- removed @version (mamba)
+- PSR-2 code cosmetics (mamba)
+- addNavigation(basename(__FILE__))  (mamba)
+- dirname(__FILE__) to __DIR__ (mamba)
+- XOOPS 2.5.9, PHP 7 (mamba)
+- replaced < b /> with < b > (mamba)
+- Unnecessary double quotes (mamba)
+- reference mismatch (mamba)
+- Hardening to type safe (mamba)
+- update Help (mamba)
+- changed _handler to Handler (mamba)
+- removed '/' from void HTML elements (&lt;br&gt;, &lt;img&gt;, etc) (mamba)
+- HTML 5: removed 'selected' and 'checked' (mamba)
+- changed $i++ to ++$i (mamba)
+- removed exit(); after "redirect" (mamba)
+- removed count() from "for " function (mamba)
+- replaced 'is_null()' with 'null ===' (mamba)
+- updated PHP 4 constructors (mamba(
+
+
+
 1.04 Beta 1       2014-04-23
 =================================
 - moved all images, CSS, and JS files to /assets (mamba)
