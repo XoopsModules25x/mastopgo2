@@ -3,8 +3,35 @@ LANGUAGE DIFFERENCES
 
 Below are language differences from a version to next version.
 
+Version 1.04
+==================================================
+
+admin.php
+----------
+define('AM_MGO_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
+define('AM_MGO_UPGRADEFAILED1', "Update failed - couldn't add new fields");
+define('AM_MGO_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
+define('AM_MGO_ERROR_COLUMN', 'Could not create column in database : %s');
+define('AM_MGO_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
+define('AM_MGO_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('AM_MGO_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
+
+modinfo.php
+-----------
+define('MI_MGO_NAME', 'Mastop Go2');
+define('MI_MGO_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('MI_MGO_HELP_HEADER', __DIR__.'/help/helpheader.html');
+define('MI_MGO_BACK_2_ADMIN', 'Back to Administration of ');
+define('MI_MGO_OVERVIEW', 'Overview');
+//define('MI_MGO_HELP_DIR', __DIR__);
+define('MI_MGO_DISCLAIMER', 'Disclaimer');
+define('MI_MGO_LICENSE', 'License');
+define('MI_MGO_SUPPORT', 'Support');
+
+
+
 Version 1.01
-----------------
+==================================================
 
 admin.php
 ----------

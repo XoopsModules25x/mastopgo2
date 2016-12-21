@@ -15,9 +15,9 @@
 include_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastop_geral.class.php';
 
 /**
- * Class mgo_go2_go2
+ * Class Mgo_go2_go2
  */
-class mgo_go2_go2 extends mastop_geral
+class Mgo_go2_go2 extends Mastop_geral
 {
     /**
      * @param null $id

@@ -32,3 +32,19 @@ define('MGO_MOD_MENU_SEC', 'Sections');
 define('MGO_MOD_MENU_GO2', 'Spotlights');
 define('MGO_ADM_HOME', 'Home');
 define('MGO_ADM_ABOUT', 'About');
+
+// The name of this module
+define('MI_MGO_NAME', 'Mastop Go2');
+
+//Help
+define('MI_MGO_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('MI_MGO_HELP_HEADER', __DIR__.'/help/helpheader.html');
+define('MI_MGO_BACK_2_ADMIN', 'Back to Administration of ');
+define('MI_MGO_OVERVIEW', 'Overview');
+
+//define('MI_MGO_HELP_DIR', __DIR__);
+
+//help multi-page
+define('MI_MGO_DISCLAIMER', 'Disclaimer');
+define('MI_MGO_LICENSE', 'License');
+define('MI_MGO_SUPPORT', 'Support');

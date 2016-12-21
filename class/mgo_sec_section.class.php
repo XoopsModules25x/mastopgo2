@@ -15,9 +15,9 @@
 include_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastop_geral.class.php';
 
 /**
- * Class mgo_sec_section
+ * Class Mgo_sec_section
  */
-class mgo_sec_section extends mastop_geral
+class Mgo_sec_section extends Mastop_geral
 {
     /**
      * @param null $id
@@ -80,7 +80,7 @@ class mgo_sec_section extends mastop_geral
         }
 
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
-        $dstacs     = $go2_classe->PegaTudo($criterio);
+        $dstacs     = $go2_classe->pegaTudo($criterio);
         if (is_int($largura)) {
             $largura = $largura . 'px';
         }

@@ -1,4 +1,4 @@
-1.04 Beta 2       2016-12-21
+1.04 RC 1       NOT RELEASED
 =================================
 - adjusted to XOOPS 2.5.8 Admin GUI (Mamba)
 - removed @version (mamba)

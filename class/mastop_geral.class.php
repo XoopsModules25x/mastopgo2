@@ -14,11 +14,11 @@
 
 include_once XOOPS_ROOT_PATH . '/kernel/object.php';
 
-if (!class_exists('mastop_geral')) {
+if (!class_exists('Mastop_geral')) {
     /**
-     * Class mastop_geral
+     * Class Mastop_geral
      */
-    class mastop_geral extends XoopsObject
+    class Mastop_geral extends XoopsObject
     {
         public $db;
         public $tabela;
@@ -28,7 +28,7 @@ if (!class_exists('mastop_geral')) {
 
         // construtor da classe
         /**
-         * mastop_geral constructor.
+         * Mastop_geral constructor.
          */
         public function __construct()
         {
@@ -50,8 +50,8 @@ if (!class_exists('mastop_geral')) {
                 //$$k = $v;
             }
 
-            if (null === $this->getVar($this->id) || $this->getVar($this->id) == 0) {
-                $sql = 'INSERT INTO ' . $this->tabela . ' (';
+            if (null === $this->getVar($this->id) || 0 == $this->getVar($this->id)) {
+                $sql = 'INSERT INTO ' . $this->tabela . " ( " ;
                 $sql .= implode(',', $indices);
                 $sql .= ') VALUES (';
                 for ($i = 0, $iMax = count($valores); $i < $iMax; ++$i) {
@@ -176,7 +176,7 @@ if (!class_exists('mastop_geral')) {
          *
          * @return array|bool
          */
-        public function PegaTudo($criterio = null, $objeto = true, $join = null)
+        public function pegaTudo($criterio = null, $objeto = true, $join = null)
         {
             $ret    = array();
             $limit  = $start = 0;
@@ -588,7 +588,7 @@ if (!class_exists('mastop_geral')) {
                         . $limit
                         . "'></form>";
             }
-            $registros = empty($campos['join']) ? $this->PegaTudo($criterio) : $this->PegaTudo($criterio, true, $campos['join']);
+            $registros = empty($campos['join']) ? $this->pegaTudo($criterio) : $this->pegaTudo($criterio, true, $campos['join']);
             if (!$registros || count($registros) == 0) {
                 $ret .= "<tbody><tr><td colspan='" . $colunas . "'><h2>" . $campos['lang']['semresult'] . '</h2></td></tr></tbody>';
                 $ret .= "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='left'>" . $this->paginar($url_full_pg, $criterio, $precrit_url) . '</td></tr></tbody>';
