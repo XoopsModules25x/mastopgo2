@@ -105,7 +105,7 @@ class MastopFormSelectImage extends XoopsFormSelect
                 $imgcat    = $imgcatHandler->get($k);
                 $storetype = $imgcat->getVar('imgcat_storetype');
                 if ($storetype === 'db') {
-                    $images =& $imageHandler->getObjects($criteria, false, true);
+                    $images = $imageHandler->getObjects($criteria, false, true);
                 } else {
                     $images = $imageHandler->getObjects($criteria, false, false);
                 }

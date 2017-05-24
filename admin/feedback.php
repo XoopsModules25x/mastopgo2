@@ -38,7 +38,7 @@ switch ($op) {
         $body           = '<b>' . $yname . ' (' . $yemail . ') - ' . $ydomain . '</b><br>';
         $body .= 'Type: ' . $feedback_type . ((!empty($feedback_other)) ? ' - ' . $feedback_other : '') . '<br>';
         $body .= $_POST['feedback_content'];
-        $xoopsMailer =& xoops_getMailer();
+        $xoopsMailer = xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails('go2@mastop.com.br');
         $xoopsMailer->setFromEmail($yemail);

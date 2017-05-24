@@ -41,7 +41,7 @@ if (is_array($groups) && !empty($groups)) {
     $criteriaRead->add(new Criteria('gperm_modid', 1));
 }
 $criteriaRead->add(new Criteria('imgcat_display', 1));
-$imagecategorys =& $imgcatHandler->getObjects($criteriaRead);
+$imagecategorys = $imgcatHandler->getObjects($criteriaRead);
 $criteriaWrite  = new CriteriaCompo();
 if (is_array($groups) && !empty($groups)) {
     $criteriaWrite->add($criteriaTray);
@@ -49,7 +49,7 @@ if (is_array($groups) && !empty($groups)) {
     $criteriaWrite->add(new Criteria('gperm_modid', 1));
 }
 $criteriaWrite->add(new Criteria('imgcat_display', 1));
-$imagecategorysWrite =& $imgcatHandler->getObjects($criteriaWrite);
+$imagecategorysWrite = $imgcatHandler->getObjects($criteriaWrite);
 
 include_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/images.php';
 if ($op === 'updatecat' && $admin) {
@@ -181,7 +181,7 @@ if ($op === 'delcatok' && $admin) {
         redirect_header($_SERVER['PHP_SELF'], 1);
     }
     $imageHandler = xoops_getHandler('image');
-    $images       =& $imageHandler->getObjects(new Criteria('imgcat_id', $imgcat_id), true, false);
+    $images       = $imageHandler->getObjects(new Criteria('imgcat_id', $imgcat_id), true, false);
     $errors       = array();
     foreach (array_keys($images) as $i) {
         $imageHandler->delete($images[$i]);
@@ -587,7 +587,7 @@ if ($op === 'delcatok' && $admin) {
             $start    = isset($_GET['start']) ? (int)$_GET['start'] : 0;
             $criteria->setStart($start);
             $criteria->setLimit(20);
-            $images =& $imageHandler->getObjects($criteria, true, false);
+            $images = $imageHandler->getObjects($criteria, true, false);
             echo '<table style="width:100%;"><thead><tr>
     <td>&nbsp;</td>
     <td style="border: 1px double black; text-align: center">' . _IMAGENAME . '</td>
