@@ -20,7 +20,7 @@ $imagem_select = new MastopFormSelectImage(MGO_ADM_IMAGEM, 'go2_30_imagem', $go2
                                                                                                                     && $xoopsModuleConfig['mgo_des_img'][0] !== '') ? $xoopsModuleConfig['mgo_des_img'] : null));
 
 $go2_form->addElement($imagem_select);
-$section_select = new XoopsFormSelect(MGO_ADM_SECTION, 'sec_10_id', (($go2_classe->getVar('go2_10_id') !== '') ? $go2_classe->getVar('sec_10_id') : ((!empty($_REQUEST['sec_10_id'])) ? $_REQUEST['sec_10_id'] : 0)));
+$section_select = new XoopsFormSelect(MGO_ADM_SECTION, 'sec_10_id', (($go2_classe->getVar('go2_10_id') !== '') ? $go2_classe->getVar('sec_10_id') : (Request::getInt('sec_10_id'))));
 $section_select->addOptionArray($sec_select);
 
 $go2_form->addElement($section_select);
