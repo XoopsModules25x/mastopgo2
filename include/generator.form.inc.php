@@ -11,12 +11,12 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $picker_url = XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/color_picker';
 echo '
     <style type="text/css">
 <!--
-#plugin { BACKGROUND: #0d0d0d; COLOR: #AAA; CURSOR: move; DISPLAY: none; FONT-FAMILY: arial; FONT-SIZE: 11px; PADDING: 7px 10px 11px 10px; _PADDING-RIGHT: 0; Z-INDEX: 1;  POSITION: absolute; WIDTH: 199px; _width: 210px; _padding-right: 0px; }
+#plugin { BACKGROUND: #0d0d0d; COLOR: #AAA; CURSOR: move; DISPLAY: none; font-family: Arial, sans-serif; FONT-SIZE: 11px; PADDING: 7px 10px 11px 10px; _PADDING-RIGHT: 0; Z-INDEX: 1;  POSITION: absolute; WIDTH: 199px; _width: 210px; _padding-right: 0px; }
 #plugin br { CLEAR: both; MARGIN: 0; PADDING: 0;  }
 #plugin select { BORDER: 1px solid #333; BACKGROUND: #FFF; POSITION: relative; TOP: 4px; }
 
@@ -24,26 +24,15 @@ echo '
 #plugCLOSE { CURSOR: pointer; FLOAT: right; MARGIN: 0 8px 3px; _MARGIN-RIGHT: 10px; COLOR: #FFF; -moz-user-select: none; -khtml-user-select: none; user-select: none; }
 #plugHEX:hover,#plugCLOSE:hover { COLOR: #FFD000;  }
 
-#SV { background: #FF0000 url("'
-     . $picker_url
-     . '/SatVal.png"); _BACKGROUND: #FF0000; POSITION: relative; CURSOR: crosshair; FLOAT: left; HEIGHT: 166px; WIDTH: 167px; _WIDTH: 165px; MARGIN-RIGHT: 10px; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'
-     . $picker_url
-     . '/SatVal.png", sizingMethod="scale"); -moz-user-select: none; -khtml-user-select: none; user-select: none; }
-#SVslide { BACKGROUND: url("'
-     . $picker_url
-     . '/slide.gif"); HEIGHT: 9px; WIDTH: 9px; POSITION: absolute; _font-size: 1px; line-height: 1px; }
-
+#SV { background: #FF0000 url("' . $picker_url . '/SatVal.png"); _BACKGROUND: #FF0000; POSITION: relative; CURSOR: crosshair; FLOAT: left; HEIGHT: 166px; WIDTH: 167px; _WIDTH: 165px; MARGIN-RIGHT: 10px; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="' . $picker_url . '/SatVal.png", sizingMethod="scale"); -moz-user-select: none; -khtml-user-select: none; user-select: none; }
+#SVslide { BACKGROUND: url("' . $picker_url . '/slide.gif"); HEIGHT: 9px; WIDTH: 9px; POSITION: absolute; _font-size: 1px; line-height: 1px; }
 #H { BORDER: 1px solid #000; CURSOR: crosshair; FLOAT: left; HEIGHT: 154px; POSITION: relative; WIDTH: 19px; PADDING: 0; TOP: 4px; -moz-user-select: none; -khtml-user-select: none; user-select: none; }
-#Hslide { BACKGROUND: url("'
-     . $picker_url
-     . '/slideHue.gif"); HEIGHT: 5px; WIDTH: 33px; POSITION: absolute; _font-size: 1px; line-height: 1px; }
+#Hslide { BACKGROUND: url("' . $picker_url . '/slideHue.gif"); HEIGHT: 5px; WIDTH: 33px; POSITION: absolute; _font-size: 1px; line-height: 1px; }
 #Hmodel { POSITION: relative; TOP: -5px; }
 #Hmodel div { HEIGHT: 1px; WIDTH: 19px; font-size: 1px; line-height: 1px; MARGIN: 0; PADDING: 0; }
 -->
 </style>
- <script src="'
-     . $picker_url
-     . '/plugin.js" type="text/JavaScript"></script>
+ <script src="' . $picker_url . '/plugin.js" type="text/JavaScript"></script>
  <script type="text/javascript">
 var atual_color = "campo_img";
 var atual_campo = "campo";

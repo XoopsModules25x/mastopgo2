@@ -14,7 +14,7 @@
 
 // defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 
 /**
  * Class MastopFormSelectImage
@@ -24,7 +24,7 @@ class MastopFormSelectImage extends XoopsFormSelect
     /**
      * OptGroup
      * @var array
-     * @access  private
+     * @access    private
      */
     public $_optgroups   = array();
     public $_optgroupsID = array();
@@ -32,11 +32,11 @@ class MastopFormSelectImage extends XoopsFormSelect
     /**
      * Construtor
      *
-     * @param string $caption
-     * @param string $name
+     * @param    string $caption
+     * @param    string $name
      * @param mixed  $value Valor pré-selecionado (ou array de valores).
      * @param string $cat   Nome da Categoria da biblioteca. Se vazio ou não definido, retorna todas as bibliotecas que o cara pode acessar.
-     *
+     * @return MastopFormSelectImage
      * @internal param int $size Número de Linhas. "1" dá um Select List normal de 1 opção.
      */
     public function __construct($caption, $name, $value = null, $cat = null)
@@ -82,7 +82,7 @@ class MastopFormSelectImage extends XoopsFormSelect
         if (!is_object($xoopsUser)) {
             $group = array(XOOPS_GROUP_ANONYMOUS);
         } else {
-            $group =& $xoopsUser->getGroups();
+            $group = $xoopsUser->getGroups();
         }
         $imgcatHandler = xoops_getHandler('imagecategory');
         $catlist       = $imgcatHandler->getList($group, 'imgcat_read', 1);
@@ -137,7 +137,7 @@ class MastopFormSelectImage extends XoopsFormSelect
     /**
      * Pega todos os IDs dos Optgroups
      *
-     * @return array Array com nome->ids
+     * @return    array   Array com nome->ids
      */
     public function getOptGroupsID()
     {
@@ -159,13 +159,13 @@ class MastopFormSelectImage extends XoopsFormSelect
         $catlist       = $imgcatHandler->getList($group, 'imgcat_write', 1);
         $catlist_total = count($catlist);
         $optIds        = $this->getOptGroupsID();
-        $ret           = "<select onchange='if (this.options[this.selectedIndex].value != \"\") { document.getElementById(\""
+        $ret           = "<select onchange='if(this.options[this.selectedIndex].value != \"\"){ document.getElementById(\""
                          . $this->getName()
-                         . "_img\").src=\""
+                         . '_img").src="'
                          . XOOPS_URL
-                         . "\"+this.options[this.selectedIndex].value;} else {document.getElementById(\""
+                         . '"+this.options[this.selectedIndex].value;} else {document.getElementById("'
                          . $this->getName()
-                         . "_img\").src=\""
+                         . '_img").src="'
                          . XOOPS_URL
                          . '/modules/'
                          . MGO_MOD_DIR
@@ -186,7 +186,7 @@ class MastopFormSelectImage extends XoopsFormSelect
                 foreach ($valores as $value => $name) {
                     $ret .= "<option value='" . htmlspecialchars($value, ENT_QUOTES) . "'";
                     if (count($this->getValue()) > 0 && in_array($value, $this->getValue())) {
-                        $ret .= ' selected';
+                        $ret    .= ' selected';
                         $imagem = $value;
                     }
                     $ret .= '>' . $name . "</option>\n";
@@ -196,13 +196,13 @@ class MastopFormSelectImage extends XoopsFormSelect
         }
         $browse_url = __DIR__ . '/formimage_browse.php';
         $browse_url = str_replace(XOOPS_ROOT_PATH, XOOPS_URL, $browse_url);
-        $ret .= '</select>';
-        $ret .= ($catlist_total > 0) ? " <input type='button' value='"
-                                       . _ADDIMAGE
-                                       . "' onclick=\"window.open('$browse_url?target="
-                                       . $this->getName()
-                                       . "','MastopFormImage','resizable=yes,width=500,height=470,left='+(screen.availWidth/2-200)+',top='+(screen.availHeight/2-200)+'');return false;\">" : '';
-        $ret .= "<br><img id='" . $this->getName() . "_img' src='" . ((!empty($imagem)) ? XOOPS_URL . $imagem : XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/images/spacer.gif') . "'>";
+        $ret        .= '</select>';
+        $ret        .= ($catlist_total > 0) ? " <input type='button' value='"
+                                              . _ADDIMAGE
+                                              . "' onclick=\"window.open('$browse_url?target="
+                                              . $this->getName()
+                                              . "','MastopFormImage','resizable=yes,width=500,height=470,left='+(screen.availWidth/2-200)+',top='+(screen.availHeight/2-200)+'');return false;\">" : '';
+        $ret        .= "<br><img id='" . $this->getName() . "_img' src='" . ((!empty($imagem)) ? XOOPS_URL . $imagem : XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/images/spacer.gif') . "'>";
 
         return $ret;
     }

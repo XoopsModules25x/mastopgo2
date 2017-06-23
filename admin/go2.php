@@ -12,9 +12,8 @@
 ###
 ### =============================================================
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
 
 $op = isset($_GET['op']) ? $_GET['op'] : 'listar';
 if (isset($_GET)) {
@@ -88,7 +87,7 @@ switch ($op) {
     case 'ativar':
         $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
-        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') == '') {
+        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') === '') {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?listar', 3, MGO_ADM_404);
         }
         $go2_classe->ativar();
@@ -98,7 +97,7 @@ switch ($op) {
     case 'desativar':
         $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
-        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') == '') {
+        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') === '') {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?listar', 1, MGO_ADM_404);
         }
         $go2_classe->desativar();
@@ -108,7 +107,7 @@ switch ($op) {
     case 'dstac_editar':
         $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
-        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') == '') {
+        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') === '') {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_404);
         }
         $form['titulo'] = MGO_ADM_GO2_EDIT;
@@ -120,7 +119,7 @@ switch ($op) {
     case 'dstac_deletar':
         $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
-        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') == '') {
+        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') === '') {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_404);
         }
         xoops_confirm(array('op' => 'dstac_deletar_ok', 'go2_10_id' => $go2_10_id), 'go2.php', sprintf(MGO_ADM_GO2_CONFIRMA_DEL, $go2_10_id, $go2_classe->getVar('go2_30_nome')));
@@ -129,7 +128,7 @@ switch ($op) {
     case 'dstac_deletar_ok':
         $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
-        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') == '') {
+        if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') === '') {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?listar', 3, MGO_ADM_404);
         }
         $go2_classe->delete();
@@ -155,7 +154,7 @@ switch ($op) {
         $go2_classe->setVar('go2_30_link', $go2_30_link);
         $go2_classe->setVar('go2_11_target', $go2_11_target);
         $go2_classe->setVar('go2_30_imagem', $go2_30_imagem);
-        if ($go2_classe->getVar('go2_10_id') != '') {
+        if ($go2_classe->getVar('go2_10_id') !== '') {
             $msg = 'UPD';
         } else {
             $msg = 'ADD';
@@ -184,7 +183,7 @@ switch ($op) {
         } else {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_404);
         }
-        if ($sec_classe->getVar('sec_10_id') == '') {
+        if ($sec_classe->getVar('sec_10_id') === '') {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_404);
         }
 
@@ -217,7 +216,8 @@ switch ($op) {
         $c['nome'][4]   = 'go2_30_link';
         $c['rotulo'][4] = MGO_ADM_GO2_30_LINK;
         $c['tipo'][4]   = 'text';
-        $c['show'][4]   = '$reg->pegaLink()';
+        //        $c['show'][4]   = '$reg->pegaLink()';
+        $c['show'][4] = '$reg->pegaLink()';
 
         $c['nome'][5]   = 'go2_10_acessos';
         $c['rotulo'][5] = MGO_ADM_GO2_10_ACESSOS;
@@ -266,7 +266,7 @@ switch ($op) {
     case 'listar':
     default:
         //mgo_adm_menu();
-        echo $indexAdmin->addNavigation(basename(__FILE__));
+        $adminObject->displayNavigation(basename(__FILE__));
         echo (!empty($erro)) ? $erro . '<br>' : '';
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
         $go2_10_id  = empty($go2_10_id) ? null : $go2_10_id;
@@ -302,7 +302,8 @@ switch ($op) {
         $c['nome'][5]   = 'go2_30_link';
         $c['rotulo'][5] = MGO_ADM_GO2_30_LINK;
         $c['tipo'][5]   = 'text';
-        $c['show'][5]   = '$reg->pegaLink()';
+        //        $c['show'][5]   = '$reg->pegaLink()';
+        $c['show'][5] = '$reg->pegaLink()';
 
         $c['nome'][6]   = 'go2_10_acessos';
         $c['rotulo'][6] = MGO_ADM_GO2_10_ACESSOS;
@@ -348,4 +349,4 @@ switch ($op) {
 }
 
 echo "<div align='center' style='margin-top:10px'><a target='_blank' href='http://www.mastop.com.br/conteudo/open-source/mastop-go2-english.mstp'><img src='../assets/images/mgo2_footer.gif'></a><br><br></div>";
-include_once __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';

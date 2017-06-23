@@ -12,15 +12,22 @@
 ###
 ### =============================================================
 
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-$dirname = basename(dirname(__DIR__));
-/** @var XoopsModuleHandler $moduleHandler */
-$moduleHandler = xoops_getHandler('module');
-$module        = $moduleHandler->getByDirname($dirname);
-$pathIcon32    = $module->getInfo('icons32');
 
-//xoops_loadLanguage('admin', $dirname);
+
+$moduleDirName = basename(dirname(__DIR__));
+
+
+if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
+} else {
+    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+}
+$adminObject = \Xmf\Module\Admin::getInstance();
+
+$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
+//$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+
+$moduleHelper->loadLanguage('modinfo');
 
 $adminmenu              = array();
 $i                      = 1;

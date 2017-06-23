@@ -16,4 +16,4 @@ include XOOPS_ROOT_PATH . '/header.php';
 $moduleDirName = basename(__DIR__);
 xoops_loadLanguage('modinfo', $moduleDirName);
 
-include_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/funcoes.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/funcoes.inc.php';

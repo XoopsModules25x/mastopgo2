@@ -23,13 +23,13 @@ function mgo_getClass($classe, $id = null)
     static $classes;
     if (!isset($classes[$classe])) {
         if (file_exists($arquivo = XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/' . $classe . '.class.php')) {
-            include_once $arquivo;
+            require_once $arquivo;
         }
         if (class_exists($classe)) {
             $classes[$classe] = new $classe($id);
         }
     } elseif (is_object($classes[$classe]) && !empty($id)) {
-        $classes[$classe]->$classe($id);
+        $classes[$classe]->__construct($id);
     }
 
     return isset($classes[$classe]) && is_object($classes[$classe]) ? $classes[$classe] : false;

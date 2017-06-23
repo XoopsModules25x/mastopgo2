@@ -26,7 +26,7 @@ define('MGO_MOD_BLOCO1_EDIT', 'mgo_go2_edita');
 define('MGO_MOD_BLOCO1_TEMPLATE', 'mgo_go2.block.tpl');
 define('MGO_MOD_DSTAC_IMG', 'Spotlights Images');
 define('MGO_MOD_DSTAC_IMG_DES',
-       "Select the image libraries that will keep the spotlights images.<br>Select using the <B>CTRL</B>.<br><p style='font-weight:bold; color:red; width: 550px'>  To added a category press <a href='admin.php?fct=images'>HERE.</a><br>If you added some images library after the installation of this module, update it so the added category will appears to the side.</p>");
+       "Select the image libraries that will keep the spotlights images.<br>Select using the <B>CTRL</B>.<br><p style='font-weight:bold; color:red; width: 550px;'>If you added some images library after the installation of this module, update it so the added category will appears to the side.</p>");
 // admin/menu.php
 define('MGO_MOD_MENU_SEC', 'Sections');
 define('MGO_MOD_MENU_GO2', 'Spotlights');
@@ -38,7 +38,7 @@ define('MI_MGO_NAME', 'Mastop Go2');
 
 //Help
 define('MI_MGO_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('MI_MGO_HELP_HEADER', __DIR__.'/help/helpheader.html');
+define('MI_MGO_HELP_HEADER', __DIR__ . '/help/helpheader.html');
 define('MI_MGO_BACK_2_ADMIN', 'Back to Administration of ');
 define('MI_MGO_OVERVIEW', 'Overview');
 

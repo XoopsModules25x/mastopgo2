@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -13,13 +13,13 @@
 ### =============================================================
 
 if (file_exists('../../../mainfile.php')) {
-    include_once __DIR__ . '/../../../mainfile.php';
+    require_once __DIR__ . '/../../../mainfile.php';
 } elseif (file_exists('../../../../mainfile.php')) {
-    include_once __DIR__ . '/../../../../mainfile.php';
+    require_once __DIR__ . '/../../../../mainfile.php';
 }
 
 $target = $_REQUEST['target'];
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $op = empty($_GET['op']) ? 'list' : $_GET['op'];
 $op = empty($_POST['op']) ? $op : $_POST['op'];
 if (!is_object($xoopsUser)) {
@@ -51,7 +51,7 @@ if (is_array($groups) && !empty($groups)) {
 $criteriaWrite->add(new Criteria('imgcat_display', 1));
 $imagecategorysWrite = $imgcatHandler->getObjects($criteriaWrite);
 
-include_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/images.php';
+require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/images.php';
 if ($op === 'updatecat' && $admin) {
     $imgcat_id  = $_POST['imgcat_id'];
     $readgroup  = $_POST['readgroup'];
@@ -196,7 +196,7 @@ if ($op === 'delcatok' && $admin) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title><?PHP echo _MD_IMGMAIN ?></title>
+    <title><?php echo _MD_IMGMAIN ?></title>
     <script language="javascript" type="text/javascript">
         function tabberObj(argsObj) {
             var arg;
@@ -526,7 +526,7 @@ if ($op === 'delcatok' && $admin) {
     <div class="tabbertab<?php echo ($op === 'listimg' || $op === 'editcat' || $op === 'delcat'
                                      || $op === 'list') ? ' tabbertabdefault' : ''; ?>">
         <h2><?php echo _SEARCH ?></h2>
-        <?PHP
+        <?php
         if ($op === 'delcat' && $admin) {
             xoops_confirm(array('op' => 'delcatok', 'target' => $target, 'imgcat_id' => $_GET['imgcat_id']), $_SERVER['PHP_SELF'], _MD_RUDELIMGCAT);
         } elseif ($op === 'editcat' && $admin) {
@@ -635,7 +635,7 @@ if ($op === 'delcatok' && $admin) {
             echo '</tbody></table>';
             if ($imgcount > 0) {
                 if ($imgcount > 20) {
-                    include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+                    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $nav = new XoopsPageNav($imgcount, 20, $start, 'start', 'op=listimg&amp;imgcat_id=' . $imgcat_id);
                     echo '<div style="text-align:right">' . $nav->renderNav() . '</div>';
                 }
@@ -677,13 +677,12 @@ if ($op === 'delcatok' && $admin) {
         }
         ?>
     </div>
-    <?PHP
+    <?php
     if (count($imagecategorysWrite) > 0) {
         ?>
-        <div class="tabbertab<?php echo ($op === 'addfile') ? ' tabbertabdefault' : '';
-        ?>">
-            <h2><?PHP echo _ADDIMAGE ?></h2>
-            <?PHP
+        <div class="tabbertab<?php echo ($op === 'addfile') ? ' tabbertabdefault' : ''; ?>">
+            <h2><?php echo _ADDIMAGE ?></h2>
+            <?php
             if ($op === 'addfile') {
                 if (!$GLOBALS['xoopsSecurity']->check()) {
                     redirect_header($_SERVER['PHP_SELF'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -693,7 +692,7 @@ if ($op === 'delcatok' && $admin) {
                 if (!is_object($imagecategory)) {
                     redirect_header($_SERVER['PHP_SELF'], 1);
                 }
-                include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+                require_once XOOPS_ROOT_PATH . '/class/uploader.php';
                 $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH, array(
                     'image/gif',
                     'image/jpeg',
@@ -787,58 +786,55 @@ if ($op === 'delcatok' && $admin) {
                 }
                 echo '</tbody></table></fieldset>';
             }
-            echo '<h3>' . _ADDIMAGE . '</h3>';
-            $imgcatHandler = xoops_getHandler('imagecategory');
-            $catcount      = count($imagecategorysWrite);
-            if (!empty($catcount)) {
-                $form = new XoopsThemeForm(_ADDIMAGE, 'image_form', $_SERVER['PHP_SELF'], 'post', true);
-                $form->setExtra('enctype="multipart/form-data"');
-                $form->addElement(new XoopsFormText(_IMAGENAME, 'image_nicename', 50, 255));
-                $select = new XoopsFormSelect(_IMAGECAT, 'imgcat_id');
-                $select->addOptionArray($imgcatHandler->getList($groups, 'imgcat_write', 1));
-                $form->addElement($select);
-                $form->addElement(new XoopsFormFile(_IMAGEFILE, 'image_file', 5000000));
-                $form->addElement(new XoopsFormText(_IMGWEIGHT, 'image_weight', 3, 4, 0));
-                $form->addElement(new XoopsFormRadioYN(_IMGDISPLAY, 'image_display', 1, _YES, _NO));
-                $form->addElement(new XoopsFormHidden('op', 'addfile'));
-                $form->addElement(new XoopsFormHidden('target', $target));
-                $form->addElement(new XoopsFormButton('', 'img_button', _SUBMIT, 'submit'));
-                $form->display();
-            }
-            ?>
+        echo '<h3>' . _ADDIMAGE . '</h3>';
+        $imgcatHandler = xoops_getHandler('imagecategory');
+        $catcount      = count($imagecategorysWrite);
+        if (!empty($catcount)) {
+            $form = new XoopsThemeForm(_ADDIMAGE, 'image_form', $_SERVER['PHP_SELF'], 'post', true);
+            $form->setExtra('enctype="multipart/form-data"');
+            $form->addElement(new XoopsFormText(_IMAGENAME, 'image_nicename', 50, 255));
+            $select = new XoopsFormSelect(_IMAGECAT, 'imgcat_id');
+            $select->addOptionArray($imgcatHandler->getList($groups, 'imgcat_write', 1));
+            $form->addElement($select);
+            $form->addElement(new XoopsFormFile(_IMAGEFILE, 'image_file', 5000000));
+            $form->addElement(new XoopsFormText(_IMGWEIGHT, 'image_weight', 3, 4, 0));
+            $form->addElement(new XoopsFormRadioYN(_IMGDISPLAY, 'image_display', 1, _YES, _NO));
+            $form->addElement(new XoopsFormHidden('op', 'addfile'));
+            $form->addElement(new XoopsFormHidden('target', $target));
+            $form->addElement(new XoopsFormButton('', 'img_button', _SUBMIT, 'submit'));
+            $form->display();
+        } ?>
         </div>
-        <?PHP
+        <?php
 
     }
     ?>
     <?php if ($admin) {
         ?>
-        <div class="tabbertab<?php echo ($op === 'addcat') ? ' tabbertabdefault' : '';
-        ?>">
+        <div class="tabbertab<?php echo ($op === 'addcat') ? ' tabbertabdefault' : ''; ?>">
             <h2><?php echo _ADD . ' ' . _IMAGECAT ?></h2>
-            <?PHP
+            <?php
             $form = new XoopsThemeForm(_MD_ADDIMGCAT, 'imagecat_form', $_SERVER['PHP_SELF'], 'post', true);
-            $form->addElement(new XoopsFormText(_MD_IMGCATNAME, 'imgcat_name', 50, 255), true);
-            $form->addElement(new XoopsFormSelectGroup(_MD_IMGCATRGRP, 'readgroup', true, XOOPS_GROUP_ADMIN, 5, true));
-            $form->addElement(new XoopsFormSelectGroup(_MD_IMGCATWGRP, 'writegroup', true, XOOPS_GROUP_ADMIN, 5, true));
-            $form->addElement(new XoopsFormText(_IMGMAXSIZE, 'imgcat_maxsize', 10, 10, 50000));
-            $form->addElement(new XoopsFormText(_IMGMAXWIDTH, 'imgcat_maxwidth', 3, 4, 120));
-            $form->addElement(new XoopsFormText(_IMGMAXHEIGHT, 'imgcat_maxheight', 3, 4, 120));
-            $form->addElement(new XoopsFormText(_MD_IMGCATWEIGHT, 'imgcat_weight', 3, 4, 0));
-            $form->addElement(new XoopsFormRadioYN(_MD_IMGCATDISPLAY, 'imgcat_display', 1, _YES, _NO));
-            $storetype = new XoopsFormRadio(_MD_IMGCATSTRTYPE . '<br><span style="color:#ff0000;">' . _MD_STRTYOPENG . '</span>', 'imgcat_storetype', 'file');
-            $storetype->addOptionArray(array('file' => _MD_ASFILE, 'db' => _MD_INDB));
-            $form->addElement($storetype);
-            $form->addElement(new XoopsFormHidden('op', 'addcat'));
-            $form->addElement(new XoopsFormHidden('target', $target));
-            $form->addElement(new XoopsFormButton('', 'imgcat_button', _SUBMIT, 'submit'));
-            $form->display();
-            ?>
+        $form->addElement(new XoopsFormText(_MD_IMGCATNAME, 'imgcat_name', 50, 255), true);
+        $form->addElement(new XoopsFormSelectGroup(_MD_IMGCATRGRP, 'readgroup', true, XOOPS_GROUP_ADMIN, 5, true));
+        $form->addElement(new XoopsFormSelectGroup(_MD_IMGCATWGRP, 'writegroup', true, XOOPS_GROUP_ADMIN, 5, true));
+        $form->addElement(new XoopsFormText(_IMGMAXSIZE, 'imgcat_maxsize', 10, 10, 50000));
+        $form->addElement(new XoopsFormText(_IMGMAXWIDTH, 'imgcat_maxwidth', 3, 4, 120));
+        $form->addElement(new XoopsFormText(_IMGMAXHEIGHT, 'imgcat_maxheight', 3, 4, 120));
+        $form->addElement(new XoopsFormText(_MD_IMGCATWEIGHT, 'imgcat_weight', 3, 4, 0));
+        $form->addElement(new XoopsFormRadioYN(_MD_IMGCATDISPLAY, 'imgcat_display', 1, _YES, _NO));
+        $storetype = new XoopsFormRadio(_MD_IMGCATSTRTYPE . '<br><span style="color:#ff0000;">' . _MD_STRTYOPENG . '</span>', 'imgcat_storetype', 'file');
+        $storetype->addOptionArray(array('file' => _MD_ASFILE, 'db' => _MD_INDB));
+        $form->addElement($storetype);
+        $form->addElement(new XoopsFormHidden('op', 'addcat'));
+        $form->addElement(new XoopsFormHidden('target', $target));
+        $form->addElement(new XoopsFormButton('', 'imgcat_button', _SUBMIT, 'submit'));
+        $form->display(); ?>
         </div>
         <?php
 
     } ?>
-    <div style="float: right">
+    <div style="float: right;">
         <input type="button" id="cancel" name="cancel" value="<?php echo _CLOSE ?>" onclick="window.close();"/>
     </div>
 </div>

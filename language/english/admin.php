@@ -70,7 +70,7 @@ define('MGO_ADM_GO2_ZERA_COUNT', 'Clear Clicks');
 define('MGO_ADM_YNAME', 'Your Name');
 define('MGO_ADM_YEMAIL', 'Your Email');
 define('MGO_ADM_YSITE', 'Site');
-define('MGO_ADM_FEEDTYPE', "Feedback type<br><span style='font-size:10px; font-weight:normal'>* Testimonials will be published at Mastop Go2 main site page</span>");
+define('MGO_ADM_FEEDTYPE', "Feedback type<br><span style='font-size:10px; font-weight:normal;'>* Testimonials will be published at Mastop Go2 main site page</span>");
 define('MGO_ADM_TBUGS', 'Bug');
 define('MGO_ADM_TESTIMONIAL', 'Testimonial');
 define('MGO_ADM_TSUGGESTION', 'Suggestions');

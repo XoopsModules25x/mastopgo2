@@ -12,7 +12,7 @@
 ###
 ### =============================================================
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 $op = isset($_GET['op']) ? $_GET['op'] : 'feature';
 
 if (isset($_GET)) {
@@ -36,9 +36,9 @@ switch ($op) {
         $feedback_other = $_POST['feedback_other'];
         $titulo         = 'Mastop Go2 - FeedBack from ' . $ydomain;
         $body           = '<b>' . $yname . ' (' . $yemail . ') - ' . $ydomain . '</b><br>';
-        $body .= 'Type: ' . $feedback_type . ((!empty($feedback_other)) ? ' - ' . $feedback_other : '') . '<br>';
-        $body .= $_POST['feedback_content'];
-        $xoopsMailer = xoops_getMailer();
+        $body           .= 'Type: ' . $feedback_type . ((!empty($feedback_other)) ? ' - ' . $feedback_other : '') . '<br>';
+        $body           .= $_POST['feedback_content'];
+        $xoopsMailer    = xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails('go2@mastop.com.br');
         $xoopsMailer->setFromEmail($yemail);

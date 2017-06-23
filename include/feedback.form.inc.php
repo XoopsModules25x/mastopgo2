@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -14,7 +14,7 @@
 
 // defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $feedbackform = new XoopsThemeForm($form['titulo'], 'mpu_feedbackform', $_SERVER['PHP_SELF'], 'post');
 $feedbackform->addElement(new XoopsFormText(MGO_ADM_YNAME, 'yname', 35, 50, $xoopsUser->getVar('name')));

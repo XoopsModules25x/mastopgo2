@@ -12,16 +12,15 @@
 ###
 ### =============================================================
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$aboutAdmin = new ModuleAdmin();
 
 if (!is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid())) {
     exit(MGO_ADM_403);
 }
 
 if ($xoopsUser->isAdmin($xoopsModule->mid())) {
-    include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
     $op = 'list';
     if (isset($_POST)) {
         foreach ($_POST as $k => $v) {
@@ -38,31 +37,31 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 
     function listar_blocos()
     {
-        include_once __DIR__ . '/admin_header.php';
+        require_once __DIR__ . '/admin_header.php';
         //xoops_cp_header();
 
         global $xoopsUser, $xoopsConfig, $xoopsModule;
-        include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php')) {
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
             //include_once(XOOPS_ROOT_PATH."/modules/system/language/".$xoopsConfig['language']."/admin/groups.php");
         } else {
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
         }
 
         /** @var XoopsModuleHandler $moduleHandler */
-        $moduleHandler     = xoops_getHandler('module');
-        /** @var XoopsMemberHandler  $memberHandler */
-        $memberHandler     = xoops_getHandler('member');
-        /** @var XoopsGroupPermHandler  $gpermHandler */
+        $moduleHandler = xoops_getHandler('module');
+        /** @var XoopsMemberHandler $memberHandler */
+        $memberHandler = xoops_getHandler('member');
+        /** @var XoopsGroupPermHandler $gpermHandler */
         $gpermHandler = xoops_getHandler('groupperm');
-        $groups            = $memberHandler->getGroups();
-        $criteria          = new CriteriaCompo(new Criteria('hasmain', 1));
+        $groups       = $memberHandler->getGroups();
+        $criteria     = new CriteriaCompo(new Criteria('hasmain', 1));
         $criteria->add(new Criteria('isactive', 1));
         $module_list     = $moduleHandler->getList($criteria);
         $module_list[-1] = _AM_TOPPAGE;
@@ -101,7 +100,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         $block_count = count($block_arr);
         $class       = 'even';
         foreach ($block_arr as $i) {
-            $groups_perms =& $gpermHandler->getGroupIds('block_read', $i->getVar('bid'));
+            $groups_perms = $gpermHandler->getGroupIds('block_read', $i->getVar('bid'));
             $sql          = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . $i->getVar('bid');
             $result       = $db->query($sql);
             $modules      = array();
@@ -219,18 +218,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 
             echo '</select></td>';
 
-            echo "<td class='$class' align='center'><a href='"
-                 . XOOPS_URL
-                 . '/modules/system/admin.php?fct=blocksadmin&amp;op=edit&amp;bid='
-                 . $i->getVar('bid')
-                 . "'>"
-                 . _EDIT
-                 . "</a> <a href='blocksadmin.php?op=clone&amp;bid="
-                 . $i->getVar('bid')
-                 . "'>"
-                 . _CLONE
-                 . '</a>';
-
+            echo "<td class='$class' align='center'><a href='" . XOOPS_URL . '/modules/system/admin.php?fct=blocksadmin&amp;op=edit&amp;bid=' . $i->getVar('bid') . "'>" . _EDIT . "</a> <a href='blocksadmin.php?op=clone&amp;bid=" . $i->getVar('bid') . "'>" . _CLONE . '</a>';
             if ($i->getVar('block_type') !== 'S' && $i->getVar('block_type') !== 'M') {
                 echo "&nbsp;<a href='" . XOOPS_URL . '/modules/system/admin.php?fct=blocksadmin&amp;op=delete&amp;bid=' . $i->getVar('bid') . "'>" . _DELETE . '</a>';
             }
@@ -253,7 +241,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         </td></tr></table>
         </form>
         <br><br>";
-        include_once __DIR__ . '/admin_footer.php';
+        require_once __DIR__ . '/admin_footer.php';
     }
 
     /**
@@ -263,13 +251,13 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
     {
         global $xoopsConfig;
         if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php')) {
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
             //include_once(XOOPS_ROOT_PATH."/modules/system/language/".$xoopsConfig['language']."/admin/groups.php");
         } else {
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
         }
 
         mgo_adm_menu();
@@ -322,13 +310,13 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
     {
         global $xoopsUser, $xoopsConfig;
         if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php')) {
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
             //include_once(XOOPS_ROOT_PATH."/modules/system/language/".$xoopsConfig['language']."/admin/groups.php");
         } else {
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
-            include_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
+            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
         }
 
         $block = new XoopsBlock($bid);

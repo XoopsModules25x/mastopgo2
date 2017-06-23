@@ -12,15 +12,35 @@
 ###
 ### =============================================================
 
-include_once __DIR__ . '/../../../include/cp_header.php';
+use Xmf\Language;
+use Xmf\Module\Admin;
+use Xmf\Module\Helper;
 
-if (file_exists('../language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-    include_once __DIR__ . '/../language/' . $xoopsConfig['language'] . '/modinfo.php';
+require_once __DIR__ . '/../../../include/cp_header.php';
+require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
+
+
+$moduleDirName = basename(dirname(__DIR__));
+
+//require_once $GLOBALS['xoops']->path('www/include/cp_functions.php');
+//require_once $GLOBALS['xoops']->path('www/include/cp_header.php');
+//require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
+//require_once __DIR__ . '/../class/utility.php';
+
+xoops_loadLanguage('admin', $moduleDirName);
+xoops_loadLanguage('modinfo', $moduleDirName);
+xoops_loadLanguage('main', $moduleDirName);
+require_once __DIR__ . '/../include/funcoes.inc.php';
+
+if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
 } else {
-    include_once __DIR__ . '/../language/portuguesebr/modinfo.php';
+    $moduleHelper = Xmf\Module\Helper::getHelper('system');
 }
-
-include_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/funcoes.inc.php';
+/** @var Xmf\Module\Admin $adminObject */
+$adminObject = Xmf\Module\Admin::getInstance();
+$pathIcon16    = Admin::iconUrl('', 16);
+$pathIcon32    = Admin::iconUrl('', 32);
+$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
 
 $c['lang']['filtros']      = MGO_ADM_FILTROS;
 $c['lang']['exibir']       = MGO_ADM_EXIBIR;
@@ -35,36 +55,34 @@ $c['lang']['group_erro_sel'] = MGO_ADM_GRP_ERR_SEL;
 $c['lang']['group_del']      = MGO_ADM_GRP_DEL;
 $c['lang']['group_del_sure'] = MGO_ADM_GRP_DEL_SURE;
 
-$path = dirname(dirname(dirname(__DIR__)));
-include_once $path . '/mainfile.php';
-include_once $path . '/include/cp_functions.php';
-require_once $path . '/include/cp_header.php';
 
-global $xoopsModule;
+//xoops_cp_header();
+//$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
+//
+//include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
 
-$moduleDirName = $GLOBALS['xoopsModule']->getVar('dirname');
+/** @var Xmf\Module\Admin $adminObject */
+$adminObject = Xmf\Module\Admin::getInstance();
 
-// Load language files
-xoops_loadLanguage('admin', $moduleDirName);
-xoops_loadLanguage('modinfo', $moduleDirName);
-xoops_loadLanguage('main', $moduleDirName);
+$myts = MyTextSanitizer::getInstance();
 
-$pathIcon16      = '../' . $xoopsModule->getInfo('icons16');
-$pathIcon32      = '../' . $xoopsModule->getInfo('icons32');
-$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+    require_once $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new XoopsTpl();
+}
 
-include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
+// Local icons path
+$xoopsTpl->assign('pathModIcon16', $pathIcon16);
+$xoopsTpl->assign('pathModIcon32', $pathIcon32);
+/*
 
 function mgo_adm_menu()
 {
     global $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
     $adm_url = XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/';
-    $links[] = array(
-        0 => XOOPS_URL . '/modules/system/admin.php?fct=preferences&op=showmod&mod=' . $xoopsModule->getVar('mid'),
-        1 => _PREFERENCES
-    );
-
+    $links[] = array(0 => XOOPS_URL . '/modules/system/admin.php?fct=preferences&op=showmod&mod=' . $xoopsModule->getVar('mid'), 1 => _PREFERENCES);
     //xoops_cp_header();
+
     echo '
         <link rel="stylesheet" type="text/css" href="../assets/js/menu/style_menu.css" />
         <script type="text/javascript" src="../assets/js/menu/jsdomenu.js"></script>
@@ -101,3 +119,4 @@ function mgo_adm_menu()
           menuBar.moveTo(680, 81);
         }</script>';
 }
+*/

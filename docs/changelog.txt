@@ -18,7 +18,7 @@
 - removed exit(); after "redirect" (mamba)
 - removed count() from "for " function (mamba)
 - replaced 'is_null()' with 'null ===' (mamba)
-- updated PHP 4 constructors (mamba(
+- updated PHP 4 constructors (mamba)
 
 
 

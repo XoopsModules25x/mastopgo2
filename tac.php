@@ -25,9 +25,9 @@
  * $_GET['bartransp'] = Transparência da Barra de Texto SEM O SÍMBOLO % (padrão 50)
  *
  */
-include_once __DIR__ . '/../../mainfile.php';
+require_once __DIR__ . '/../../mainfile.php';
 $xoopsLogger->activated = false;
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
         $$k = $v;
@@ -35,7 +35,7 @@ if (isset($_GET)) {
 }
 $tac        = (!empty($_GET['sec_id'])) ? (int)$_GET['sec_id'] : 0;
 $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $tac);
-if (empty($tac) || $sec_classe->getVar('sec_10_id') == '' || $sec_classe->contaDestaques() == 0) {
+if (empty($tac) || $sec_classe->getVar('sec_10_id') === '' || $sec_classe->contaDestaques() == 0) {
     exit();
 } else {
     $w         = !empty($w) ? $w : '100%';

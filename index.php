@@ -11,12 +11,13 @@
 ### =============================================================
 ###
 ### =============================================================
-include_once __DIR__ . '/../../mainfile.php';
-include_once __DIR__ . '/header.php';
+
+require_once __DIR__ . '/../../mainfile.php';
+require_once __DIR__ . '/header.php';
 if (!$_POST) {
     echo '<h1>' . $xoopsModule->getVar('name') . '</h1>';
     echo MGO_MAI_DESC . '<br><br>';
-    include_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/generator.form.inc.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/generator.form.inc.php';
     $dstac_form->display();
 } else {
     if (isset($_POST)) {
@@ -25,7 +26,7 @@ if (!$_POST) {
         }
     }
     $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
-    if (empty($sec_10_id) || $sec_classe->getVar('sec_10_id') == '' || $sec_classe->contaDestaques() == 0) {
+    if (empty($sec_10_id) || $sec_classe->getVar('sec_10_id') === '' || $sec_classe->contaDestaques() == 0) {
         xoops_error(sprintf(MGO_MAI_SEC_404, $sec_classe->getVar('sec_30_nome')));
     } else {
         $iframe = '<iframe src="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/tac.php?sec_id=' . $sec_10_id;
@@ -43,8 +44,8 @@ if (!$_POST) {
         echo '<br><br>' . MGO_MAI_COPY_PASTE . '<br><br>';
         echo "<textarea rows='5' style='width:90%; padding:5px; margin-top:10px; margin-bottom:10px;' onfocus='this.select();' >" . $iframe . '</textarea>';
     }
-    include_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/generator.form.inc.php';
+    require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/generator.form.inc.php';
     $dstac_form->display();
 }
 
-include_once XOOPS_ROOT_PATH . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';
