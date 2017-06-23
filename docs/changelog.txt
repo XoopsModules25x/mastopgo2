@@ -1,5 +1,10 @@
-1.04 RC 1       NOT RELEASED
-=================================
+<h5>1.04 RC 2        (NOT RELEASED)</h5>
+<hr>
+- removed links to obsolete menu (mamba)
+- added missing Request to generator file (mamba)
+
+<h5>1.04 RC 1       NOT RELEASED</h5>
+<hr>
 - adjusted to XOOPS 2.5.8 Admin GUI (Mamba)
 - removed @version (mamba)
 - PSR-2 code cosmetics (mamba)
@@ -21,26 +26,25 @@
 - updated PHP 4 constructors (mamba)
 
 
-
-1.04 Beta 1       2014-04-23
-=================================
+<h5>1.04 Beta 1       2014-04-23</h5>
+<hr>
 - moved all images, CSS, and JS files to /assets (mamba)
 - renamed .html Smarty templates to .tpl (mamba)
 
-1.03 Final          2014-01-18
-=================================
+<h5>1.03 Final          2014-01-18</h5>
+<hr>
 - Site softcored for Smartphons (bleek)
 - Language revised (muki)
 
-1.02 Final          2012-12-19
-=================================
+<h5>1.02 Final          2012-12-19</h5>
+<hr>
 - URL is not required anymore (mjoel)
 
-1.01 Final          2012-12-17
-=================================
+<h5>1.01 Final          2012-12-17</h5>
+<hr>
 - updated to XOOPS 2.5.x GUI (mamba)
 - replaced action text with icons (mamba)
 
-1.00                2007-05-01
-=================================
+<h5>1.00                2007-05-01</h5>
+<hr>
 - First Release (topet05)

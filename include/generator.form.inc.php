@@ -11,6 +11,9 @@
 ### =============================================================
 ###
 ### =============================================================
+
+use Xmf\Request;
+
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $picker_url = XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/color_picker';
 echo '

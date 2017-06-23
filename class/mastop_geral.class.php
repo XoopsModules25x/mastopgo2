@@ -441,9 +441,11 @@ if (!class_exists('Mastop_geral')) {
 <tr><td style="padding:5px; font-size:16px; border: 1px solid #C0C0C0; border-bottom:0px"><div style="font-size:12px; text-align:right; float:right">'
                     . (empty($campos['nofilters']) ? '<a href="javascript:void(0);"  onclick="exibe_esconde(\'busca\');">'
                                                      . $campos['lang']['filtros']
-                                                     . '</a> - <a href="javascript:void(0);"  onclick="esconde_menus();">'
-                                                     . $campos['lang']['showhidemenu']
-                                                     . '</a>' : '')
+                                                     . '</a>'
+//                                                     .' - <a href="javascript:void(0);"  onclick="esconde_menus();">'
+//                                                     . $campos['lang']['showhidemenu']
+//                                                     . '</a>'
+                                                     .'' : '')
                     . '</div><b>'
                     . $campos['lang']['titulo']
                     . '</b></td></tr>

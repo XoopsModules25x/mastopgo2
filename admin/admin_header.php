@@ -48,7 +48,7 @@ $c['lang']['exibindo']     = MGO_ADM_EXIBINDO;
 $c['lang']['por_pagina']   = MGO_ADM_PORPAGINA;
 $c['lang']['acao']         = MGO_ADM_ACAO;
 $c['lang']['semresult']    = MGO_ADM_SEMRESULT;
-$c['lang']['showhidemenu'] = MGO_ADM_SHOWHIDEMENU;
+//$c['lang']['showhidemenu'] = MGO_ADM_SHOWHIDEMENU;
 
 $c['lang']['group_action']   = MGO_ADM_GRP_ACTION;
 $c['lang']['group_erro_sel'] = MGO_ADM_GRP_ERR_SEL;
