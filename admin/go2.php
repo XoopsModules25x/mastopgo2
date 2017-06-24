@@ -11,11 +11,12 @@
 ### =============================================================
 ###
 ### =============================================================
+use Xmf\Request;
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$op = isset($_GET['op']) ? $_GET['op'] : 'listar';
+$op = Request::getCmd('op','listar' ,'GET');
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
         $$k = $v;
@@ -37,11 +38,11 @@ if ($sec_todos) {
     }
 }
 
-if (!empty($_POST['group_action'])) {
-    switch ($_POST['group_action']) {
+if (Request::hasVar('group_action', 'POST')) {
+    switch (Request::getString('group_action', '', 'POST')) {
         case 'group_del':
-            if (is_array($_POST['checks'])) {
-                foreach ($_POST['checks'] as $k => $v) {
+            if (is_array(Request::getArray('checks', '', 'POST'))) {
+                foreach (Request::getArray('checks', '', 'POST') as $k => $v) {
                     $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
                     $go2_classe->delete();
                 }
@@ -50,8 +51,8 @@ if (!empty($_POST['group_action'])) {
             break;
 
         case 'zera_count':
-            if (is_array($_POST['checks'])) {
-                foreach ($_POST['checks'] as $k => $v) {
+            if (is_array(Request::getArray('checks', '', 'POST'))) {
+                foreach (Request::getArray('checks', '', 'POST') as $k => $v) {
                     $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
                     $go2_classe->setVar('go2_10_acessos', 0);
                     $go2_classe->store();
@@ -61,8 +62,8 @@ if (!empty($_POST['group_action'])) {
             break;
 
         case 'desativa':
-            if (is_array($_POST['checks'])) {
-                foreach ($_POST['checks'] as $k => $v) {
+            if (is_array(Request::getArray('checks', '', 'POST'))) {
+                foreach (Request::getArray('checks', '', 'POST') as $k => $v) {
                     $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
                     $go2_classe->desativar();
                 }
@@ -72,8 +73,8 @@ if (!empty($_POST['group_action'])) {
 
         case 'ativa':
         default:
-            if (is_array($_POST['checks'])) {
-                foreach ($_POST['checks'] as $k => $v) {
+            if (is_array(Request::getArray('checks', '', 'POST'))) {
+                foreach (Request::getArray('checks', '', 'POST') as $k => $v) {
                     $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
                     $go2_classe->ativar();
                 }
@@ -173,9 +174,9 @@ switch ($op) {
         echo (!empty($erro)) ? $erro . '<br>' : '';
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
         $go2_10_id  = empty($go2_10_id) ? null : $go2_10_id;
-        if (!empty($_REQUEST['sec_10_id'])) {
-            $sec_10_id                        = $_REQUEST['sec_10_id'];
-            $_SESSION['listar_sec_sec_10_id'] = $_REQUEST['sec_10_id'];
+        if (Request::hasVar('sec_10_id')) {
+            $sec_10_id                        = Request::getInt('sec_10_id');
+            $_SESSION['listar_sec_sec_10_id'] = Request::getInt('sec_10_id');
             $sec_classe                       = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
         } elseif (!empty($_SESSION['listar_sec_sec_10_id'])) {
             $sec_10_id  = $_SESSION['listar_sec_sec_10_id'];

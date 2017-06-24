@@ -11,11 +11,12 @@
 ### =============================================================
 ###
 ### =============================================================
+use Xmf\Request;
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$op = isset($_GET['op']) ? $_GET['op'] : 'listar';
+$op = Request::getCmd('op','listar' ,'GET');
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
         $$k = $v;

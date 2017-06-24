@@ -11,9 +11,10 @@
 ### =============================================================
 ###
 ### =============================================================
+use Xmf\Request;
 
 require_once __DIR__ . '/admin_header.php';
-$op = isset($_GET['op']) ? $_GET['op'] : 'feature';
+$op = Request::getCmd('op','feature' ,'GET');
 
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
@@ -29,15 +30,15 @@ if (isset($_POST)) {
 
 switch ($op) {
     case 'salvar':
-        $yname          = $_POST['yname'];
-        $yemail         = $_POST['yemail'];
-        $ydomain        = $_POST['ydomain'];
-        $feedback_type  = $_POST['feedback_type'];
-        $feedback_other = $_POST['feedback_other'];
+        $yname          = Request::getString('yname', '', 'POST');
+        $yemail         = Request::getString('yemail', '', 'POST');
+        $ydomain        = Request::getString('ydomain', '', 'POST');
+        $feedback_type  = Request::getString('feedback_type', '', 'POST');
+        $feedback_other = Request::getString('feedback_other', '', 'POST');
         $titulo         = 'Mastop Go2 - FeedBack from ' . $ydomain;
         $body           = '<b>' . $yname . ' (' . $yemail . ') - ' . $ydomain . '</b><br>';
         $body           .= 'Type: ' . $feedback_type . ((!empty($feedback_other)) ? ' - ' . $feedback_other : '') . '<br>';
-        $body           .= $_POST['feedback_content'];
+        $body           .= Request::getText('feedback_content', '', 'POST');
         $xoopsMailer    = xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails('go2@mastop.com.br');

@@ -11,6 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
+use Xmf\Request;
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
@@ -28,10 +29,11 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         }
     }
 
-    if (isset($_GET['op'])) {
-        if ($_GET['op'] === 'edit' || $_GET['op'] === 'delete' || $_GET['op'] === 'delete_ok' || $_GET['op'] === 'clone') {
-            $op  = $_GET['op'];
-            $bid = isset($_GET['bid']) ? (int)$_GET['bid'] : 0;
+    if (Request::hasVar('op', 'GET')) {
+        $temp = Request::hasVar('op', 'GET');
+        if ( in_array($temp, array('edit','delete', 'delete_ok','clone'), true ) ) {
+            $op  = $temp;
+            $bid = Request::getInt('bid', 0);
         }
     }
 
@@ -71,7 +73,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         <h4 style='text-align:left;'>" . MGO_MOD_NOME . ' - ' . _AM_BADMIN . '</h4>';
         $moduleHandler = xoops_getHandler('module');
         echo "<form action='"
-             . $_SERVER['PHP_SELF']
+             . Request::getString('PHP_SELF', '', 'SERVER')
              . "' name='blockadmin' method='post'>
         <table width='100%' class='outer' cellpadding='4' cellspacing='1'>
         <tr valign='middle'><th align='center'>"
@@ -332,7 +334,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         $clone->setVar('weight', $bweight);
         $clone->setVar('visible', $bvisible);
         //$clone->setVar('content', $_POST['bcontent']);
-        $clone->setVar('title', $_POST['btitle']);
+        $clone->setVar('title', Request::getString('btitle', '', 'POST'));
         $clone->setVar('bcachetime', $bcachetime);
         if (isset($options) && (count($options) > 0)) {
             $options = implode('|', $options);
@@ -405,7 +407,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 
     if ($op === 'order') {
         if (!$GLOBALS['xoopsSecurity']->check()) {
-            redirect_header($_SERVER['PHP_SELF'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header(Request::getString('PHP_SELF', '', 'SERVER'), 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
         }
 
         foreach (array_keys($bid) as $i) {
@@ -438,7 +440,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
             }
         }
 
-        redirect_header($_SERVER['PHP_SELF'], 1, MGO_ADM_SUCESS2);
+        redirect_header(Request::getString('PHP_SELF', '', 'SERVER'), 1, MGO_ADM_SUCESS2);
     }
 
     if ($op === 'clone') {

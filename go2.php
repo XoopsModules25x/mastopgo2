@@ -11,10 +11,11 @@
 ### =============================================================
 ###
 ### =============================================================
+use Xmf\Request;
 
 require_once __DIR__ . '/../../mainfile.php';
 require_once __DIR__ . '/header.php';
-$tac        = (!empty($_REQUEST['tac'])) ? (int)$_REQUEST['tac'] : 0;
+$tac        = Request::getInt('tac');
 $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $tac);
 if (empty($tac) || $go2_classe->getVar('go2_30_link') === '') {
     exit();

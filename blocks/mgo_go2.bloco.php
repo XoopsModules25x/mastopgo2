@@ -12,11 +12,12 @@
 ###
 ### =============================================================
 if (!defined('MGO_MOD_DIR')) {
-    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
-    } else {
-        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/portuguesebr/modinfo.php';
-    }
+//    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
+//        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
+//    } else {
+//        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/portuguesebr/modinfo.php';
+//    }
+    xoops_loadLanguage('modinfo', MGO_BLO_MODDIR);
 }
 require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/include/funcoes.inc.php';
 /**
