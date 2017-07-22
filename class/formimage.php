@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -34,8 +34,8 @@ class MastopFormSelectImage extends XoopsFormSelect
      *
      * @param    string $caption
      * @param    string $name
-     * @param mixed  $value Valor pré-selecionado (ou array de valores).
-     * @param string $cat   Nome da Categoria da biblioteca. Se vazio ou não definido, retorna todas as bibliotecas que o cara pode acessar.
+     * @param mixed     $value Valor pré-selecionado (ou array de valores).
+     * @param string    $cat   Nome da Categoria da biblioteca. Se vazio ou não definido, retorna todas as bibliotecas que o cara pode acessar.
      * @return MastopFormSelectImage
      * @internal param int $size Número de Linhas. "1" dá um Select List normal de 1 opção.
      */

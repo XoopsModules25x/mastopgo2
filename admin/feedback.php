@@ -14,7 +14,7 @@
 use Xmf\Request;
 
 require_once __DIR__ . '/admin_header.php';
-$op = Request::getCmd('op','feature' ,'GET');
+$op = Request::getCmd('op', 'feature', 'GET');
 
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
@@ -64,9 +64,9 @@ switch ($op) {
         $feedbackform->display();
         break;
 }
-echo "<div align='center' style='margin-top:10px'><a href='http://www.mastop.com.br/produtos/go2/'><img src='../assets/images/mgo2_footer.gif'></a><br><a style='color: #029116; font-size:11px' href='feedback.php'>"
+echo "<div align='center' style='margin-top:10px;'><a href='http://www.mastop.com.br/produtos/go2/'><img src='../assets/images/mgo2_footer.gif'></a><br><a style='color: #029116; font-size:11px;' href='feedback.php'>"
      . MGO_ADM_FEEDBACK
-     . "</a> - <a style='color: #FF0000; font-size:11px' href='http://www.mastop.com.br/produtos/go2/checkversion.php?lang="
+     . "</a> - <a style='color: #FF0000; font-size:11px;' href='http://www.mastop.com.br/produtos/go2/checkversion.php?lang="
      . $xoopsConfig['language']
      . '&version='
      . round($xoopsModule->getVar('version') / 100, 2)

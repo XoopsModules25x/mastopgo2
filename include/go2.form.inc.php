@@ -11,6 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
+use Xmf\Request;
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/formimage.php';
@@ -20,7 +21,7 @@ $imagem_select = new MastopFormSelectImage(MGO_ADM_IMAGEM, 'go2_30_imagem', $go2
                                                                                                                     && $xoopsModuleConfig['mgo_des_img'][0] !== '') ? $xoopsModuleConfig['mgo_des_img'] : null));
 
 $go2_form->addElement($imagem_select);
-$section_select = new XoopsFormSelect(MGO_ADM_SECTION, 'sec_10_id', (($go2_classe->getVar('go2_10_id') !== '') ? $go2_classe->getVar('sec_10_id') : (Request::getInt('sec_10_id'))));
+$section_select = new XoopsFormSelect(MGO_ADM_SECTION, 'sec_10_id', (($go2_classe->getVar('go2_10_id') !== '') ? $go2_classe->getVar('sec_10_id') : Request::getInt('sec_10_id')));
 $section_select->addOptionArray($sec_select);
 
 $go2_form->addElement($section_select);
@@ -31,8 +32,8 @@ $link_select->addOptionArray(array(0 => MGO_ADM_GO2_11_TARGET_0, 1 => MGO_ADM_GO
 $go2_form->addElement($link_select);
 //$go2_form->addElement(new XoopsFormRadioYN(MGO_ADM_ATIVO, 'go2_12_ativo', $go2_classe->getVar("go2_12_ativo")));
 
-$statontxt  = '&nbsp;<img src=' . $pathIcon16 . '/1.png' . ' ' . "alt='" . MGO_ADM_ATIVO . "' />&nbsp;" . MGO_ADM_ATIVO . '&nbsp;&nbsp;&nbsp;';
-$statofftxt = '&nbsp;<img src=' . $pathIcon16 . '/0.png' . ' ' . "alt='" . MGO_ADM_NONATIVO . "' />&nbsp;" . MGO_ADM_NONATIVO . '&nbsp;';
+$statontxt  = '&nbsp;<img src=' . $pathIcon16 . '/1.png' . ' ' . "alt='" . MGO_ADM_ATIVO . "'>&nbsp;" . MGO_ADM_ATIVO . '&nbsp;&nbsp;&nbsp;';
+$statofftxt = '&nbsp;<img src=' . $pathIcon16 . '/0.png' . ' ' . "alt='" . MGO_ADM_NONATIVO . "'>&nbsp;" . MGO_ADM_NONATIVO . '&nbsp;';
 //$formstat = new XoopsFormRadioYN(_AM_XPARTNERS_STATUS, 'status', 1, $statontxt, $statofftxt);
 
 $go2_form->addElement(new XoopsFormRadioYN(MGO_ADM_ATIVO, 'go2_12_ativo', $go2_classe->getVar('go2_12_ativo'), $statontxt, $statofftxt));

@@ -32,8 +32,7 @@ class Mastop_go2Utility extends XoopsObject
                     file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
                 }
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n", '<br/>';
         }
     }
@@ -83,18 +82,25 @@ class Mastop_go2Utility extends XoopsObject
      * Verifies XOOPS version meets minimum requirements for this module
      * @static
      * @param XoopsModule $module
+     * @param null|string $requiredVer
      *
      * @return bool true if meets requirements, false if not
      */
-    public static function checkVerXoops(XoopsModule $module)
+    public static function checkVerXoops(XoopsModule $module = null, $requiredVer = null)
     {
-        xoops_loadLanguage('admin', $module->dirname());
+        $moduleDirName = basename(dirname(__DIR__));
+        if (null === $module) {
+            $module = XoopsModule::getByDirname($moduleDirName);
+        }
+        xoops_loadLanguage('admin', $moduleDirName);
         //check for minimum XOOPS version
-        $currentVer  = substr(XOOPS_VERSION, 6); // get the numeric part of string
-        $currArray   = explode('.', $currentVer);
-        $requiredVer = '' . $module->getInfo('min_xoops'); //making sure it's a string
-        $reqArray    = explode('.', $requiredVer);
-        $success     = true;
+        $currentVer = substr(XOOPS_VERSION, 6); // get the numeric part of string
+        $currArray  = explode('.', $currentVer);
+        if (null === $requiredVer) {
+            $requiredVer = '' . $module->getInfo('min_xoops'); //making sure it's a string
+        }
+        $reqArray = explode('.', $requiredVer);
+        $success  = true;
         foreach ($reqArray as $k => $v) {
             if (isset($currArray[$k])) {
                 if ($currArray[$k] > $v) {

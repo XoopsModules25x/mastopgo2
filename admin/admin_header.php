@@ -19,7 +19,6 @@ use Xmf\Module\Helper;
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 
-
 $moduleDirName = basename(dirname(__DIR__));
 
 //require_once $GLOBALS['xoops']->path('www/include/cp_functions.php');
@@ -37,24 +36,23 @@ if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
     $moduleHelper = Xmf\Module\Helper::getHelper('system');
 }
 /** @var Xmf\Module\Admin $adminObject */
-$adminObject = Xmf\Module\Admin::getInstance();
+$adminObject   = Xmf\Module\Admin::getInstance();
 $pathIcon16    = Admin::iconUrl('', 16);
 $pathIcon32    = Admin::iconUrl('', 32);
 $pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
 
-$c['lang']['filtros']      = MGO_ADM_FILTROS;
-$c['lang']['exibir']       = MGO_ADM_EXIBIR;
-$c['lang']['exibindo']     = MGO_ADM_EXIBINDO;
-$c['lang']['por_pagina']   = MGO_ADM_PORPAGINA;
-$c['lang']['acao']         = MGO_ADM_ACAO;
-$c['lang']['semresult']    = MGO_ADM_SEMRESULT;
+$c['lang']['filtros']    = MGO_ADM_FILTROS;
+$c['lang']['exibir']     = MGO_ADM_EXIBIR;
+$c['lang']['exibindo']   = MGO_ADM_EXIBINDO;
+$c['lang']['por_pagina'] = MGO_ADM_PORPAGINA;
+$c['lang']['acao']       = MGO_ADM_ACAO;
+$c['lang']['semresult']  = MGO_ADM_SEMRESULT;
 //$c['lang']['showhidemenu'] = MGO_ADM_SHOWHIDEMENU;
 
 $c['lang']['group_action']   = MGO_ADM_GRP_ACTION;
 $c['lang']['group_erro_sel'] = MGO_ADM_GRP_ERR_SEL;
 $c['lang']['group_del']      = MGO_ADM_GRP_DEL;
 $c['lang']['group_del_sure'] = MGO_ADM_GRP_DEL_SURE;
-
 
 //xoops_cp_header();
 //$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
@@ -84,7 +82,7 @@ function mgo_adm_menu()
     //xoops_cp_header();
 
     echo '
-        <link rel="stylesheet" type="text/css" href="../assets/js/menu/style_menu.css" />
+        <link rel="stylesheet" type="text/css" href="../assets/js/menu/style_menu.css">
         <script type="text/javascript" src="../assets/js/menu/jsdomenu.js"></script>
         <script type="text/javascript" src="../assets/js/menu/jsdomenubar.js"></script>
         <script type="text/javascript">

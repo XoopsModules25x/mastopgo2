@@ -12,11 +12,11 @@
 ###
 ### =============================================================
 if (!defined('MGO_MOD_DIR')) {
-//    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-//        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
-//    } else {
-//        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/portuguesebr/modinfo.php';
-//    }
+    //    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php')) {
+    //        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
+    //    } else {
+    //        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/language/portuguesebr/modinfo.php';
+    //    }
     xoops_loadLanguage('modinfo', MGO_BLO_MODDIR);
 }
 require_once XOOPS_ROOT_PATH . '/modules/' . MGO_BLO_MODDIR . '/include/funcoes.inc.php';
@@ -147,26 +147,26 @@ PICKER;
         }
     }
     $form .= MGO_BLO_SHOW_SECTION . " <select name='options[0]'>" . $sec_select . '</select><br>';
-    $form .= MGO_BLO_ALTURA . " <input type='text' name='options[1]' value='" . $options[1] . "' /><br>";
+    $form .= MGO_BLO_ALTURA . " <input type='text' name='options[1]' value='" . $options[1] . "'><br>";
     $form .= MGO_BLO_SETAS . "&nbsp;<input type='radio' name='options[2]' value='1'";
     if ($options[2] == 1) {
         $form .= ' checked';
     }
-    $form .= ' />&nbsp;' . _YES . "<input type='radio' name='options[2]' value='0'";
+    $form .= '>&nbsp;' . _YES . "<input type='radio' name='options[2]' value='0'";
     if ($options[2] == 0) {
         $form .= ' checked';
     }
-    $form .= ' />&nbsp;' . _NO . '<br>';
+    $form .= '>&nbsp;' . _NO . '<br>';
     $form .= MGO_BLO_BARRA . "&nbsp;<input type='radio' name='options[3]' value='1'";
     if ($options[3] == 1) {
         $form .= ' checked';
     }
-    $form .= ' />&nbsp;' . _YES . "<input type='radio' name='options[3]' value='0'";
+    $form .= '>&nbsp;' . _YES . "<input type='radio' name='options[3]' value='0'";
     if ($options[3] == 0) {
         $form .= ' checked';
     }
-    $form .= ' />&nbsp;' . _NO . '<br>';
-    $form .= MGO_BLO_DELAY . " <input type='text' name='options[4]' value='" . $options[4] . "' /><br>";
+    $form .= '>&nbsp;' . _NO . '<br>';
+    $form .= MGO_BLO_DELAY . " <input type='text' name='options[4]' value='" . $options[4] . "'><br>";
     $form .= MGO_BLO_BGCOLOR
              . ' #<input size="6" type="text" name="options[5]" id="options[5]" value="'
              . $options[5]
@@ -174,7 +174,7 @@ PICKER;
              . $picker_url
              . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[5]"), event)\' style="border: 2px solid #DEE3E7; background: #;'
              . $options[5]
-             . '"><br>';
+             . '"><br>;';
     $form .= MGO_BLO_TXTCOLOR
              . ' #<input size="6" type="text" name="options[6]" id="options[6]" value="'
              . $options[6]
@@ -182,8 +182,8 @@ PICKER;
              . $picker_url
              . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("options[6]"), event)\' style="border: 2px solid #DEE3E7; background: #;'
              . $options[6]
-             . '"><br>';
-    $form .= MGO_BLO_TRANSP . " <input type='text' size='3' name='options[7]' value='" . $options[7] . "' />%<br>";
+             . '"><br>;';
+    $form .= MGO_BLO_TRANSP . " <input type='text' size='3' name='options[7]' value='" . $options[7] . "'>%<br>";
 
     return $form;
 }

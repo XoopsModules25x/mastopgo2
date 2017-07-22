@@ -250,9 +250,8 @@ if (!class_exists('Mastop_geral')) {
                 $precrit_hidden = '';
                 $precrit_url    = '';
             }
-            if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST')  && is_array(Request::getArray('checks','', 'POST'))
-                && Request::getString('group_action', '', 'POST') === 'group_del_ok'
-            ) {
+            if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST') && is_array(Request::getArray('checks', '', 'POST'))
+                && Request::getString('group_action', '', 'POST') === 'group_del_ok') {
                 $chks   = Request::getArray('checks', array(), 'POST');
                 $classe = get_class($this);
                 foreach ($chks as $k => $v) {
@@ -265,9 +264,8 @@ if (!class_exists('Mastop_geral')) {
                     $nova->delete();
                 }
             }
-            if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST') &&  Request::getString('group_action', '', 'POST') === 'group_del'
-                && is_array(Request::getArray('checks','', 'POST'))
-            ) {
+            if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST') && Request::getString('group_action', '', 'POST') === 'group_del'
+                && is_array(Request::getArray('checks', '', 'POST'))) {
                 $chks = Request::getArray('checks', array(), 'POST');
                 foreach ($chks as $k => $v) {
                     $hiddens['checks[' . $k . ']'] = 1;
@@ -286,8 +284,7 @@ if (!class_exists('Mastop_geral')) {
                         } elseif (is_array($v)) {
                             if (!empty($v['dday']) || !empty($v['dmonth']) || !empty($v['dyear']) || !empty($v['aday'])
                                 || !empty($v['amonth'])
-                                || !empty($v['ayear'])
-                            ) {
+                                || !empty($v['ayear'])) {
                                 $dday   = (!empty($v['dday'])) ? $v['dday'] : 1;
                                 $dmonth = (!empty($v['dmonth'])) ? $v['dmonth'] : 1;
                                 $dyear  = (!empty($v['dyear'])) ? $v['dyear'] : 1;
@@ -329,11 +326,11 @@ if (!class_exists('Mastop_geral')) {
                     }
                 }
             }
-            $limit = (Request::hasVar('limit', 'GET') && Request::getInt('limit',0 ,'GET') <= 100) ? Request::getInt('limit',0 ,'GET') : 15;
+            $limit = (Request::hasVar('limit', 'GET') && Request::getInt('limit', 0, 'GET') <= 100) ? Request::getInt('limit', 0, 'GET') : 15;
             $criterio->setLimit($limit);
-            $start = Request::getInt('start',0 ,'GET');  ;
+            $start = Request::getInt('start', 0, 'GET');
             $criterio->setStart($start);
-            $order = Request::getInt('order','DESC' ,'GET');
+            $order = Request::getInt('order', 'DESC', 'GET');
             $criterio->setOrder($order);
             $sort = (Request::hasVar('sort', 'GET')
                      && in_array(Request::getString('sort', '', 'GET'), $campos['nome'])) ? $_GET['sort'] : (empty($campos['sort']) ? $campos['nome'][1] : $campos['sort']);
@@ -438,17 +435,11 @@ if (!class_exists('Mastop_geral')) {
 
             $ret .= '
 <table width="100%" border="0" cellspacing="0" class="outer">
-<tr><td style="padding:5px; font-size:16px; border: 1px solid #C0C0C0; border-bottom:0px"><div style="font-size:12px; text-align:right; float:right">'
-                    . (empty($campos['nofilters']) ? '<a href="javascript:void(0);"  onclick="exibe_esconde(\'busca\');">'
-                                                     . $campos['lang']['filtros']
-                                                     . '</a>'
-//                                                     .' - <a href="javascript:void(0);"  onclick="esconde_menus();">'
-//                                                     . $campos['lang']['showhidemenu']
-//                                                     . '</a>'
-                                                     .'' : '')
-                    . '</div><b>'
-                    . $campos['lang']['titulo']
-                    . '</b></td></tr>
+<tr><td style="padding:5px; font-size:16px; border: 1px solid #C0C0C0; border-bottom:0px;"><div style="font-size:12px; text-align:right; float:right;">' . (empty($campos['nofilters']) ? '<a href="javascript:void(0);"  onclick="exibe_esconde(\'busca\');">' . $campos['lang']['filtros'] . '</a>'
+                                                                                                                                                                                          //                                                     .' - <a href="javascript:void(0);"  onclick="esconde_menus();">'
+                                                                                                                                                                                          //                                                     . $campos['lang']['showhidemenu']
+                                                                                                                                                                                          //                                                     . '</a>'
+                                                                                                                                                                                          . '' : '') . '</div><b>' . $campos['lang']['titulo'] . '</b></td></tr>
 <tr><td class="outer" style="background-color: #F3F2F2;"><div style="text-align: center;">';
             $ret .= "<form action='"
                     . $url
@@ -462,7 +453,7 @@ if (!class_exists('Mastop_geral')) {
                     . $campos['lang']['por_pagina']
                     . '</b>';
             if (Request::hasVar('busca', 'GET')) {
-                foreach (Request::getArray('busca', array(), 'GET')  as $k => $v) {
+                foreach (Request::getArray('busca', array(), 'GET') as $k => $v) {
                     if ($v !== '' && $v != '-1' && !is_array($v)) {
                         $ret .= "<input type='hidden' name='busca[" . $k . "]' value='" . $v . "'>";
                     } elseif (is_array($v)) {
@@ -478,11 +469,7 @@ if (!class_exists('Mastop_geral')) {
             $ret .= "<input type='hidden' name='op' value='" . $op . "'><input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'>";
             $ret .= "&nbsp;&nbsp;&nbsp;<input type='image' src='../assets/images/envia.gif' style='border:0; background-color:transparent' align='absmiddle'></form>";
             $ret .= "<table width='100%' border='0' cellspacing='0'>";
-            $ret .= "<tbody><tr><td colspan='"
-                    . $colunas
-                    . "' align='right'>"
-                    . sprintf($campos['lang']['exibindo'], $start + 1, ((($start + $limit) < $contar) ? $start + $limit : $contar), $contar)
-                    . '</td></tr></tbody>';
+            $ret .= "<tbody><tr><td colspan='" . $colunas . "' align='right'>" . sprintf($campos['lang']['exibindo'], $start + 1, ((($start + $limit) < $contar) ? $start + $limit : $contar), $contar) . '</td></tr></tbody>';
             $ret .= "<tbody><tr class='hd'>";
             $ret .= $checks ? "<td align='center'><input type='checkbox' name='checkAll' id='checkAll' onclick='changecheck();'></td>" : '';
             foreach ($campos['rotulo'] as $k => $v) {
@@ -507,7 +494,7 @@ if (!class_exists('Mastop_geral')) {
             $ret .= (!empty($campos['botoes'])) ? "<td align='center'>" . $campos['lang']['acao'] . '</td>' : '';
             $ret .= '</tr></tbody>';
             if (empty($campos['nofilters'])) {
-                $ret .= "<form action='" . $url . "' method='GET' name='form_busca'><tbody><tr id='busca' " . ((Request::hasVar('busca', 'GET')) ? '' : "style='display:none'") . " class='neutro'>";
+                $ret .= "<form action='" . $url . "' method='GET' name='form_busca'><tbody><tr id='busca' " . (Request::hasVar('busca', 'GET') ? '' : "style='display:none'") . " class='neutro'>";
                 $ret .= $checks ? '<td>&nbsp;</td>' : '';
                 foreach ($campos['rotulo'] as $k => $v) {
                     $ret .= "<td align='center' nowrap='nowrap'>";
@@ -518,28 +505,28 @@ if (!class_exists('Mastop_geral')) {
                             $ret .= "<input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dday]' size='2' maxlength='2' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dday']) ? (Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dday']) : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dday'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dday'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dmonth]' size='2' maxlength='2' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dmonth']) ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dmonth'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dmonth'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dmonth'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dyear]' size='2' maxlength='4' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dyear']) ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dyear'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dyear'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dyear'] : '')
                                     . '><br>';
                             $ret .= "<input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][aday]' size='2' maxlength='2' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['aday']) ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['aday'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['aday'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['aday'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][amonth]' size='2' maxlength='2' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['amonth']) ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['amonth'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['amonth'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['amonth'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][ayear]' size='2' maxlength='4' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['ayear']) ? (Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['ayear']) : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['ayear'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['ayear'] : '')
                                     . '>';
                             break;
                         case 'select':
@@ -581,16 +568,7 @@ if (!class_exists('Mastop_geral')) {
                 }
                 $ret .= (!empty($campos['botoes'])) ? "<td align='center'><input type='image' src='../assets/images/envia.gif' style='border:0; background-color:transparent'></td>" : '';
                 $ret .= '</tr></tbody>';
-                $ret .= $precrit_hidden
-                        . "<input type='hidden' name='op' value='"
-                        . $op
-                        . "'><input type='hidden' name='sort' value='"
-                        . $sort
-                        . "'><input type='hidden' name='order' value='"
-                        . $order
-                        . "'><input type='hidden' name='limit' value='"
-                        . $limit
-                        . "'></form>";
+                $ret .= $precrit_hidden . "<input type='hidden' name='op' value='" . $op . "'><input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'></form>";
             }
             $registros = empty($campos['join']) ? $this->pegaTudo($criterio) : $this->pegaTudo($criterio, true, $campos['join']);
             if (!$registros || count($registros) == 0) {
@@ -620,8 +598,7 @@ if (!class_exists('Mastop_geral')) {
                                 break;
                             case 'date':
                                 $ret .= (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : (($reg->getVar($campos['nome'][$l]) != 0
-                                                                                                                       && $reg->getVar($campos['nome'][$l]) !== '') ? date(_SHORTDATESTRING,
-                                                                                                                                                                           $reg->getVar($campos['nome'][$l])) : ''));
+                                                                                                                       && $reg->getVar($campos['nome'][$l]) !== '') ? date(_SHORTDATESTRING, $reg->getVar($campos['nome'][$l])) : ''));
                                 break;
                             case 'select':
                                 if ($form && empty($campos['show'][$l])) {
@@ -657,11 +634,11 @@ if (!class_exists('Mastop_geral')) {
                             case 'text':
                             default:
 
-//                                                            $bong = $campos['nome'][$l];
-//                                                            $bong2 = $reg->getVar($campos['nome'][$l]);
-//                                                            echo $bong . '---- 1 <br><br>';
-//                                                            echo $bong2 .'---- 2<br><br>';
-//                                                            echo 'show: ' . $campos['show'][$l] . '---- 3<br><br><br>';
+                                //                                                            $bong = $campos['nome'][$l];
+                                //                                                            $bong2 = $reg->getVar($campos['nome'][$l]);
+                                //                                                            echo $bong . '---- 1 <br><br>';
+                                //                                                            echo $bong2 .'---- 2<br><br>';
+                                //                                                            echo 'show: ' . $campos['show'][$l] . '---- 3<br><br><br>';
 
                                 $ret .= ($form && empty($campos['show'][$l])) ? ("<input type='text' name='campos["
                                                                                  . $reg->getVar($reg->id)
@@ -684,19 +661,7 @@ if (!class_exists('Mastop_geral')) {
                         $ret .= "<td nowrap='nowrap'>";
                         if (is_array($campos['botoes'])) {
                             foreach ($campos['botoes'] as $b) {
-                                $ret .= "<a href='"
-                                        . $b['link']
-                                        . '&'
-                                        . $reg->id
-                                        . '='
-                                        . $reg->getVar($reg->id)
-                                        . "' title='"
-                                        . $b['texto']
-                                        . "'><img src='"
-                                        . $b['imagem']
-                                        . "' alt='"
-                                        . $b['texto']
-                                        . "'></a> ";
+                                $ret .= "<a href='" . $b['link'] . '&' . $reg->id . '=' . $reg->getVar($reg->id) . "' title='" . $b['texto'] . "'><img src='" . $b['imagem'] . "' alt='" . $b['texto'] . "'></a> ";
                             }
                         }
                         $ret .= '</td>';
@@ -705,18 +670,9 @@ if (!class_exists('Mastop_geral')) {
                 }
                 if ($form || $checks) {
                     $ret .= "<tbody><tr><td colspan='" . $colunas . "'>";
-                    $ret .= $precrit_hidden
-                            . "<input type='hidden' name='sort' value='"
-                            . $sort
-                            . "'><input type='hidden' name='order' value='"
-                            . $order
-                            . "'><input type='hidden' name='limit' value='"
-                            . $limit
-                            . "'><input type='hidden' name='start' value='"
-                            . $start
-                            . "'>";
+                    $ret .= $precrit_hidden . "<input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'><input type='hidden' name='start' value='" . $start . "'>";
                     if (Request::hasVar('busca', 'GET')) {
-                        foreach (Request::getArray('busca', array(), 'GET')  as $k => $v) {
+                        foreach (Request::getArray('busca', array(), 'GET') as $k => $v) {
                             if ($v !== '' && $v != '-1' && !is_array($v)) {
                                 $ret .= "<input type='hidden' name='busca[" . $k . "]' value='" . $v . "'>";
                             } elseif (is_array($v)) {
@@ -742,8 +698,7 @@ if (!class_exists('Mastop_geral')) {
                     }
                     $ret .= "<input type='submit' value='" . _SUBMIT . "'><br>&nbsp;</td></tr></tbody></form>";
                 }
-                $ret .= (!empty($campos['soma'])) ? "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='right'>Total: R$ " . number_format($this->soma($criterio, $campos['soma']), 2, ',',
-                                                                                                                                                    '.') . '</td></tr></tbody>' : '';
+                $ret .= (!empty($campos['soma'])) ? "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='right'>Total: R$ " . number_format($this->soma($criterio, $campos['soma']), 2, ',', '.') . '</td></tr></tbody>' : '';
                 $ret .= "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='left'>" . $this->paginar($url_full_pg, $criterio, $precrit_url) . '</td></tr></tbody>';
             }
             $ret .= '</table></div></td></tr></table><br>';
@@ -820,20 +775,20 @@ if (!class_exists('Mastop_geral')) {
             $todos = $this->contar($criterio);
             $total = ($todos % $limit == 0) ? ($todos / $limit) : (int)($todos / $limit) + 1;
             $pg    = $start ? (int)($start / $limit) + 1 : 1;
-            $ret   .= (Request::hasVar('busca', 'GET')) ? "<input type=button value='"
-                                                 . _ALL
-                                                 . "' onclick=\"document.location= '"
-                                                 . Request::getString('PHP_SELF', '', 'SERVER')
-                                                 . '?limit='
-                                                 . $limit
-                                                 . '&order='
-                                                 . $order
-                                                 . '&sort='
-                                                 . $sort
-                                                 . '&op='
-                                                 . $GLOBALS['op']
-                                                 . $precrit_url
-                                                 . "'\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            $ret   .= Request::hasVar('busca', 'GET') ? "<input type=button value='"
+                                                        . _ALL
+                                                        . "' onclick=\"document.location= '"
+                                                        . Request::getString('PHP_SELF', '', 'SERVER')
+                                                        . '?limit='
+                                                        . $limit
+                                                        . '&order='
+                                                        . $order
+                                                        . '&sort='
+                                                        . $sort
+                                                        . '&op='
+                                                        . $GLOBALS['op']
+                                                        . $precrit_url
+                                                        . "'\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             for ($i = 1; $i <= $total; ++$i) {
                 $start = $limit * ($i - 1);
                 if ($i == $pg) {

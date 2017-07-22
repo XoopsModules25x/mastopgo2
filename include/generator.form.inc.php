@@ -64,7 +64,7 @@ $(nome).value = 0;
 </script>
     ';
 echo <<< PICKER
-    <div id="plugin" onmousedown="HSVslide('drag','plugin',event)" style="Z-INDEX: 20; display:none">
+    <div id="plugin" onmousedown="HSVslide('drag','plugin',event)" style="Z-INDEX: 20; display:none;">
  <div id="plugHEX" onmousedown="stop=0; setTimeout('stop=1',100); toggle('plugin');">&nbsp</div><div id="plugCLOSE" onmousedown="toggle('plugin')">X</div><br>
  <div id="SV" onmousedown="HSVslide('SVslide','plugin',event)" title="Saturation + Value">
   <div id="SVslide" style="TOP: -4px; LEFT: -4px;"><br></div>

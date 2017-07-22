@@ -79,7 +79,7 @@ class Mgo_sec_section extends Mastop_geral
             $ret = '
 <script src="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/galeria/scripts/mootools.js" type="text/javascript"></script>
 <script src="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/galeria/scripts/jd.js" type="text/javascript"></script>
-<link rel="stylesheet" href="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/galeria/css/jd.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/galeria/css/jd.css" type="text/css" media="screen">
 <style type="text/css">
 #dstacs_' . $section . '
 {
@@ -92,7 +92,7 @@ border: 0;
 </style>
 <script type="text/javascript">
 function start_dstacs_' . $section . '() {
-var dstacs_' . $section . ' = new gallery($("dstacs_' . $section . '"), {
+var dstacs_' . $section . ' = new Gallery($("dstacs_' . $section . '"), {
 timed: ' . ((count($dstacs) > 1) ? 'true' : 'false') . ',
 showArrows: ' . (($setas == 1) ? 'true' : 'false') . ',
 showInfopane: ' . (($barra == 1) ? 'true' : 'false') . ',

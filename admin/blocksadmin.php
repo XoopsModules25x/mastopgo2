@@ -31,7 +31,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 
     if (Request::hasVar('op', 'GET')) {
         $temp = Request::hasVar('op', 'GET');
-        if ( in_array($temp, array('edit','delete', 'delete_ok','clone'), true ) ) {
+        if (in_array($temp, array('edit', 'delete', 'delete_ok', 'clone'), true)) {
             $op  = $temp;
             $bid = Request::getInt('bid', 0);
         }
@@ -151,52 +151,52 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                  . $i->getVar('bid')
                  . "]' value='"
                  . XOOPS_CENTERBLOCK_LEFT
-                 . "'$ssel2 />
+                 . "'$ssel2>
                 <input type='radio' name='side["
                  . $i->getVar('bid')
                  . "]' value='"
                  . XOOPS_CENTERBLOCK_CENTER
-                 . "'$ssel3 />
+                 . "'$ssel3>
                 <input type='radio' name='side["
                  . $i->getVar('bid')
                  . "]' value='"
                  . XOOPS_CENTERBLOCK_RIGHT
-                 . "'$ssel4 />
+                 . "'$ssel4>
               </div>
               <div>
                 <span style='float:right'><input type='radio' name='side["
                  . $i->getVar('bid')
                  . "]' value='"
                  . XOOPS_SIDEBLOCK_RIGHT
-                 . "'$ssel1 /></span>
+                 . "'$ssel1></span>
                 <div align='left'><input type='radio' name='side["
                  . $i->getVar('bid')
                  . "]' value='"
                  . XOOPS_SIDEBLOCK_LEFT
-                 . "'$ssel0 /></div>
+                 . "'$ssel0></div>
               </div>
               <div align='center'>
                 <input type='radio' name='side["
                  . $i->getVar('bid')
                  . "]' value='"
                  . XOOPS_CENTERBLOCK_BOTTOMLEFT
-                 . "'$ssel5 />
+                 . "'$ssel5>
                 <input type='radio' name='side["
                  . $i->getVar('bid')
                  . "]' value='"
                  . XOOPS_CENTERBLOCK_BOTTOM
-                 . "'$ssel7 />
+                 . "'$ssel7>
                 <input type='radio' name='side["
                  . $i->getVar('bid')
                  . "]' value='"
                  . XOOPS_CENTERBLOCK_BOTTOMRIGHT
-                 . "'$ssel6 />
+                 . "'$ssel6>
               </div>
             </td><td class='$class' align='center'><input type='text' name='weight["
                  . $i->getVar('bid')
                  . "]' value='"
                  . $i->getVar('weight')
-                 . "' size='5' maxlength='5' /></td><td class='$class' align='center' nowrap><input type='radio' name='visible["
+                 . "' size='5' maxlength='5'></td><td class='$class' align='center' nowrap><input type='radio' name='visible["
                  . $i->getVar('bid')
                  . "]' value='1'$sel1>"
                  . _YES
@@ -226,20 +226,20 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
             }
 
             echo "
-            <input type='hidden' name='oldtitle[" . $i->getVar('bid') . "]' value='" . $i->getVar('title') . "' />
-            <input type='hidden' name='oldside[" . $i->getVar('bid') . "]' value='" . $i->getVar('side') . "' />
-            <input type='hidden' name='oldweight[" . $i->getVar('bid') . "]' value='" . $i->getVar('weight') . "' />
-            <input type='hidden' name='oldvisible[" . $i->getVar('bid') . "]' value='" . $i->getVar('visible') . "' />
-            <input type='hidden' name='bid[" . $i->getVar('bid') . "]' value='" . $i->getVar('bid') . "' />
+            <input type='hidden' name='oldtitle[" . $i->getVar('bid') . "]' value='" . $i->getVar('title') . "'>
+            <input type='hidden' name='oldside[" . $i->getVar('bid') . "]' value='" . $i->getVar('side') . "'>
+            <input type='hidden' name='oldweight[" . $i->getVar('bid') . "]' value='" . $i->getVar('weight') . "'>
+            <input type='hidden' name='oldvisible[" . $i->getVar('bid') . "]' value='" . $i->getVar('visible') . "'>
+            <input type='hidden' name='bid[" . $i->getVar('bid') . "]' value='" . $i->getVar('bid') . "'>
             </td></tr>
             ";
             $class = ($class === 'even') ? 'odd' : 'even';
         }
 
         echo "<tr><td class='foot' align='center' colspan='7'>
-        <input type='hidden' name='op' value='order' />
+        <input type='hidden' name='op' value='order'>
         " . $GLOBALS['xoopsSecurity']->getTokenHTML() . "
-        <input type='submit' name='submit' value='" . _SUBMIT . "' />
+        <input type='submit' name='submit' value='" . _SUBMIT . "'>
         </td></tr></table>
         </form>
         <br><br>";
@@ -412,8 +412,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 
         foreach (array_keys($bid) as $i) {
             if ($oldtitle[$i] != $title[$i] || $oldweight[$i] != $weight[$i] || $oldvisible[$i] != $visible[$i]
-                || $oldside[$i] != $side[$i]
-            ) {
+                || $oldside[$i] != $side[$i]) {
                 setar_ordem($bid[$i], $title[$i], $weight[$i], $visible[$i], $side[$i], $bmodule[$i]);
             }
             if (!empty($bmodule[$i]) && count($bmodule[$i]) > 0) {
