@@ -50,6 +50,6 @@ define("_AM_VISIBLEIN", "Visible In");
 define("_AM_ACTION", "Action");
 
 // Text for Admin footer
-define("_AM_ADMIN_FOOTER", "<div class='center smallsmall italic pad5'>Mastop Go2 is maintained by the <a class='tooltip' rel='external' href='http://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
+define("_AM_ADMIN_FOOTER", "<div class='center smallsmall italic pad5'>Mastop Go2 is maintained by the <a class='tooltip' rel='external' href='https://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
 
 define("MGO_ADM_NONATIVO", "Inactive");

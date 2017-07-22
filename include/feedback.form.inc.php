@@ -16,7 +16,7 @@
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-$feedbackform = new XoopsThemeForm($form['titulo'], 'mpu_feedbackform', Request::getString('PHP_SELF', '', 'SERVER'), 'post');
+$feedbackform = new XoopsThemeForm($form['titulo'], 'mpu_feedbackform', Request::getString('PHP_SELF', '', 'SERVER'), 'post', true);
 $feedbackform->addElement(new XoopsFormText(MGO_ADM_YNAME, 'yname', 35, 50, $xoopsUser->getVar('name')));
 $feedbackform->addElement(new XoopsFormText(MGO_ADM_YEMAIL, 'yemail', 35, 50, $xoopsConfig['adminmail']));
 $feedbackform->addElement(new XoopsFormText(MGO_ADM_YSITE, 'ydomain', 35, 50, XOOPS_URL));

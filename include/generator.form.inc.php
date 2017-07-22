@@ -84,7 +84,7 @@ if ($sec_todos) {
         $sec_select[$v->getVar($v->id)] = $v->getVar('sec_30_nome');
     }
 }
-$dstac_form     = new XoopsThemeForm(MGO_MAI_FORM_TITLE, 'dstacform', Request::getString('PHP_SELF', '', 'SERVER'), 'post');
+$dstac_form     = new XoopsThemeForm(MGO_MAI_FORM_TITLE, 'dstacform', Request::getString('PHP_SELF', '', 'SERVER'), 'post', true);
 $section_select = new XoopsFormSelect(MGO_MAI_SECTION, 'sec_10_id', ((!empty($sec_10_id)) ? $sec_10_id : null));
 $section_select->addOptionArray($sec_select);
 $dstac_form->addElement($section_select);
