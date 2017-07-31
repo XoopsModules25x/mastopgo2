@@ -38,7 +38,7 @@ define('MI_MGO_NAME', 'Mastop Go2');
 
 //Help
 define('MI_MGO_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('MI_MGO_HELP_HEADER', __DIR__ . '/help/helpheader.html');
+define('MI_MGO_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('MI_MGO_BACK_2_ADMIN', 'Back to Administration of ');
 define('MI_MGO_OVERVIEW', 'Overview');
 
