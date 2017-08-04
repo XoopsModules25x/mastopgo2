@@ -16,7 +16,7 @@ use Xmf\Request;
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$op = Request::getCmd('op','listar' ,'GET');
+$op = Request::getCmd('op', 'listar', 'GET');
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
         $$k = $v;

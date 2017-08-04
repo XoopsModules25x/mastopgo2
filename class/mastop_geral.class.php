@@ -559,7 +559,7 @@ if (!class_exists('Mastop_geral')) {
                                     . (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]]) ? Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] : '')
                                     . "' size='"
                                     . (isset($campos['tamanho'][$k]) ? $campos['tamanho'][$k] : 20)
-                                    . "'/>";
+                                    . "'>";
                     }
                     if (empty($campos['botoes']) && $k == count($campos['rotulo'])) {
                         $ret .= " <input type='image' src='../assets/images/envia.gif' style='border:0; background-color:transparent' align='absmiddle'>";
@@ -648,7 +648,7 @@ if (!class_exists('Mastop_geral')) {
                                                                                  . $reg->getVar($campos['nome'][$l])
                                                                                  . "' size='"
                                                                                  . (isset($campos['tamanho'][$l]) ? $campos['tamanho'][$l] : 20)
-                                                                                 . "'/>")
+                                                                                 . "'>")
 
                                     : (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : $reg->getVar($campos['nome'][$l]));
 

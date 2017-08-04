@@ -443,8 +443,8 @@ if ($op === 'delcatok' && $admin) {
 
         //-->
     </script>
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo XOOPS_URL ?>/xoops.css"/>
-    <link rel="stylesheet" type="text/css" media="all" href="<?php echo getcss($xoopsConfig['theme_set']) ?>"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo XOOPS_URL ?>/xoops.css">
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo getcss($xoopsConfig['theme_set']) ?>">
     <style type="text/css">
         .tabberlive .tabbertabhide {
             display: none;
@@ -607,7 +607,7 @@ if ($op === 'delcatok' && $admin) {
                      . $target
                      . '\', \''
                      . $images[$i]->getVar('imgcat_id')
-                     . '\')"/>';
+                     . '\')">';
                 echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $images[$i]->getVar('image_nicename') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $images[$i]->getVar('image_mimetype') . '</td>';
                 echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $url . '\', \'' . $images[$i]->getVar('image_nicename') . '\', \'' . $target . '\', \'' . $images[$i]->getVar('imgcat_id') . '\')">' . _SELECT . '</a></td></tr>';
             }
@@ -740,7 +740,7 @@ if ($op === 'delcatok' && $admin) {
                  . $target
                  . '\', \''
                  . $image->getVar('imgcat_id')
-                 . '\')"/>';
+                 . '\')">';
             echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $image->getVar('image_nicename') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $image->getVar('image_mimetype') . '</td>';
             echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $url . '\', \'' . $image->getVar('image_nicename') . '\', \'' . $target . '\', \'' . $image->getVar('imgcat_id') . '\')">' . _SELECT . '</a></td></tr>';
         }
@@ -795,7 +795,7 @@ if ($op === 'delcatok' && $admin) {
 
     } ?>
     <div style="float: right;">
-        <input type="button" id="cancel" name="cancel" value="<?php echo _CLOSE ?>" onclick="window.close();"/>
+        <input type="button" id="cancel" name="cancel" value="<?php echo _CLOSE ?>" onclick="window.close();">
     </div>
 </div>
 <!--
