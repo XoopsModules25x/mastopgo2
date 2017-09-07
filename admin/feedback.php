@@ -54,6 +54,7 @@ switch ($op) {
       </div>
     ';
 
+        // no break
     case 'feature':
     default:
         mgo_adm_menu();

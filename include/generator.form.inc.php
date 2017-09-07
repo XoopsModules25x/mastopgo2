@@ -78,7 +78,7 @@ PICKER;
 
 $sec_classe = mgo_getClass(MGO_MOD_TABELA0);
 $sec_todos  = $sec_classe->pegaTudo();
-$sec_select = array();
+$sec_select = [];
 if ($sec_todos) {
     foreach ($sec_todos as $v) {
         $sec_select[$v->getVar($v->id)] = $v->getVar('sec_30_nome');
@@ -119,10 +119,10 @@ $transp_tray->addElement(new XoopsFormText('', 'transp', 3, 3, ((!empty($transp)
 $transp_tray->addElement(new XoopsFormLabel('', '%'));
 $dstac_form->addElement($transp_tray);
 $align_select = new XoopsFormSelect(MGO_MAI_ALIGN, 'align', ((!empty($align)) ? $align : 'middle'));
-$align_select->addOptionArray(array(
+$align_select->addOptionArray([
                                   'middle' => MGO_MAI_ALIGN_MIDDLE,
                                   'left'   => MGO_MAI_ALIGN_LEFT,
                                   'right'  => MGO_MAI_ALIGN_RIGHT
-                              ));
+                              ]);
 $dstac_form->addElement($align_select);
 $dstac_form->addElement(new XoopsFormButton('', 'submit', MGO_MAI_GENERATE, 'submit'));

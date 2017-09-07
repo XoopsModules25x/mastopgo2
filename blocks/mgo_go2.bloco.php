@@ -59,7 +59,7 @@ function mgo_go2_exibe($options)
     $sec_classe = mgo_getClass(MGO_MOD_TABELA0);
     $dstacs     = $sec_classe->montaGaleria($options[1], $options[0], $options[2], $options[3], $options[4], $options[7]);
     if ($dstacs) {
-        $block                     = array();
+        $block                     = [];
         $block['dstac']            = $dstacs;
         $block['mgo_blo_bgcolor']  = $options[5];
         $block['mgo_blo_txtcolor'] = $options[6];

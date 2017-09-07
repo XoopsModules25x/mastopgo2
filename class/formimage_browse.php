@@ -25,7 +25,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 //$op = empty($_POST['op']) ? $op : $_POST['op'];
 $op = Request::getCmd('op', 'list');
 if (!is_object($xoopsUser)) {
-    $groups = array(XOOPS_GROUP_ANONYMOUS);
+    $groups = [XOOPS_GROUP_ANONYMOUS];
     $admin  = false;
 } else {
     $groups =& $xoopsUser->getGroups();
@@ -84,7 +84,7 @@ if ($op === 'updatecat' && $admin) {
     $criteria->add($criteria2);
     $imagecategorypermHandler->deleteAll($criteria);
     if (!isset($readgroup)) {
-        $readgroup = array();
+        $readgroup = [];
     }
     if (!in_array(XOOPS_GROUP_ADMIN, $readgroup)) {
         array_push($readgroup, XOOPS_GROUP_ADMIN);
@@ -99,7 +99,7 @@ if ($op === 'updatecat' && $admin) {
         unset($imagecategoryperm);
     }
     if (!isset($writegroup)) {
-        $writegroup = array();
+        $writegroup = [];
     }
     if (!in_array(XOOPS_GROUP_ADMIN, $writegroup)) {
         array_push($writegroup, XOOPS_GROUP_ADMIN);
@@ -140,7 +140,7 @@ if ($op === 'addcat' && $admin) {
     $newid                    = $imagecategory->getVar('imgcat_id');
     $imagecategorypermHandler = xoops_getHandler('groupperm');
     if (!isset($readgroup)) {
-        $readgroup = array();
+        $readgroup = [];
     }
     if (!in_array(XOOPS_GROUP_ADMIN, $readgroup)) {
         array_push($readgroup, XOOPS_GROUP_ADMIN);
@@ -155,7 +155,7 @@ if ($op === 'addcat' && $admin) {
         unset($imagecategoryperm);
     }
     if (!isset($writegroup)) {
-        $writegroup = array();
+        $writegroup = [];
     }
     if (!in_array(XOOPS_GROUP_ADMIN, $writegroup)) {
         array_push($writegroup, XOOPS_GROUP_ADMIN);
@@ -186,7 +186,7 @@ if ($op === 'delcatok' && $admin) {
     }
     $imageHandler = xoops_getHandler('image');
     $images       = $imageHandler->getObjects(new Criteria('imgcat_id', $imgcat_id), true, false);
-    $errors       = array();
+    $errors       = [];
     foreach (array_keys($images) as $i) {
         $imageHandler->delete($images[$i]);
         if (file_exists(XOOPS_UPLOAD_PATH . '/' . $images[$i]->getVar('image_name'))) {
@@ -537,7 +537,7 @@ if ($op === 'delcatok' && $admin) {
         <h2><?php echo _SEARCH ?></h2>
         <?php
         if ($op === 'delcat' && $admin) {
-            xoops_confirm(array('op' => 'delcatok', 'target' => $target, 'imgcat_id' => Request::getInt('imgcat_id', 0, 'GET')), Request::getString('PHP_SELF', '', 'SERVER'), _MD_RUDELIMGCAT);
+            xoops_confirm(['op' => 'delcatok', 'target' => $target, 'imgcat_id' => Request::getInt('imgcat_id', 0, 'GET')], Request::getString('PHP_SELF', '', 'SERVER'), _MD_RUDELIMGCAT);
         } elseif ($op === 'editcat' && $admin) {
             $imgcat_id = Request::getInt('imgcat_id', 0, 'GET');
             if ($imgcat_id <= 0) {
@@ -558,7 +558,7 @@ if ($op === 'delcatok' && $admin) {
             $form->addElement(new XoopsFormText(_IMGMAXHEIGHT, 'imgcat_maxheight', 3, 4, $imagecategory->getVar('imgcat_maxheight')));
             $form->addElement(new XoopsFormText(_MD_IMGCATWEIGHT, 'imgcat_weight', 3, 4, $imagecategory->getVar('imgcat_weight')));
             $form->addElement(new XoopsFormRadioYN(_MD_IMGCATDISPLAY, 'imgcat_display', $imagecategory->getVar('imgcat_display'), _YES, _NO));
-            $storetype = array('db' => _MD_INDB, 'file' => _MD_ASFILE);
+            $storetype = ['db' => _MD_INDB, 'file' => _MD_ASFILE];
             $form->addElement(new XoopsFormLabel(_MD_IMGCATSTRTYPE, $storetype[$imagecategory->getVar('imgcat_storetype')]));
             $form->addElement(new XoopsFormHidden('imgcat_id', $imgcat_id));
             $form->addElement(new XoopsFormHidden('op', 'updatecat'));
@@ -664,19 +664,19 @@ if ($op === 'delcatok' && $admin) {
                 redirect_header(Request::getString('PHP_SELF', '', 'SERVER'), 1);
             }
             require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-            $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH, array(
+            $uploader = new XoopsMediaUploader(XOOPS_UPLOAD_PATH, [
                 'image/gif',
                 'image/jpeg',
                 'image/pjpeg',
                 'image/x-png',
                 'image/png',
                 'image/bmp'
-            ), $imagecategory->getVar('imgcat_maxsize'), $imagecategory->getVar('imgcat_maxwidth'), $imagecategory->getVar('imgcat_maxheight'));
+            ], $imagecategory->getVar('imgcat_maxsize'), $imagecategory->getVar('imgcat_maxwidth'), $imagecategory->getVar('imgcat_maxheight'));
             $uploader->setPrefix('img');
-            $err    = array();
-            $ucount = count(Request::getArray('xoops_upload_file', array(), 'POST'));
+            $err    = [];
+            $ucount = count(Request::getArray('xoops_upload_file', [], 'POST'));
             for ($i = 0; $i < $ucount; ++$i) {
-                if ($uploader->fetchMedia(Request::getArray('xoops_upload_file', array(), 'POST')[$i])) {
+                if ($uploader->fetchMedia(Request::getArray('xoops_upload_file', [], 'POST')[$i])) {
                     if (!$uploader->upload()) {
                         $err[] = $uploader->getErrors();
                     } else {

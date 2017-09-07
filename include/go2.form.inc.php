@@ -28,7 +28,7 @@ $go2_form->addElement($section_select);
 $go2_form->addElement(new XoopsFormText(MGO_ADM_GO2_30_NOME, 'go2_30_nome', 30, 100, $go2_classe->getVar('go2_30_nome')), true);
 $go2_form->addElement(new XoopsFormText(MGO_ADM_GO2_30_LINK, 'go2_30_link', 30, 150, $go2_classe->getVar('go2_30_link')), false);
 $link_select = new XoopsFormSelect(MGO_ADM_GO2_11_TARGET, 'go2_11_target', $go2_classe->getVar('go2_11_target'));
-$link_select->addOptionArray(array(0 => MGO_ADM_GO2_11_TARGET_0, 1 => MGO_ADM_GO2_11_TARGET_1));
+$link_select->addOptionArray([0 => MGO_ADM_GO2_11_TARGET_0, 1 => MGO_ADM_GO2_11_TARGET_1]);
 $go2_form->addElement($link_select);
 //$go2_form->addElement(new XoopsFormRadioYN(MGO_ADM_ATIVO, 'go2_12_ativo', $go2_classe->getVar("go2_12_ativo")));
 

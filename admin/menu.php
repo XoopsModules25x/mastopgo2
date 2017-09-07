@@ -18,14 +18,14 @@ if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
 } else {
     $moduleHelper = Xmf\Module\Helper::getHelper('system');
 }
-$adminObject = \Xmf\Module\Admin::getInstance();
+
 
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
 //$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
 
 $moduleHelper->loadLanguage('modinfo');
 
-$adminmenu              = array();
+$adminmenu              = [];
 $i                      = 1;
 $adminmenu[$i]['title'] = MGO_ADM_HOME;
 $adminmenu[$i]['link']  = 'admin/index.php';

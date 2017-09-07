@@ -12,7 +12,7 @@
 ###
 ### =============================================================
 
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 
@@ -26,8 +26,8 @@ class MastopFormSelectImage extends XoopsFormSelect
      * @var array
      * @access    private
      */
-    public $_optgroups   = array();
-    public $_optgroupsID = array();
+    public $_optgroups   = [];
+    public $_optgroupsID = [];
 
     /**
      * Construtor
@@ -51,7 +51,7 @@ class MastopFormSelectImage extends XoopsFormSelect
      * @param array|string $value opções do Grupo
      * @param string       $name  Nome do Grupo de Opções
      */
-    public function addOptGroup($value = array(), $name = '&nbsp;')
+    public function addOptGroup($value = [], $name = '&nbsp;')
     {
         $this->_optgroups[$name] = $value;
     }
@@ -78,9 +78,9 @@ class MastopFormSelectImage extends XoopsFormSelect
     public function getImageList($cat = null)
     {
         global $xoopsUser;
-        $ret = array();
+        $ret = [];
         if (!is_object($xoopsUser)) {
-            $group = array(XOOPS_GROUP_ANONYMOUS);
+            $group = [XOOPS_GROUP_ANONYMOUS];
         } else {
             $group = $xoopsUser->getGroups();
         }
@@ -93,7 +93,7 @@ class MastopFormSelectImage extends XoopsFormSelect
                 }
             }
         } elseif (is_int($cat)) {
-            $catlist = array_key_exists($cat, $catlist) ? array($cat => $catlist[$cat]) : array();
+            $catlist = array_key_exists($cat, $catlist) ? [$cat => $catlist[$cat]] : [];
         }
         $imageHandler = xoops_getHandler('image');
         foreach ($catlist as $k => $v) {
@@ -151,7 +151,7 @@ class MastopFormSelectImage extends XoopsFormSelect
     {
         global $xoopsUser;
         if (!is_object($xoopsUser)) {
-            $group = array(XOOPS_GROUP_ANONYMOUS);
+            $group = [XOOPS_GROUP_ANONYMOUS];
         } else {
             $group =& $xoopsUser->getGroups();
         }

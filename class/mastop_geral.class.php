@@ -180,7 +180,7 @@ if (!class_exists('Mastop_geral')) {
          */
         public function pegaTudo($criterio = null, $objeto = true, $join = null)
         {
-            $ret    = array();
+            $ret    = [];
             $limit  = $start = 0;
             $classe = get_class($this);
             if (!$objeto) {
@@ -252,7 +252,7 @@ if (!class_exists('Mastop_geral')) {
             }
             if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST') && is_array(Request::getArray('checks', '', 'POST'))
                 && Request::getString('group_action', '', 'POST') === 'group_del_ok') {
-                $chks   = Request::getArray('checks', array(), 'POST');
+                $chks   = Request::getArray('checks', [], 'POST');
                 $classe = get_class($this);
                 foreach ($chks as $k => $v) {
                     $nova = new $classe($k);
@@ -266,7 +266,7 @@ if (!class_exists('Mastop_geral')) {
             }
             if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST') && Request::getString('group_action', '', 'POST') === 'group_del'
                 && is_array(Request::getArray('checks', '', 'POST'))) {
-                $chks = Request::getArray('checks', array(), 'POST');
+                $chks = Request::getArray('checks', [], 'POST');
                 foreach ($chks as $k => $v) {
                     $hiddens['checks[' . $k . ']'] = 1;
                 }
@@ -277,7 +277,7 @@ if (!class_exists('Mastop_geral')) {
             }
             $busca_url = '';
             if (Request::hasVar('busca', 'GET')) {
-                foreach (Request::getArray('busca', array(), 'GET') as $k => $v) {
+                foreach (Request::getArray('busca', [], 'GET') as $k => $v) {
                     if ($v !== '' && $v != '-1' && in_array($k, $campos['nome'])) {
                         if (is_numeric($v)) {
                             $criterio->add(new Criteria($k, $v, '=', $this->tabela));
@@ -453,7 +453,7 @@ if (!class_exists('Mastop_geral')) {
                     . $campos['lang']['por_pagina']
                     . '</b>';
             if (Request::hasVar('busca', 'GET')) {
-                foreach (Request::getArray('busca', array(), 'GET') as $k => $v) {
+                foreach (Request::getArray('busca', [], 'GET') as $k => $v) {
                     if ($v !== '' && $v != '-1' && !is_array($v)) {
                         $ret .= "<input type='hidden' name='busca[" . $k . "]' value='" . $v . "'>";
                     } elseif (is_array($v)) {
@@ -505,36 +505,36 @@ if (!class_exists('Mastop_geral')) {
                             $ret .= "<input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dday]' size='2' maxlength='2' value="
-                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dday'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dday'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dday'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['dday'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dmonth]' size='2' maxlength='2' value="
-                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dmonth'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dmonth'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dmonth'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['dmonth'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dyear]' size='2' maxlength='4' value="
-                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dyear'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dyear'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dyear'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['dyear'] : '')
                                     . '><br>';
                             $ret .= "<input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][aday]' size='2' maxlength='2' value="
-                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['aday'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['aday'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['aday'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['aday'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][amonth]' size='2' maxlength='2' value="
-                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['amonth'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['amonth'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['amonth'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['amonth'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][ayear]' size='2' maxlength='4' value="
-                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['ayear'] ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['ayear'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['ayear'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['ayear'] : '')
                                     . '>';
                             break;
                         case 'select':
                             $ret .= "<select name='busca[" . $campos['nome'][$k] . "]'><option value='-1'>" . _SELECT . '</option>';
                             foreach ($campos['options'][$k] as $x => $y) {
                                 $ret .= "<option value='" . $x . "'";
-                                $ret .= (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]])
-                                         && Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] == $x) ? ' selected' : '';
+                                $ret .= (isset(Request::getArray('busca', [], 'GET') [$campos['nome'][$k]])
+                                         && Request::getArray('busca', [], 'GET') [$campos['nome'][$k]] == $x) ? ' selected' : '';
                                 $ret .= '>' . $y . '</option>';
                             }
                             $ret .= '</select>';
@@ -542,12 +542,12 @@ if (!class_exists('Mastop_geral')) {
                         case 'simnao':
                             $ret .= "<select name='busca[" . $campos['nome'][$k] . "]'><option value='-1'>" . _SELECT . '</option>';
                             $ret .= "<option value='1'";
-                            $ret .= (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]])
-                                     && Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] == 1) ? ' selected' : '';
+                            $ret .= (isset(Request::getArray('busca', [], 'GET') [$campos['nome'][$k]])
+                                     && Request::getArray('busca', [], 'GET') [$campos['nome'][$k]] == 1) ? ' selected' : '';
                             $ret .= '>' . _YES . '</option>';
                             $ret .= "<option value='0'";
-                            $ret .= (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]])
-                                     && Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] == 0) ? ' selected' : '';
+                            $ret .= (isset(Request::getArray('busca', [], 'GET') [$campos['nome'][$k]])
+                                     && Request::getArray('busca', [], 'GET') [$campos['nome'][$k]] == 0) ? ' selected' : '';
                             $ret .= '>' . _NO . '</option>';
                             $ret .= '</select>';
                             break;
@@ -556,7 +556,7 @@ if (!class_exists('Mastop_geral')) {
                             $ret .= "<input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "]' value='"
-                                    . (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]]) ? Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] : '')
+                                    . (isset(Request::getArray('busca', [], 'GET') [$campos['nome'][$k]]) ? Request::getArray('busca', [], 'GET') [$campos['nome'][$k]] : '')
                                     . "' size='"
                                     . (isset($campos['tamanho'][$k]) ? $campos['tamanho'][$k] : 20)
                                     . "'>";
@@ -672,7 +672,7 @@ if (!class_exists('Mastop_geral')) {
                     $ret .= "<tbody><tr><td colspan='" . $colunas . "'>";
                     $ret .= $precrit_hidden . "<input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'><input type='hidden' name='start' value='" . $start . "'>";
                     if (Request::hasVar('busca', 'GET')) {
-                        foreach (Request::getArray('busca', array(), 'GET') as $k => $v) {
+                        foreach (Request::getArray('busca', [], 'GET') as $k => $v) {
                             if ($v !== '' && $v != '-1' && !is_array($v)) {
                                 $ret .= "<input type='hidden' name='busca[" . $k . "]' value='" . $v . "'>";
                             } elseif (is_array($v)) {

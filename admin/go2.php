@@ -31,7 +31,7 @@ if (isset($_POST)) {
 
 $sec_classe = mgo_getClass(MGO_MOD_TABELA0);
 $sec_todos  = $sec_classe->pegaTudo();
-$sec_select = array();
+$sec_select = [];
 if ($sec_todos) {
     foreach ($sec_todos as $v) {
         $sec_select[$v->getVar($v->id)] = $v->getVar('sec_30_nome');
@@ -123,7 +123,7 @@ switch ($op) {
         if (empty($go2_10_id) || $go2_classe->getVar('go2_10_id') === '') {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_404);
         }
-        xoops_confirm(array('op' => 'dstac_deletar_ok', 'go2_10_id' => $go2_10_id), 'go2.php', sprintf(MGO_ADM_GO2_CONFIRMA_DEL, $go2_10_id, $go2_classe->getVar('go2_30_nome')));
+        xoops_confirm(['op' => 'dstac_deletar_ok', 'go2_10_id' => $go2_10_id], 'go2.php', sprintf(MGO_ADM_GO2_CONFIRMA_DEL, $go2_10_id, $go2_classe->getVar('go2_30_nome')));
         break;
 
     case 'dstac_deletar_ok':
@@ -170,6 +170,7 @@ switch ($op) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, constant('MGO_ADM_SUCESS_' . $msg));
         }
 
+        // no break
     case 'listar_dstac':
         echo (!empty($erro)) ? $erro . '<br>' : '';
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
