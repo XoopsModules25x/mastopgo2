@@ -104,13 +104,13 @@ class MastopFormSelectImage extends XoopsFormSelect
             if ($total > 0) {
                 $imgcat    = $imgcatHandler->get($k);
                 $storetype = $imgcat->getVar('imgcat_storetype');
-                if ($storetype === 'db') {
+                if ('db' === $storetype) {
                     $images = $imageHandler->getObjects($criteria, false, true);
                 } else {
                     $images = $imageHandler->getObjects($criteria, false, false);
                 }
                 foreach ($images as $i) {
-                    if ($storetype === 'db') {
+                    if ('db' === $storetype) {
                         $ret[$v]['/image.php?id=' . $i->getVar('image_id')] = $i->getVar('image_nicename');
                     } else {
                         $ret[$v]['/uploads/' . $i->getVar('image_name')] = $i->getVar('image_nicename');
@@ -174,7 +174,7 @@ class MastopFormSelectImage extends XoopsFormSelect
                          . "'"
                          . $this->getExtra()
                          . '';
-        if ($this->isMultiple() !== false) {
+        if (false !== $this->isMultiple()) {
             $ret .= " name='" . $this->getName() . "[]' id='" . $this->getName() . "[]' multiple='multiple'>\n";
         } else {
             $ret .= " name='" . $this->getName() . "' id='" . $this->getName() . "'>\n";

@@ -91,19 +91,19 @@ class Mgo_go2_go2 extends Mastop_geral
     public function pegaLink($imagem = false, $html = true)
     {
         if (!$html) {
-            if ($this->getVar('go2_30_link') === '') {
+            if ('' === $this->getVar('go2_30_link')) {
             } else {
                 return XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id);
             }
         } else {
             if (!$imagem) {
-                if ($this->getVar('go2_11_target') == 0) {
+                if (0 == $this->getVar('go2_11_target')) {
                     return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "'>" . $this->getVar('go2_30_link') . '</a>';
                 } else {
                     return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->getVar('go2_30_link') . '</a>';
                 }
             } else {
-                if ($this->getVar('go2_11_target') == 0) {
+                if (0 == $this->getVar('go2_11_target')) {
                     return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "'>" . $this->pegaImagem(true) . '</a>';
                 } else {
                     return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->pegaImagem(true) . '</a>';

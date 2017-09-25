@@ -34,7 +34,7 @@ switch ($op) {
         //      mgo_adm_menu();
         $sec_10_id  = (!empty($sec_10_id)) ? $sec_10_id : 0;
         $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
-        if (empty($sec_10_id) || $sec_classe->getVar('sec_10_id') === '') {
+        if (empty($sec_10_id) || '' === $sec_classe->getVar('sec_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?op=listar', 3, MGO_ADM_404);
         }
         $form['titulo'] = MGO_ADM_SEC_EDIT;
@@ -47,7 +47,7 @@ switch ($op) {
         //      mgo_adm_menu();
         $sec_10_id  = (!empty($sec_10_id)) ? $sec_10_id : 0;
         $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
-        if (empty($sec_10_id) || $sec_classe->getVar('sec_10_id') === '') {
+        if (empty($sec_10_id) || '' === $sec_classe->getVar('sec_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?op=listar', 3, MGO_ADM_404);
         }
         xoops_confirm(['op' => 'section_deletar_ok', 'sec_10_id' => $sec_10_id], 'sec.php', sprintf(MGO_ADM_SEC_CONFIRMA_DEL, $sec_10_id, $sec_classe->getVar('sec_30_nome')));
@@ -57,7 +57,7 @@ switch ($op) {
         $sec_10_id  = (!empty($sec_10_id)) ? $sec_10_id : 0;
         $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
-        if (empty($sec_10_id) || $sec_classe->getVar('sec_10_id') === '') {
+        if (empty($sec_10_id) || '' === $sec_classe->getVar('sec_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?listar', 3, MGO_ADM_404);
         }
         $go2_classe->deletaTodos(new Criteria('sec_10_id', $sec_10_id));
@@ -81,7 +81,7 @@ switch ($op) {
             $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
         }
         $sec_classe->setVar('sec_30_nome', $sec_30_nome);
-        if ($sec_classe->getVar('sec_10_id') !== '') {
+        if ('' !== $sec_classe->getVar('sec_10_id')) {
             $msg = 'UPD';
         } else {
             $msg = 'ADD';

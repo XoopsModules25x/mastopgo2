@@ -140,7 +140,7 @@ $(nome).value = 0;
 PICKER;
     $sec_classe = mgo_getClass(MGO_MOD_TABELA0);
     $sec_todos  = $sec_classe->pegaTudo();
-    $sec_select = "<option value='0' " . (($options[0] == 0) ? 'selected' : '') . '>' . _ALL . '</option>';
+    $sec_select = "<option value='0' " . ((0 == $options[0]) ? 'selected' : '') . '>' . _ALL . '</option>';
     if ($sec_todos) {
         foreach ($sec_todos as $v) {
             $sec_select .= "<option value='" . $v->getVar($v->id) . "' " . (($options[0] == $v->getVar($v->id)) ? 'selected' : '') . '>' . $v->getVar('sec_30_nome') . '</option>';
@@ -149,20 +149,20 @@ PICKER;
     $form .= MGO_BLO_SHOW_SECTION . " <select name='options[0]'>" . $sec_select . '</select><br>';
     $form .= MGO_BLO_ALTURA . " <input type='text' name='options[1]' value='" . $options[1] . "'><br>";
     $form .= MGO_BLO_SETAS . "&nbsp;<input type='radio' name='options[2]' value='1'";
-    if ($options[2] == 1) {
+    if (1 == $options[2]) {
         $form .= ' checked';
     }
     $form .= '>&nbsp;' . _YES . "<input type='radio' name='options[2]' value='0'";
-    if ($options[2] == 0) {
+    if (0 == $options[2]) {
         $form .= ' checked';
     }
     $form .= '>&nbsp;' . _NO . '<br>';
     $form .= MGO_BLO_BARRA . "&nbsp;<input type='radio' name='options[3]' value='1'";
-    if ($options[3] == 1) {
+    if (1 == $options[3]) {
         $form .= ' checked';
     }
     $form .= '>&nbsp;' . _YES . "<input type='radio' name='options[3]' value='0'";
-    if ($options[3] == 0) {
+    if (0 == $options[3]) {
         $form .= ' checked';
     }
     $form .= '>&nbsp;' . _NO . '<br>';

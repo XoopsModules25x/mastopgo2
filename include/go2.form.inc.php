@@ -18,10 +18,10 @@ require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/formimage.php
 
 $go2_form      = new XoopsThemeForm($form['titulo'], 'go2form', 'go2.php', 'post', true);
 $imagem_select = new MastopFormSelectImage(MGO_ADM_IMAGEM, 'go2_30_imagem', $go2_classe->getVar('go2_30_imagem'), ((is_array($xoopsModuleConfig['mgo_des_img'])
-                                                                                                                    && $xoopsModuleConfig['mgo_des_img'][0] !== '') ? $xoopsModuleConfig['mgo_des_img'] : null));
+                                                                                                                    && '' !== $xoopsModuleConfig['mgo_des_img'][0]) ? $xoopsModuleConfig['mgo_des_img'] : null));
 
 $go2_form->addElement($imagem_select);
-$section_select = new XoopsFormSelect(MGO_ADM_SECTION, 'sec_10_id', (($go2_classe->getVar('go2_10_id') !== '') ? $go2_classe->getVar('sec_10_id') : Request::getInt('sec_10_id')));
+$section_select = new XoopsFormSelect(MGO_ADM_SECTION, 'sec_10_id', (('' !== $go2_classe->getVar('go2_10_id')) ? $go2_classe->getVar('sec_10_id') : Request::getInt('sec_10_id')));
 $section_select->addOptionArray($sec_select);
 
 $go2_form->addElement($section_select);

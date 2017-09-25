@@ -64,7 +64,7 @@ class Mgo_sec_section extends Mastop_geral
      */
     public function montaGaleria($altura, $section = 0, $setas = 1, $barra = 1, $delay = 6, $transp = 50, $largura = '100%')
     {
-        if ($section == 0) {
+        if (0 == $section) {
             $criterio = new CriteriaCompo(new Criteria('go2_12_ativo', 1));
         } else {
             $criterio = new CriteriaCompo(new Criteria('sec_10_id', $section));
@@ -94,8 +94,8 @@ border: 0;
 function start_dstacs_' . $section . '() {
 var dstacs_' . $section . ' = new Gallery($("dstacs_' . $section . '"), {
 timed: ' . ((count($dstacs) > 1) ? 'true' : 'false') . ',
-showArrows: ' . (($setas == 1) ? 'true' : 'false') . ',
-showInfopane: ' . (($barra == 1) ? 'true' : 'false') . ',
+showArrows: ' . ((1 == $setas) ? 'true' : 'false') . ',
+showInfopane: ' . ((1 == $barra) ? 'true' : 'false') . ',
 delay: ' . ($delay * 1000) . ',
 slideInfoZoneOpacity: ' . (($transp > 0) ? '0.' . (int)((100 - $transp) / 10) : '1') . ',
 embedLinks: true,
@@ -108,13 +108,13 @@ window.onDomReady(start_dstacs_' . $section . ');
 			';
             $ret .= '<div align="center"><div id="dstacs_' . $section . '">';
             foreach ($dstacs as $v) {
-                if ($v->getVar('go2_11_target') == 0) {
+                if (0 == $v->getVar('go2_11_target')) {
                     $target = '';
                 } else {
                     $target = "target='_blank'";
                 }
                 $ret .= '<div class="imageElement">';
-                $ret .= ($v->getVar('go2_30_nome') != '') ? '<h3><a href="' . $v->pegaLink(false, false) . '" title="' . $v->getVar('go2_30_nome') . '" ' . $target . ' class="open">' . $v->getVar('go2_30_nome') . '</a></h3>' : '<h3>&nbsp;</h3>';
+                $ret .= ('' != $v->getVar('go2_30_nome')) ? '<h3><a href="' . $v->pegaLink(false, false) . '" title="' . $v->getVar('go2_30_nome') . '" ' . $target . ' class="open">' . $v->getVar('go2_30_nome') . '</a></h3>' : '<h3>&nbsp;</h3>';
                 $ret .= '<p></p>';
                 $ret .= $v->pegaLink(true);
                 $ret .= '</div>';

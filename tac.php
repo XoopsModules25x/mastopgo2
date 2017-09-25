@@ -35,7 +35,7 @@ if (isset($_GET)) {
 }
 $tac        = (!empty($_GET['sec_id'])) ? (int)$_GET['sec_id'] : 0;
 $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $tac);
-if (empty($tac) || $sec_classe->getVar('sec_10_id') === '' || $sec_classe->contaDestaques() == 0) {
+if (empty($tac) || '' === $sec_classe->getVar('sec_10_id') || 0 == $sec_classe->contaDestaques()) {
     exit();
 } else {
     $w         = !empty($w) ? $w : '100%';
