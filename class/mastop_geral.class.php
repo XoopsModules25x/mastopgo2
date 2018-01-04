@@ -45,7 +45,7 @@ if (!class_exists('Mastop_geral')) {
             if (!$this->cleanVars()) {
                 return false;
             }
-            $myts = MyTextSanitizer::getInstance();
+            $myts = \MyTextSanitizer::getInstance();
             foreach ($this->cleanVars as $k => $v) {
                 $indices[] = $k;
                 $valores[] = $v;
@@ -110,7 +110,7 @@ if (!class_exists('Mastop_geral')) {
         {
             $set_clause = is_numeric($valor) ? $campo . ' = ' . $valor : $campo . ' = ' . $this->db->quoteString($valor);
             $sql        = 'UPDATE ' . $this->tabela . ' SET ' . $set_clause;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && is_subclass_of($criterio, 'CriteriaElement')) {
                 $sql .= ' ' . $criterio->renderWhere();
             }
             if (!$result = $this->db->query($sql)) {
@@ -142,7 +142,7 @@ if (!class_exists('Mastop_geral')) {
         public function deletaTodos($criterio = null)
         {
             $sql = 'DELETE FROM ' . $this->tabela;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && is_subclass_of($criterio, 'CriteriaElement')) {
                 $sql .= ' ' . $criterio->renderWhere();
             }
             if (!$result = $this->db->query($sql)) {
@@ -185,7 +185,7 @@ if (!class_exists('Mastop_geral')) {
             $classe = get_class($this);
             if (!$objeto) {
                 $sql = 'SELECT ' . $this->id . ' FROM ' . $this->tabela;
-                if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+                if (isset($criterio) && is_subclass_of($criterio, 'CriteriaElement')) {
                     $sql .= ' ' . $criterio->renderWhere();
                     if ('' !== $criterio->getSort()) {
                         $sql .= ' ORDER BY ' . $criterio->getSort() . ' ' . $criterio->getOrder();
@@ -206,7 +206,7 @@ if (!class_exists('Mastop_geral')) {
                 }
             } else {
                 $sql = 'SELECT ' . $this->tabela . '.* FROM ' . $this->tabela . ((!empty($join)) ? ' ' . $join : '');
-                if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+                if (isset($criterio) && is_subclass_of($criterio, 'CriteriaElement')) {
                     $sql .= ' ' . $criterio->renderWhere();
                     if ('' !== $criterio->getSort()) {
                         $sql .= ' ORDER BY ' . $criterio->getSort() . ' ' . $criterio->getOrder();
@@ -714,7 +714,7 @@ if (!class_exists('Mastop_geral')) {
         public function contar($criterio = null)
         {
             $sql = 'SELECT COUNT(*) FROM ' . $this->tabela;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && is_subclass_of($criterio, 'CriteriaElement')) {
                 $sql .= ' ' . $criterio->renderWhere();
             }
             $result = $this->db->query($sql);
@@ -735,7 +735,7 @@ if (!class_exists('Mastop_geral')) {
         public function soma($criterio = null, $campo)
         {
             $sql = 'SELECT SUM(' . $campo . ') FROM ' . $this->tabela;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && is_subclass_of($criterio, 'CriteriaElement')) {
                 $sql .= ' ' . $criterio->renderWhere();
             }
             $result = $this->db->query($sql);
@@ -761,7 +761,7 @@ if (!class_exists('Mastop_geral')) {
             $ret   = '';
             $order = 'up';
             $sort  = $this->id;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && is_subclass_of($criterio, 'CriteriaElement')) {
                 $limit = $criterio->getLimit();
                 $start = $criterio->getStart();
                 if ('' !== $criterio->getSort()) {

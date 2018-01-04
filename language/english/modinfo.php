@@ -14,7 +14,7 @@
 // xoops_version.php
 define('MGO_MOD_NOME', 'Mastop Go2');
 define('MGO_MOD_DESC', 'A Spotlights Module');
-define('MGO_MOD_DIR', 'mastop_go2');
+define('MGO_MOD_DIR', 'mastopgo2');
 define('MGO_MOD_TABELA0', 'mgo_sec_section');
 define('MGO_MOD_TABELA1', 'mgo_go2_go2');
 define('MGO_MOD_BLOCOS', 'Blocks');

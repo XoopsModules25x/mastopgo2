@@ -13,6 +13,9 @@
 ### =============================================================
 
 require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/funcoes.inc.php';
+
+include __DIR__ . '/preloads/autoloader.php';
+
 // Dados do Módulo
 $modversion['version']             = '1.04';
 $modversion['module_status']       = 'RC 1';

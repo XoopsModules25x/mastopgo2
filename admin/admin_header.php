@@ -24,22 +24,18 @@ $moduleDirName = basename(dirname(__DIR__));
 //require_once $GLOBALS['xoops']->path('www/include/cp_functions.php');
 //require_once $GLOBALS['xoops']->path('www/include/cp_header.php');
 //require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
-//require_once __DIR__ . '/../class/utility.php';
+//require_once __DIR__ . '/../class/Utility.php';
 
 xoops_loadLanguage('admin', $moduleDirName);
 xoops_loadLanguage('modinfo', $moduleDirName);
 xoops_loadLanguage('main', $moduleDirName);
 require_once __DIR__ . '/../include/funcoes.inc.php';
-
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
-}
+$helper = \Xmf\Module\Helper::getHelper($moduleDirName);
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject   = Xmf\Module\Admin::getInstance();
 $pathIcon16    = Admin::iconUrl('', 16);
 $pathIcon32    = Admin::iconUrl('', 32);
-$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
 $c['lang']['filtros']    = MGO_ADM_FILTROS;
 $c['lang']['exibir']     = MGO_ADM_EXIBIR;
@@ -62,7 +58,7 @@ $c['lang']['group_del_sure'] = MGO_ADM_GRP_DEL_SURE;
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = Xmf\Module\Admin::getInstance();
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');

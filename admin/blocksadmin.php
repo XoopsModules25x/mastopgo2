@@ -30,7 +30,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
     }
 
     if (Request::hasVar('op', 'GET')) {
-        $temp = Request::hasVar('op', 'GET');
+        $temp = Request::getString('op', '', 'GET');
         if (in_array($temp, ['edit', 'delete', 'delete_ok', 'clone'], true)) {
             $op  = $temp;
             $bid = Request::getInt('bid', 0);

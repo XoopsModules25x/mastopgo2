@@ -67,7 +67,7 @@ if ('updatecat' === $op && $admin) {
         redirect_header(Request::getString('PHP_SELF', '', 'SERVER'), 1);
     }
     $imagecategory->setVar('imgcat_name', Request::getString('imgcat_name', '', 'POST'));
-    $imgcat_display = (Request::hasVar('imgcat_display', 'POST')) ? 1 : 0; //empty($_POST['imgcat_display']) ? 0 : 1;
+    $imgcat_display = Request::hasVar('imgcat_display', 'POST') ? 1 : 0; //empty($_POST['imgcat_display']) ? 0 : 1;
     $imagecategory->setVar('imgcat_display', Request::getInt('imgcat_display', 0, 'POST'));// $_POST['imgcat_display']);
     $imagecategory->setVar('imgcat_maxsize', Request::getInt('imgcat_maxsize', 0, 'POST'));//  $_POST['imgcat_maxsize']);
     $imagecategory->setVar('imgcat_maxwidth', Request::getInt('imgcat_maxwidth', 0, 'POST'));//  $_POST['imgcat_maxwidth']);
@@ -128,7 +128,7 @@ if ('addcat' === $op && $admin) {
     $imagecategory->setVar('imgcat_maxsize', Request::getInt('imgcat_maxsize', 0, 'POST'));//  $_POST['imgcat_maxsize']);
     $imagecategory->setVar('imgcat_maxwidth', Request::getInt('imgcat_maxwidth', 0, 'POST'));//  $_POST['imgcat_maxwidth']);
     $imagecategory->setVar('imgcat_maxheight', Request::getInt('imgcat_maxheight', 0, 'POST'));//  $_POST['imgcat_maxheight']);
-    $imgcat_display = (Request::hasVar('imgcat_display', 'POST')) ? 1 : 0; //empty($_POST['imgcat_display']) ? 0 : 1;
+    $imgcat_display = Request::hasVar('imgcat_display', 'POST') ? 1 : 0; //empty($_POST['imgcat_display']) ? 0 : 1;
     $imagecategory->setVar('imgcat_display', Request::getInt('imgcat_display', 0, 'POST'));// $_POST['imgcat_display']);
     $imagecategory->setVar('imgcat_weight', Request::getInt('imgcat_weight', 0, 'POST'));//  $_POST['imgcat_weight']);
     $imagecategory->setVar('imgcat_storetype', Request::getString('imgcat_storetype', '', 'POST'));//  $_POST['imgcat_storetype']);
@@ -577,19 +577,19 @@ if ('delcatok' === $op && $admin) {
             echo '<h4><a href="' . Request::getString('PHP_SELF', '', 'SERVER') . '?target=' . $target . '">' . _MD_IMGMAIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $imagecategory->getVar('imgcat_name') . '</h4><br><br>';
             $criteria = new Criteria('imgcat_id', $imgcat_id);
             $imgcount = $imageHandler->getCount($criteria);
-            $start    = (Request::getInt('start', 0, 'GET'));
+            $start    = Request::getInt('start', 0, 'GET');
             $criteria->setStart($start);
             $criteria->setLimit(20);
             $images = $imageHandler->getObjects($criteria, true, false);
             echo '<table style="width:100%;"><thead><tr>
     <td>&nbsp;</td>
-    <td style="border: 1px double black; text-align: center">' . _IMAGENAME . '</td>
-    <td style="border: 1px double black; text-align: center">' . _IMAGEMIME . '</td>
-    <td style="border: 1px double black; text-align: center">' . _OPTIONS . '</td>
+    <td style="border: 1px double black; text-align: center;">' . _IMAGENAME . '</td>
+    <td style="border: 1px double black; text-align: center;">' . _IMAGEMIME . '</td>
+    <td style="border: 1px double black; text-align: center;">' . _OPTIONS . '</td>
     </tr></thead><tbody>
     ';
             foreach (array_keys($images) as $i) {
-                echo '<tr><td width="30%" style="text-align: center">';
+                echo '<tr><td width="30%" style="text-align: center;">';
                 if ('db' === $imagecategory->getVar('imgcat_storetype')) {
                     $imagem_url = XOOPS_URL . '/image.php?id=' . $i;
                     $url        = '/image.php?id=' . $i;
@@ -608,15 +608,15 @@ if ('delcatok' === $op && $admin) {
                      . '\', \''
                      . $images[$i]->getVar('imgcat_id')
                      . '\')">';
-                echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $images[$i]->getVar('image_nicename') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $images[$i]->getVar('image_mimetype') . '</td>';
-                echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $url . '\', \'' . $images[$i]->getVar('image_nicename') . '\', \'' . $target . '\', \'' . $images[$i]->getVar('imgcat_id') . '\')">' . _SELECT . '</a></td></tr>';
+                echo '</td><td style="border: 2px double #F0F0EE; text-align: center;">' . $images[$i]->getVar('image_nicename') . '</td><td style="border: 2px double #F0F0EE; text-align: center;">' . $images[$i]->getVar('image_mimetype') . '</td>';
+                echo '<td style="border: 2px double #F0F0EE; text-align: center;"><a href="javascript:void(0)" onclick="addItem(\'' . $url . '\', \'' . $images[$i]->getVar('image_nicename') . '\', \'' . $target . '\', \'' . $images[$i]->getVar('imgcat_id') . '\')">' . _SELECT . '</a></td></tr>';
             }
             echo '</tbody></table>';
             if ($imgcount > 0) {
                 if ($imgcount > 20) {
                     require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
                     $nav = new XoopsPageNav($imgcount, 20, $start, 'start', 'op=listimg&amp;imgcat_id=' . $imgcat_id);
-                    echo '<div style="text-align:right">' . $nav->renderNav() . '</div>';
+                    echo '<div style="text-align:right;">' . $nav->renderNav() . '</div>';
                 }
             }
         } else {
@@ -687,7 +687,7 @@ if ('delcatok' === $op && $admin) {
                         $image->setVar('image_nicename', Request::getString('image_nicename', '', 'POST'));// $_POST['image_nicename']);
                         $image->setVar('image_mimetype', $uploader->getMediaType());
                         $image->setVar('image_created', time());
-                        $image_display = (Request::hasVar('image_display', 'POST')) ? 1 : 0; //empty($_POST['image_display']) ? 0 : 1;
+                        $image_display = Request::hasVar('image_display', 'POST') ? 1 : 0; //empty($_POST['image_display']) ? 0 : 1;
                         $image->setVar('image_display', Request::getInt('image_display', 0, 'POST'));//$_POST['image_display']);
                         $image->setVar('image_weight', Request::getInt('image_weight', 0, 'POST'));//$_POST['image_weight']);
                         $image->setVar('imgcat_id', Request::getInt('imgcat_id', 0, 'POST'));//$_POST['imgcat_id']);
@@ -717,12 +717,12 @@ if ('delcatok' === $op && $admin) {
             echo '<fieldset><legend>' . _IMGMANAGER . '</legend>';
             echo '<table style="width:100%;"><thead><tr>
     <td>&nbsp;</td>
-    <td style="border: 1px double black; text-align: center">' . _IMAGENAME . '</td>
-    <td style="border: 1px double black; text-align: center">' . _IMAGEMIME . '</td>
-    <td style="border: 1px double black; text-align: center">' . _OPTIONS . '</td>
+    <td style="border: 1px double black; text-align: center;">' . _IMAGENAME . '</td>
+    <td style="border: 1px double black; text-align: center;">' . _IMAGEMIME . '</td>
+    <td style="border: 1px double black; text-align: center;">' . _OPTIONS . '</td>
     </tr></thead><tbody>
     ';
-            echo '<tr><td width="30%" style="text-align: center">';
+            echo '<tr><td width="30%" style="text-align: center;">';
             if ('db' === $imagecategory->getVar('imgcat_storetype')) {
                 $imagem_url = XOOPS_URL . '/image.php?id=' . $image->getVar('image_id');
                 $url        = '/image.php?id=' . $image->getVar('image_id');
@@ -741,8 +741,8 @@ if ('delcatok' === $op && $admin) {
                  . '\', \''
                  . $image->getVar('imgcat_id')
                  . '\')">';
-            echo '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $image->getVar('image_nicename') . '</td><td style="border: 2px double #F0F0EE; text-align: center">' . $image->getVar('image_mimetype') . '</td>';
-            echo '<td style="border: 2px double #F0F0EE; text-align: center"><a href="javascript:void(0)" onclick="addItem(\'' . $url . '\', \'' . $image->getVar('image_nicename') . '\', \'' . $target . '\', \'' . $image->getVar('imgcat_id') . '\')">' . _SELECT . '</a></td></tr>';
+            echo '</td><td style="border: 2px double #F0F0EE; text-align: center;">' . $image->getVar('image_nicename') . '</td><td style="border: 2px double #F0F0EE; text-align: center;">' . $image->getVar('image_mimetype') . '</td>';
+            echo '<td style="border: 2px double #F0F0EE; text-align: center;"><a href="javascript:void(0)" onclick="addItem(\'' . $url . '\', \'' . $image->getVar('image_nicename') . '\', \'' . $target . '\', \'' . $image->getVar('imgcat_id') . '\')">' . _SELECT . '</a></td></tr>';
         }
         echo '</tbody></table></fieldset>';
         }
@@ -765,10 +765,8 @@ if ('delcatok' === $op && $admin) {
             $form->display();
         } ?>
     </div>
-    <?php
+    <?php }  ?>
 
-    }
-    ?>
     <?php if ($admin) {
     ?>
     <div class="tabbertab<?php echo ($op === 'addcat') ? ' tabbertabdefault' : ''; ?>">
@@ -798,9 +796,8 @@ if ('delcatok' === $op && $admin) {
         <input type="button" id="cancel" name="cancel" value="<?php echo _CLOSE ?>" onclick="window.close();">
     </div>
 </div>
-<!--
-<!--{xo-logger-output}-->
--->
+
+//<!--{xo-logger-output}-->
+
 </body>
 </html>
-?>

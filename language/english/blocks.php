@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-define('MGO_BLO_MODDIR', 'mastop_go2');
+define('MGO_BLO_MODDIR', 'mastopgo2');
 define('MGO_BLO_SHOW_SECTION', 'Show Section');
 define('MGO_BLO_ALTURA', 'Height of the Block (pixels)');
 define('MGO_BLO_SETAS', 'Show navigation arrows?');

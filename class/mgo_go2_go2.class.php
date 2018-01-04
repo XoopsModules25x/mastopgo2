@@ -12,7 +12,7 @@
 ###
 ### =============================================================
 
-require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastop_geral.class.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastopgeral.class.php';
 
 /**
  * Class Mgo_go2_go2

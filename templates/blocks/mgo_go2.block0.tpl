@@ -24,19 +24,19 @@
     }
 </style>
 
-<{*<script src="<{xoAppUrl}>modules/mastop_go2/assets/js/galeria/scripts/mootools-1.5.2-core.min.js"*}>
+<{*<script src="<{xoAppUrl}>modules/mastopgo2/assets/js/galeria/scripts/mootools-1.5.2-core.min.js"*}>
 <{*type="text/javascript"></script>*}>
-<{*<script src="<{xoAppUrl}>modules/mastop_go2/assets/js/galeria/scripts/mootools-1.5.2-more.min.js"*}>
+<{*<script src="<{xoAppUrl}>modules/mastopgo2/assets/js/galeria/scripts/mootools-1.5.2-more.min.js"*}>
 <{*type="text/javascript"></script>*}>
-<{*<script src="<{xoAppUrl}>modules/mastop_go2/assets/js/galeria/scripts/jd.gallery.js" type="text/javascript"></script>*}>
-<{*<script src="<{xoAppUrl}>modules/mastop_go2/assets/js/galeria/scripts/jd.gallery.set.js"*}>
+<{*<script src="<{xoAppUrl}>modules/mastopgo2/assets/js/galeria/scripts/jd.gallery.js" type="text/javascript"></script>*}>
+<{*<script src="<{xoAppUrl}>modules/mastopgo2/assets/js/galeria/scripts/jd.gallery.set.js"*}>
 <{*type="text/javascript"></script>*}>
-<{*<link rel="stylesheet" href="<{xoAppUrl}>/modules/mastop_go2/assets/js/galeria/css/jd.gallery.css" type="text/css"*}>
+<{*<link rel="stylesheet" href="<{xoAppUrl}>/modules/mastopgo2/assets/js/galeria/css/jd.gallery.css" type="text/css"*}>
 <{*media="screen">*}>
 
-<script src="<{xoAppUrl}>modules/mastop_go2/assets/js/galeria/scripts/mootools.js" type="text/javascript"></script>
-<script src="<{xoAppUrl}>modules/mastop_go2/assets/js/galeria/scripts/jd.js" type="text/javascript"></script>
-<link rel="stylesheet" href="<{xoAppUrl}>/modules/mastop_go2/assets/js/galeria/css/jd.css" type="text/css" media="screen">
+<script src="<{xoAppUrl}>modules/mastopgo2/assets/js/galeria/scripts/mootools.js" type="text/javascript"></script>
+<script src="<{xoAppUrl}>modules/mastopgo2/assets/js/galeria/scripts/jd.js" type="text/javascript"></script>
+<link rel="stylesheet" href="<{xoAppUrl}>/modules/mastopgo2/assets/js/galeria/css/jd.css" type="text/css" media="screen">
 
 <style type="text/css">
     #dstacs_<{$block.mgo_blo_section}> {

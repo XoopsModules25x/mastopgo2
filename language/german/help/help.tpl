@@ -1,6 +1,6 @@
 <div id="help-template" class="outer">
     <h1 class="head">Help:
-        <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/mastop_go2/admin/index.php"
+        <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/mastopgo2/admin/index.php"
            title="Back to the administration of Mastop Go2"> Mastop Go2
             <img src="<{xoAdminIcons home.png}>"
                  alt="Back to the Administration of Mastop Go2">
