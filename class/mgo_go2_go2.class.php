@@ -25,7 +25,7 @@ class Mgo_go2_go2 extends Mastop_geral
      */
     public function __construct($id = null)
     {
-        $this->db     = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db     = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->tabela = $this->db->prefix(MGO_MOD_TABELA1);
         $this->id     = 'go2_10_id';
         $this->initVar('go2_10_id', XOBJ_DTYPE_INT, 0);

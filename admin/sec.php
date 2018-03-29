@@ -60,7 +60,7 @@ switch ($op) {
         if (empty($sec_10_id) || '' === $sec_classe->getVar('sec_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?listar', 3, MGO_ADM_404);
         }
-        $go2_classe->deletaTodos(new Criteria('sec_10_id', $sec_10_id));
+        $go2_classe->deletaTodos(new \Criteria('sec_10_id', $sec_10_id));
         $sec_classe->delete();
         redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?op=listar', 3, MGO_ADM_SUCESS_DEL);
         break;

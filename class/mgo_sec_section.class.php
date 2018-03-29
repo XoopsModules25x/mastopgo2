@@ -24,7 +24,7 @@ class Mgo_sec_section extends Mastop_geral
      */
     public function __construct($id = null)
     {
-        $this->db     = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db     = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->tabela = $this->db->prefix(MGO_MOD_TABELA0);
         $this->id     = 'sec_10_id';
         $this->initVar('sec_10_id', XOBJ_DTYPE_INT, 0);
@@ -65,10 +65,10 @@ class Mgo_sec_section extends Mastop_geral
     public function montaGaleria($altura, $section = 0, $setas = 1, $barra = 1, $delay = 6, $transp = 50, $largura = '100%')
     {
         if (0 == $section) {
-            $criterio = new CriteriaCompo(new Criteria('go2_12_ativo', 1));
+            $criterio = new \CriteriaCompo(new \Criteria('go2_12_ativo', 1));
         } else {
-            $criterio = new CriteriaCompo(new Criteria('sec_10_id', $section));
-            $criterio->add(new Criteria('go2_12_ativo', 1));
+            $criterio = new \CriteriaCompo(new \Criteria('sec_10_id', $section));
+            $criterio->add(new \Criteria('go2_12_ativo', 1));
         }
         $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
         $dstacs     = $go2_classe->pegaTudo($criterio);

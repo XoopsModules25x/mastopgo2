@@ -125,7 +125,7 @@ if (!class_exists('Mastop_geral')) {
          */
         public function delete()
         {
-            $sql = sprintf('DELETE FROM "%s" WHERE ' . $this->id . ' = "%u"', $this->tabela, $this->getVar($this->id));
+            $sql = sprintf('DELETE FROM %s WHERE ' . $this->id . ' = %u', $this->tabela, $this->getVar($this->id));
             if (!$this->db->query($sql)) {
                 return false;
             }
@@ -196,7 +196,7 @@ if (!class_exists('Mastop_geral')) {
                 $result      = $this->db->query($sql, $limit, $start);
                 $this->total = $this->db->getRowsNum($result);
                 if ($this->total > 0) {
-                    while ($myrow = $this->db->fetchArray($result)) {
+                    while (false !== ($myrow = $this->db->fetchArray($result))) {
                         $ret[] = $myrow[$this->id];
                     }
 
@@ -217,7 +217,7 @@ if (!class_exists('Mastop_geral')) {
                 $result      = $this->db->query($sql, $limit, $start);
                 $this->total = $this->db->getRowsNum($result);
                 if ($this->total > 0) {
-                    while ($myrow = $this->db->fetchArray($result)) {
+                    while (false !== ($myrow = $this->db->fetchArray($result))) {
                         $ret[] = new $classe($myrow);
                     }
 
@@ -236,13 +236,13 @@ if (!class_exists('Mastop_geral')) {
          */
         public function administracao($url, $campos)
         {
-            $criterio = new CriteriaCompo();
+            $criterio = new \CriteriaCompo();
             if (!empty($campos['precrit']['campo']) && !empty($campos['precrit']['valor'])) {
                 $precrit_hidden = '';
                 $precrit_url    = '';
                 foreach ($campos['precrit']['campo'] as $k => $v) {
                     $hiddens[$v] = $campos['precrit']['valor'][$k];
-                    $criterio->add(new Criteria($v, $campos['precrit']['valor'][$k], '=', $this->tabela));
+                    $criterio->add(new \Criteria($v, $campos['precrit']['valor'][$k], '=', $this->tabela));
                     $precrit_hidden .= "<input type='hidden' name='" . $v . "' value='" . $campos['precrit']['valor'][$k] . "'>";
                     $precrit_url    .= '&' . $v . '=' . $campos['precrit']['valor'][$k];
                 }
@@ -280,7 +280,7 @@ if (!class_exists('Mastop_geral')) {
                 foreach (Request::getArray('busca', [], 'GET') as $k => $v) {
                     if ('' !== $v && '-1' != $v && in_array($k, $campos['nome'])) {
                         if (is_numeric($v)) {
-                            $criterio->add(new Criteria($k, $v, '=', $this->tabela));
+                            $criterio->add(new \Criteria($k, $v, '=', $this->tabela));
                         } elseif (is_array($v)) {
                             if (!empty($v['dday']) || !empty($v['dmonth']) || !empty($v['dyear']) || !empty($v['aday'])
                                 || !empty($v['amonth'])
@@ -293,11 +293,11 @@ if (!class_exists('Mastop_geral')) {
                                 $ayear  = (!empty($v['ayear'])) ? $v['ayear'] : date('Y');
                                 $ddate  = mktime(0, 0, 0, $v['dmonth'], $v['dday'], $v['dyear']);
                                 $adate  = mktime(0, 0, 0, $v['amonth'], $v['aday'], $v['ayear']);
-                                $criterio->add(new Criteria($k, $ddate, '>=', $this->tabela));
-                                $criterio->add(new Criteria($k, $adate, '<=', $this->tabela));
+                                $criterio->add(new \Criteria($k, $ddate, '>=', $this->tabela));
+                                $criterio->add(new \Criteria($k, $adate, '<=', $this->tabela));
                             }
                         } else {
-                            $criterio->add(new Criteria($k, "%$v%", 'LIKE', $this->tabela));
+                            $criterio->add(new \Criteria($k, "%$v%", 'LIKE', $this->tabela));
                         }
                         $busca_url .= (!is_array($v)) ? '&busca[' . $k . ']=' . $v : '&busca['
                                                                                      . $k

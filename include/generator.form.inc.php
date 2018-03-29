@@ -84,45 +84,45 @@ if ($sec_todos) {
         $sec_select[$v->getVar($v->id)] = $v->getVar('sec_30_nome');
     }
 }
-$dstac_form     = new XoopsThemeForm(MGO_MAI_FORM_TITLE, 'dstacform', Request::getString('PHP_SELF', '', 'SERVER'), 'post', true);
-$section_select = new XoopsFormSelect(MGO_MAI_SECTION, 'sec_10_id', ((!empty($sec_10_id)) ? $sec_10_id : null));
+$dstac_form     = new \XoopsThemeForm(MGO_MAI_FORM_TITLE, 'dstacform', Request::getString('PHP_SELF', '', 'SERVER'), 'post', true);
+$section_select = new \XoopsFormSelect(MGO_MAI_SECTION, 'sec_10_id', ((!empty($sec_10_id)) ? $sec_10_id : null));
 $section_select->addOptionArray($sec_select);
 $dstac_form->addElement($section_select);
-$dstac_form->addElement(new XoopsFormText(MGO_MAI_WIDTH, 'mgo_w', 5, 5, ((!empty($mgo_w)) ? $mgo_w : '100%')));
-$dstac_form->addElement(new XoopsFormText(MGO_MAI_HEIGHT, 'mgo_h', 5, 5, ((!empty($mgo_h)) ? $mgo_h : 200)));
-$dstac_form->addElement(new XoopsFormRadioYN(MGO_MAI_SETAS, 'setas', (isset($setas) ? $setas : 1)));
-$dstac_form->addElement(new XoopsFormRadioYN(MGO_MAI_BARRA, 'barra', (isset($barra) ? $barra : 1)));
-$dstac_form->addElement(new XoopsFormText(MGO_MAI_DELAY, 'delay', 5, 5, ((!empty($delay)) ? $delay : 6)));
-$cor_barra_tray = new XoopsFormElementTray(MGO_MAI_BARCOLOR);
-$cor_barra      = new XoopsFormText('', 'barcolor', 7, 6, ((!empty($barcolor)) ? $barcolor : '333333'));
+$dstac_form->addElement(new \XoopsFormText(MGO_MAI_WIDTH, 'mgo_w', 5, 5, ((!empty($mgo_w)) ? $mgo_w : '100%')));
+$dstac_form->addElement(new \XoopsFormText(MGO_MAI_HEIGHT, 'mgo_h', 5, 5, ((!empty($mgo_h)) ? $mgo_h : 200)));
+$dstac_form->addElement(new \XoopsFormRadioYN(MGO_MAI_SETAS, 'setas', (isset($setas) ? $setas : 1)));
+$dstac_form->addElement(new \XoopsFormRadioYN(MGO_MAI_BARRA, 'barra', (isset($barra) ? $barra : 1)));
+$dstac_form->addElement(new \XoopsFormText(MGO_MAI_DELAY, 'delay', 5, 5, ((!empty($delay)) ? $delay : 6)));
+$cor_barra_tray = new \XoopsFormElementTray(MGO_MAI_BARCOLOR);
+$cor_barra      = new \XoopsFormText('', 'barcolor', 7, 6, ((!empty($barcolor)) ? $barcolor : '333333'));
 $cor_barra->setExtra('onblur=\'$S(this.name+"_img").background="#"+this.value;\'');
 $cor_barra_tray->addElement($cor_barra);
-$cor_barra_tray->addElement(new XoopsFormLabel('', '<img id="barcolor_img" align="absmiddle" src="'
+$cor_barra_tray->addElement(new \XoopsFormLabel('', '<img id="barcolor_img" align="absmiddle" src="'
                                                    . $picker_url
                                                    . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("barcolor"), event)\' style="border: 2px solid #DEE3E7; background: #'
                                                    . ((!empty($barcolor)) ? $barcolor : '333333')
                                                    . '">'));
 $dstac_form->addElement($cor_barra_tray);
 
-$cor_texto_tray = new XoopsFormElementTray(MGO_MAI_TEXTCOLOR);
-$cor_texto      = new XoopsFormText('', 'textcolor', 7, 6, ((!empty($textcolor)) ? $textcolor : 'FFFFFF'));
+$cor_texto_tray = new \XoopsFormElementTray(MGO_MAI_TEXTCOLOR);
+$cor_texto      = new \XoopsFormText('', 'textcolor', 7, 6, ((!empty($textcolor)) ? $textcolor : 'FFFFFF'));
 $cor_texto->setExtra('onblur=\'$S(this.name+"_img").background="#"+this.value;\'');
 $cor_texto_tray->addElement($cor_texto);
-$cor_texto_tray->addElement(new XoopsFormLabel('', '<img id="textcolor_img" align="absmiddle" src="'
+$cor_texto_tray->addElement(new \XoopsFormLabel('', '<img id="textcolor_img" align="absmiddle" src="'
                                                    . $picker_url
                                                    . '/color.gif" onmouseover="this.style.border=\'2px solid black\'"  onmouseout="this.style.border=\'2px solid #DEE3E7\'" onclick=\'pegaPicker($("textcolor"), event)\' style="border: 2px solid #DEE3E7; background: #'
                                                    . ((!empty($textcolor)) ? $textcolor : 'FFFFFF')
                                                    . '">'));
 $dstac_form->addElement($cor_texto_tray);
-$transp_tray = new XoopsFormElementTray(MGO_MAI_TRANSP);
-$transp_tray->addElement(new XoopsFormText('', 'transp', 3, 3, ((!empty($transp)) ? $transp : 50)));
-$transp_tray->addElement(new XoopsFormLabel('', '%'));
+$transp_tray = new \XoopsFormElementTray(MGO_MAI_TRANSP);
+$transp_tray->addElement(new \XoopsFormText('', 'transp', 3, 3, ((!empty($transp)) ? $transp : 50)));
+$transp_tray->addElement(new \XoopsFormLabel('', '%'));
 $dstac_form->addElement($transp_tray);
-$align_select = new XoopsFormSelect(MGO_MAI_ALIGN, 'align', ((!empty($align)) ? $align : 'middle'));
+$align_select = new \XoopsFormSelect(MGO_MAI_ALIGN, 'align', ((!empty($align)) ? $align : 'middle'));
 $align_select->addOptionArray([
                                   'middle' => MGO_MAI_ALIGN_MIDDLE,
                                   'left'   => MGO_MAI_ALIGN_LEFT,
                                   'right'  => MGO_MAI_ALIGN_RIGHT
                               ]);
 $dstac_form->addElement($align_select);
-$dstac_form->addElement(new XoopsFormButton('', 'submit', MGO_MAI_GENERATE, 'submit'));
+$dstac_form->addElement(new \XoopsFormButton('', 'submit', MGO_MAI_GENERATE, 'submit'));

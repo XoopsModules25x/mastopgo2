@@ -45,16 +45,10 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         global $xoopsUser, $xoopsConfig, $xoopsModule;
         require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
-        if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php')) {
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
-            //include_once(XOOPS_ROOT_PATH."/modules/system/language/".$xoopsConfig['language']."/admin/groups.php");
-        } else {
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
-        }
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
+        xoops_loadLanguage('admin', 'system');
+        xoops_loadLanguage('admin/blocksadmin', 'system');
+        xoops_loadLanguage('admin/groups', 'system');
 
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
@@ -63,8 +57,8 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         /** @var XoopsGroupPermHandler $gpermHandler */
         $gpermHandler = xoops_getHandler('groupperm');
         $groups       = $memberHandler->getGroups();
-        $criteria     = new CriteriaCompo(new Criteria('hasmain', 1));
-        $criteria->add(new Criteria('isactive', 1));
+        $criteria     = new \CriteriaCompo(new \Criteria('hasmain', 1));
+        $criteria->add(new \Criteria('isactive', 1));
         $module_list     = $moduleHandler->getList($criteria);
         $module_list[-1] = _AM_TOPPAGE;
         $module_list[0]  = _AM_ALLPAGES;
@@ -106,7 +100,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
             $sql          = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . $i->getVar('bid');
             $result       = $db->query($sql);
             $modules      = [];
-            while ($row = $db->fetchArray($result)) {
+            while (false !== ($row = $db->fetchArray($result))) {
                 $modules[] = (int)$row['module_id'];
             }
             $sel0 = $sel1 = $ssel0 = $ssel1 = $ssel2 = $ssel3 = $ssel4 = $ssel5 = $ssel6 = $ssel7 = '';
@@ -251,25 +245,18 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
      */
     function clone_block($bid)
     {
-        global $xoopsConfig;
-        if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php')) {
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
-            //include_once(XOOPS_ROOT_PATH."/modules/system/language/".$xoopsConfig['language']."/admin/groups.php");
-        } else {
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
-        }
+        xoops_loadLanguage('admin', 'system');
+        xoops_loadLanguage('admin/blocksadmin', 'system');
+        xoops_loadLanguage('admin/groups', 'system');
 
         mgo_adm_menu();
-        $myblock = new XoopsBlock($bid);
-        $db      = XoopsDatabaseFactory::getDatabaseConnection();
+        $myblock = new \XoopsBlock($bid);
+        $db      = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql     = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
         $result  = $db->query($sql);
         $modules = [];
 
-        while ($row = $db->fetchArray($result)) {
+        while (false !== ($row = $db->fetchArray($result))) {
             $modules[] = (int)$row['module_id'];
         }
 
@@ -311,18 +298,14 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
     function clone_block_ok($bid, $bside, $bweight, $bvisible, $bcachetime, $bmodule, $options)
     {
         global $xoopsUser, $xoopsConfig;
-        if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php')) {
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/blocksadmin.php';
-            //include_once(XOOPS_ROOT_PATH."/modules/system/language/".$xoopsConfig['language']."/admin/groups.php");
-        } else {
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/blocksadmin.php';
-            require_once XOOPS_ROOT_PATH . '/modules/system/language/portuguesebr/admin/groups.php';
-        }
 
-        $block = new XoopsBlock($bid);
-        $clone =& $block->xoopsClone();
+        xoops_loadLanguage('admin', 'system');
+        xoops_loadLanguage('admin/blocksadmin', 'system');
+        xoops_loadLanguage('admin/groups', 'system');
+
+
+        $block = new \XoopsBlock($bid);
+        $clone = $block->xoopsClone();
         if (empty($bmodule)) {
             xoops_cp_header();
             xoops_error(sprintf(_AM_NOTSELNG, _AM_VISIBLEIN));
@@ -366,7 +349,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
             }
         }
 
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         foreach ($bmodule as $bmid) {
             $sql = 'INSERT INTO ' . $db->prefix('block_module_link') . ' (block_id, module_id) VALUES (' . $newid . ', ' . $bmid . ')';
             $db->query($sql);
@@ -390,7 +373,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
      */
     function setar_ordem($bid, $title, $weight, $visible, $side)
     {
-        $myblock = new XoopsBlock($bid);
+        $myblock = new \XoopsBlock($bid);
         $myblock->setVar('title', $title);
         $myblock->setVar('weight', $weight);
         $myblock->setVar('visible', $visible);

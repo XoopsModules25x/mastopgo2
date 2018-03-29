@@ -1,7 +1,7 @@
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
 ## Mastop_Go2 module for [XOOPS CMS 2.5.8+](https://xoops.org)
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
-[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](LICENSE)
+[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
  
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/mambax7/mastopgo2.svg?style=flat)](https://scrutinizer-ci.com/g/mambax7/mastopgo2/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/8da8967dc5564ae1a06ea61bc7649839)](https://www.codacy.com/app/mambax7/mastopgo2)

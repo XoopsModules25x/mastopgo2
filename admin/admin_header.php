@@ -12,9 +12,9 @@
 ###
 ### =============================================================
 
-use Xmf\Language;
+
 use Xmf\Module\Admin;
-use Xmf\Module\Helper;
+use XoopsModules\Mastopgo2;
 
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
@@ -24,13 +24,13 @@ $moduleDirName = basename(dirname(__DIR__));
 //require_once $GLOBALS['xoops']->path('www/include/cp_functions.php');
 //require_once $GLOBALS['xoops']->path('www/include/cp_header.php');
 //require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
-//require_once __DIR__ . '/../class/Utility.php';
+// require_once __DIR__ . '/../class/Utility.php';
 
 xoops_loadLanguage('admin', $moduleDirName);
 xoops_loadLanguage('modinfo', $moduleDirName);
 xoops_loadLanguage('main', $moduleDirName);
 require_once __DIR__ . '/../include/funcoes.inc.php';
-$helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+$helper = Mastopgo2\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject   = Xmf\Module\Admin::getInstance();
 $pathIcon16    = Admin::iconUrl('', 16);
@@ -53,7 +53,7 @@ $c['lang']['group_del_sure'] = MGO_ADM_GRP_DEL_SURE;
 //xoops_cp_header();
 //$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
 //
-//include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
+//require_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
 
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = Xmf\Module\Admin::getInstance();
@@ -62,7 +62,7 @@ $myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }
 
 // Local icons path

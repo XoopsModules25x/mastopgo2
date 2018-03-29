@@ -12,7 +12,7 @@
 ###
 ### =============================================================
 
-// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+// defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 
@@ -98,8 +98,8 @@ class MastopFormSelectImage extends XoopsFormSelect
         $imageHandler = xoops_getHandler('image');
         foreach ($catlist as $k => $v) {
             $this->_optgroupsID[$v] = $k;
-            $criteria               = new CriteriaCompo(new Criteria('imgcat_id', $k));
-            $criteria->add(new Criteria('image_display', 1));
+            $criteria               = new \CriteriaCompo(new \Criteria('imgcat_id', $k));
+            $criteria->add(new \Criteria('image_display', 1));
             $total = $imageHandler->getCount($criteria);
             if ($total > 0) {
                 $imgcat    = $imgcatHandler->get($k);
