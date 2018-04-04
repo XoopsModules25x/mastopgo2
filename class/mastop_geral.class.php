@@ -125,7 +125,7 @@ if (!class_exists('Mastop_geral')) {
          */
         public function delete()
         {
-            $sql = sprintf('DELETE FROM %s WHERE ' . $this->id . ' = %u', $this->tabela, $this->getVar($this->id));
+            $sql = sprintf('DELETE FROM `%s` WHERE ' . $this->id . ' = %u', $this->tabela, $this->getVar($this->id));
             if (!$this->db->query($sql)) {
                 return false;
             }

@@ -54,8 +54,8 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
         $moduleHandler = xoops_getHandler('module');
         /** @var XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
-        /** @var XoopsGroupPermHandler $gpermHandler */
-        $gpermHandler = xoops_getHandler('groupperm');
+        /** @var XoopsGroupPermHandler $grouppermHandler */
+        $grouppermHandler = xoops_getHandler('groupperm');
         $groups       = $memberHandler->getGroups();
         $criteria     = new \CriteriaCompo(new \Criteria('hasmain', 1));
         $criteria->add(new \Criteria('isactive', 1));
@@ -92,11 +92,11 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
              . _AM_ACTION
              . '</th></tr>
         ';
-        $block_arr   = XoopsBlock::getByModule($xoopsModule->mid());
+        $block_arr   = \XoopsBlock::getByModule($xoopsModule->mid());
         $block_count = count($block_arr);
         $class       = 'even';
         foreach ($block_arr as $i) {
-            $groups_perms = $gpermHandler->getGroupIds('block_read', $i->getVar('bid'));
+            $groups_perms = $grouppermHandler->getGroupIds('block_read', $i->getVar('bid'));
             $sql          = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . $i->getVar('bid');
             $result       = $db->query($sql);
             $modules      = [];
@@ -399,7 +399,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                 setar_ordem($bid[$i], $title[$i], $weight[$i], $visible[$i], $side[$i], $bmodule[$i]);
             }
             if (!empty($bmodule[$i]) && count($bmodule[$i]) > 0) {
-                $sql = sprintf('DELETE FROM %s WHERE block_id = %u', $xoopsDB->prefix('block_module_link'), $bid[$i]);
+                $sql = sprintf('DELETE FROM `%s` WHERE block_id = %u', $xoopsDB->prefix('block_module_link'), $bid[$i]);
                 $xoopsDB->query($sql);
                 if (in_array(0, $bmodule[$i])) {
                     $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $xoopsDB->prefix('block_module_link'), $bid[$i], 0);
@@ -412,7 +412,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                 }
             }
 
-            $sql = sprintf('DELETE FROM %s WHERE gperm_itemid = %u', $xoopsDB->prefix('group_permission'), $bid[$i]);
+            $sql = sprintf('DELETE FROM `%s` WHERE gperm_itemid = %u', $xoopsDB->prefix('group_permission'), $bid[$i]);
             $xoopsDB->query($sql);
             if (!empty($groups[$i])) {
                 foreach ($groups[$i] as $grp) {
