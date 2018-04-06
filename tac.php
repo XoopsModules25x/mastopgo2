@@ -33,7 +33,7 @@ if (isset($_GET)) {
         $$k = $v;
     }
 }
-$tac        = (!empty($_GET['sec_id'])) ? (int)$_GET['sec_id'] : 0;
+$tac        = (!empty($_GET['sec_id'])) ? \Xmf\Request::getInt('sec_id', 0, 'GET') : 0;
 $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $tac);
 if (empty($tac) || '' === $sec_classe->getVar('sec_10_id') || 0 == $sec_classe->contaDestaques()) {
     exit();

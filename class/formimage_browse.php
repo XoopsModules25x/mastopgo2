@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mastopgo2;
+
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -675,7 +676,7 @@ if ('delcatok' === $op && $admin) {
             $uploader->setPrefix('img');
             $err    = [];
             $ucount = count(Request::getArray('xoops_upload_file', [], 'POST'));
-            for ($i = 0; $i < $ucount; ++$i) {
+            foreach (Request::getArray('xoops_upload_file', [], 'POST') as $i => $iValue) {
                 if ($uploader->fetchMedia(Request::getArray('xoops_upload_file', [], 'POST')[$i])) {
                     if (!$uploader->upload()) {
                         $err[] = $uploader->getErrors();
