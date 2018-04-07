@@ -402,11 +402,11 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                 $sql = sprintf('DELETE FROM `%s` WHERE block_id = %u', $xoopsDB->prefix('block_module_link'), $bid[$i]);
                 $xoopsDB->query($sql);
                 if (in_array(0, $bmodule[$i])) {
-                    $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $xoopsDB->prefix('block_module_link'), $bid[$i], 0);
+                    $sql = sprintf('INSERT INTO `%s` (block_id, module_id) VALUES (%u, %d)', $xoopsDB->prefix('block_module_link'), $bid[$i], 0);
                     $xoopsDB->query($sql);
                 } else {
                     foreach ($bmodule[$i] as $bmid) {
-                        $sql = sprintf('INSERT INTO %s (block_id, module_id) VALUES (%u, %d)', $xoopsDB->prefix('block_module_link'), $bid[$i], (int)$bmid);
+                        $sql = sprintf('INSERT INTO `%s` (block_id, module_id) VALUES (%u, %d)', $xoopsDB->prefix('block_module_link'), $bid[$i], (int)$bmid);
                         $xoopsDB->query($sql);
                     }
                 }
@@ -416,7 +416,7 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
             $xoopsDB->query($sql);
             if (!empty($groups[$i])) {
                 foreach ($groups[$i] as $grp) {
-                    $sql = sprintf("INSERT INTO %s (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES (%u, %u, 1, 'block_read')", $xoopsDB->prefix('group_permission'), $grp, $bid[$i]);
+                    $sql = sprintf("INSERT INTO `%s` (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES (%u, %u, 1, 'block_read')", $xoopsDB->prefix('group_permission'), $grp, $bid[$i]);
                     $xoopsDB->query($sql);
                 }
             }
