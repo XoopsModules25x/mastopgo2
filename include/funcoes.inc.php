@@ -22,11 +22,12 @@ function mgo_getClass($classe, $id = null)
 {
     static $classes;
     if (!isset($classes[$classe])) {
-        if (file_exists($arquivo = XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/' . $classe . '.class.php')) {
-            require_once $arquivo;
-        }
+//        if (file_exists($arquivo = XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/' . $classe . '.class.php')) {
+//            require_once $arquivo;
+//        }
         if (class_exists($classe)) {
-            $classes[$classe] = new $classe($id);
+            $classtemp = 'Mastopgo2\\' . $classe;
+            $classes[$classe] = new $classtemp($id);
         }
     } elseif (is_object($classes[$classe]) && !empty($id)) {
         $classes[$classe]->__construct($id);
