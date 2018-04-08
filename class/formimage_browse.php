@@ -13,12 +13,12 @@
 ###
 ### =============================================================
 use Xmf\Request;
+use  XoopsModules\Mastopgo2;
 
-if (file_exists('../../../mainfile.php')) {
-    require_once __DIR__ . '/../../../mainfile.php';
-} elseif (file_exists('../../../../mainfile.php')) {
-    require_once __DIR__ . '/../../../../mainfile.php';
-}
+require_once __DIR__ . '/../../../include/cp_header.php';
+
+/** @var Mastopgo2\Helper $helper */
+$helper = Mastopgo2\Helper::getInstance();
 
 $target = Request::getString('target');
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
