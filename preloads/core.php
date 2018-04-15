@@ -20,7 +20,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Class Mastopgo2CorePreload
  */
-class Mastopgo2CorePreload extends XoopsPreloadItem
+class Mastopgo2CorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
     /**

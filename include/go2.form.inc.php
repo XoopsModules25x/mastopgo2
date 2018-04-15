@@ -13,11 +13,12 @@
 ### =============================================================
 use Xmf\Request;
 use XoopsModules\Mastopgo2;
-/** @var Mastopgo2\Helper $helper */
-$helper = Mastopgo2\Helper::getInstance();
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/formimage.php';
+
+/** @var Mastopgo2\Helper $helper */
+$helper = Mastopgo2\Helper::getInstance();
 
 $go2_form      = new \XoopsThemeForm($form['titulo'], 'go2form', 'go2.php', 'post', true);
 $imagem_select = new FormSelectImage(MGO_ADM_IMAGEM, 'go2_30_imagem', $go2_classe->getVar('go2_30_imagem'), ((is_array($helper->getConfig('mgo_des_img'))

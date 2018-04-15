@@ -25,7 +25,7 @@
  * $_GET['bartransp'] = Transparência da Barra de Texto SEM O SÍMBOLO % (padrão 50)
  *
  */
-require_once __DIR__ . '/../../mainfile.php';
+require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoopsLogger->activated = false;
 require_once __DIR__ . '/header.php';
 if (isset($_GET)) {

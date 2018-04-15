@@ -15,7 +15,7 @@
 use Xmf\Request;
 use  XoopsModules\Mastopgo2;
 
-require_once __DIR__ . '/../../../include/cp_header.php';
+require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 /** @var Mastopgo2\Helper $helper */
 $helper = Mastopgo2\Helper::getInstance();

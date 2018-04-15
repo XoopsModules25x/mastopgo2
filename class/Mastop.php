@@ -19,7 +19,7 @@ if (!class_exists('Mastop')) {
     /**
      * Class Mastop
      */
-    class Mastop extends XoopsObject
+    class Mastop extends \XoopsObject
     {
         public $db;
         public $tabela;

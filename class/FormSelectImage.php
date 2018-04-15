@@ -20,7 +20,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 /**
  * Class FormSelectImage
  */
-class FormSelectImage extends XoopsFormSelect
+class FormSelectImage extends \XoopsFormSelect
 {
     /**
      * OptGroup

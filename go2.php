@@ -13,7 +13,7 @@
 ### =============================================================
 use Xmf\Request;
 
-require_once __DIR__ . '/../../mainfile.php';
+require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once __DIR__ . '/header.php';
 $tac        = Request::getInt('tac');
 $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $tac);

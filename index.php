@@ -12,8 +12,10 @@
 ###
 ### =============================================================
 
-require_once __DIR__ . '/../../mainfile.php';
+require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once __DIR__ . '/header.php';
+
+
 if (!$_POST) {
     echo '<h1>' . $xoopsModule->getVar('name') . '</h1>';
     echo MGO_MAI_DESC . '<br><br>';

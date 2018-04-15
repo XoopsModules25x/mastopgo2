@@ -16,7 +16,7 @@
 use Xmf\Module\Admin;
 use XoopsModules\Mastopgo2;
 
-require_once __DIR__ . '/../../../include/cp_header.php';
+require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 
 $moduleDirName = basename(dirname(__DIR__));
@@ -24,12 +24,12 @@ $moduleDirName = basename(dirname(__DIR__));
 //require_once $GLOBALS['xoops']->path('www/include/cp_functions.php');
 //require_once $GLOBALS['xoops']->path('www/include/cp_header.php');
 //require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
-// require_once __DIR__ . '/../class/Utility.php';
+// require_once  dirname(__DIR__) . '/class/Utility.php';
 
 xoops_loadLanguage('admin', $moduleDirName);
 xoops_loadLanguage('modinfo', $moduleDirName);
 xoops_loadLanguage('main', $moduleDirName);
-require_once __DIR__ . '/../include/funcoes.inc.php';
+require_once  dirname(__DIR__) . '/include/funcoes.inc.php';
 $helper = Mastopgo2\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject   = Xmf\Module\Admin::getInstance();
