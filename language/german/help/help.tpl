@@ -23,7 +23,7 @@
     extract the xoopspolls folder into the ../modules directory. Install the
     module through Admin -> System Module -> Modules. <br><br>
     Detailed instructions on installing modules are available in the
-    <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a>
+    <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a>
     <br><br>
 
     <h4 class="odd">OPERATING INSTRUCTIONS</h4><br>
@@ -42,7 +42,7 @@
     v) Ensure that relevant user groups have access rights to a) the Polls
     module and b) the Polls block so that they can see it and vote. Detailed
     instructions on configuring the access rights for user groups are
-    available in the <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS
+    available in the <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">XOOPS
     Operations
     Manual</a><br><br>
 

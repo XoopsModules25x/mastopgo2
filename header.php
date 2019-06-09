@@ -11,7 +11,7 @@
 ### =============================================================
 ###
 ### =============================================================
-include XOOPS_ROOT_PATH . '/header.php';
+require XOOPS_ROOT_PATH . '/header.php';
 
 $moduleDirName = basename(__DIR__);
 xoops_loadLanguage('modinfo', $moduleDirName);

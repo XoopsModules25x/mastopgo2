@@ -12,9 +12,8 @@
 ###
 ### =============================================================
 
-require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once __DIR__ . '/header.php';
-
 
 if (!$_POST) {
     echo '<h1>' . $xoopsModule->getVar('name') . '</h1>';
@@ -24,11 +23,12 @@ if (!$_POST) {
 } else {
     if (isset($_POST)) {
         foreach ($_POST as $k => $v) {
-            $$k = $v;
+            ${$k} = $v;
         }
     }
-    $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
-    if (empty($sec_10_id) || '' === $sec_classe->getVar('sec_10_id') || 0 == $sec_classe->contaDestaques()) {
+//    $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+    $sec_classe =  new \XoopsModules\Mastopgo2\Section($sec_10_id);
+    if (empty($sec_10_id) || '' == $sec_classe->getVar('sec_10_id') || 0 == $sec_classe->contaDestaques()) {
         xoops_error(sprintf(MGO_MAI_SEC_404, $sec_classe->getVar('sec_30_nome')));
     } else {
         $iframe = '<iframe src="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/tac.php?sec_id=' . $sec_10_id;
@@ -36,7 +36,7 @@ if (!$_POST) {
         $iframe .= (200 != $mgo_h) ? '&h=' . (int)$mgo_h : '';
         $iframe .= (0 == $setas) ? '&noarrows=1' : '';
         $iframe .= (0 == $barra) ? '&notextbar=1' : '';
-        $iframe .= (6 != $delay) ? '&delay=' . (int)$delay : '';
+        $iframe .= (6 != $delay) ? '&delay=' . $delay : '';
         $iframe .= ('333333' != $barcolor) ? '&barcolor=' . $barcolor : '';
         $iframe .= ('FFFFFF' !== $textcolor) ? '&textcolor=' . $textcolor : '';
         $iframe .= (50 != $transp) ? '&bartransp=' . $transp : '';

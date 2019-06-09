@@ -1,8 +1,6 @@
-<?php namespace XoopsModules\Mastopgo2;
+<?php
 
-use Xmf\Request;
-use XoopsModules\Mastopgo2;
-use XoopsModules\Mastopgo2\Common;
+namespace XoopsModules\Mastopgo2;
 
 /**
  * Class Utility

@@ -23,30 +23,30 @@
  * $_GET['barcolor'] = Cor da barra de texto em HEXADECIMAL SEM # (padrão 333333)
  * $_GET['textcolor'] = Cor do texto em HEXADECIMAL SEM # (padrão FFFFFF)
  * $_GET['bartransp'] = Transparência da Barra de Texto SEM O SÍMBOLO % (padrão 50)
- *
  */
-require_once  dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 $xoopsLogger->activated = false;
 require_once __DIR__ . '/header.php';
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
-        $$k = $v;
+        ${$k} = $v;
     }
 }
-$tac        = (!empty($_GET['sec_id'])) ? \Xmf\Request::getInt('sec_id', 0, 'GET') : 0;
-$sec_classe = mgo_getClass(MGO_MOD_TABELA0, $tac);
-if (empty($tac) || '' === $sec_classe->getVar('sec_10_id') || 0 == $sec_classe->contaDestaques()) {
+$tac        = !empty($_GET['sec_id']) ? \Xmf\Request::getInt('sec_id', 0, 'GET') : 0;
+//$sec_classe = mgo_getClass(MGO_MOD_TABELA0, $tac);
+$sec_classe =  new \XoopsModules\Mastopgo2\Section($tac);
+if (empty($tac) || '' == $sec_classe->getVar('sec_10_id') || 0 == $sec_classe->contaDestaques()) {
     exit();
-} else {
-    $w         = !empty($w) ? $w : '100%';
-    $h         = !empty($h) ? (int)$h : 200;
-    $setas     = empty($noarrows) ? 1 : 0;
-    $barra     = empty($notextbar) ? 1 : 0;
-    $delay     = !empty($delay) ? (int)$delay : 6;
-    $barcolor  = !empty($barcolor) ? $barcolor : '333333';
-    $textcolor = !empty($textcolor) ? $textcolor : 'FFFFFF';
-    $bartransp = !empty($bartransp) ? (int)$bartransp : 50;
-    echo '
+}
+$w         = !empty($w) ? $w : '100%';
+$h         = !empty($h) ? (int)$h : 200;
+$setas     = empty($noarrows) ? 1 : 0;
+$barra     = empty($notextbar) ? 1 : 0;
+$delay     = !empty($delay) ? $delay : 6;
+$barcolor  = !empty($barcolor) ? $barcolor : '333333';
+$textcolor = !empty($textcolor) ? $textcolor : 'FFFFFF';
+$bartransp = !empty($bartransp) ? $bartransp : 50;
+echo '
 <style type="text/css">
 div#dstacs_' . $tac . '.jdGallery .slideInfoZone
 {
@@ -74,5 +74,4 @@ div#dstacs_' . $tac . '.jdGallery .slideInfoZone div a
 }
 </style>
 ';
-    echo $sec_classe->montaGaleria($h, $tac, $setas, $barra, $delay, $bartransp, $w);
-}
+echo $sec_classe->montaGaleria($h, $tac, $setas, $barra, $delay, $bartransp, $w);

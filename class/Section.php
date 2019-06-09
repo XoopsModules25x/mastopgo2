@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Mastopgo2;
+<?php
+
+namespace XoopsModules\Mastopgo2;
 
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
@@ -13,7 +15,9 @@
 ###
 ### =============================================================
 
-require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastopgeral.class.php';
+use XoopsModules\Mastopgo2;
+
+//require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastopgeral.class.php';
 
 /**
  * Class Section
@@ -72,10 +76,11 @@ class Section extends Mastop
             $criterio = new \CriteriaCompo(new \Criteria('sec_10_id', $section));
             $criterio->add(new \Criteria('go2_12_ativo', 1));
         }
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+//        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2();
         $dstacs     = $go2_classe->pegaTudo($criterio);
         if (is_int($largura)) {
-            $largura = $largura . 'px';
+            $largura .= 'px';
         }
         if ($dstacs) {
             $ret = '
@@ -94,7 +99,7 @@ border: 0;
 </style>
 <script type="text/javascript">
 function start_dstacs_' . $section . '() {
-var dstacs_' . $section . ' = new Gallery($("dstacs_' . $section . '"), {
+var dstacs_' . $section . ' = new gallery($("dstacs_' . $section . '"), {
 timed: ' . ((count($dstacs) > 1) ? 'true' : 'false') . ',
 showArrows: ' . ((1 == $setas) ? 'true' : 'false') . ',
 showInfopane: ' . ((1 == $barra) ? 'true' : 'false') . ',
@@ -107,7 +112,7 @@ randomize: true
 window.onDomReady(start_dstacs_' . $section . ');
 </script>
 <!-- Mastop Go2 - http://www.mastop.com.br/produtos/go2/ -->
-			';
+            ';
             $ret .= '<div align="center"><div id="dstacs_' . $section . '">';
             foreach ($dstacs as $v) {
                 if (0 == $v->getVar('go2_11_target')) {
@@ -124,8 +129,8 @@ window.onDomReady(start_dstacs_' . $section . ');
             $ret .= '</div></div>';
 
             return $ret;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

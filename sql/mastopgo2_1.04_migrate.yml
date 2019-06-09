@@ -1,0 +1,47 @@
+mgo_sec_section:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: sec_10_id
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: sec_30_nome
+            attributes: ' varchar(100)  NOT NULL  DEFAULT '''' '
+    keys:
+        PRIMARY:
+            columns: sec_10_id
+            unique: true
+mgo_go2_go2:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: go2_10_id
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: sec_10_id
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: go2_30_nome
+            attributes: ' varchar(100)  DEFAULT '''' '
+        -
+            name: go2_30_link
+            attributes: ' varchar(150)  NOT NULL  DEFAULT '''' '
+        -
+            name: go2_11_target
+            attributes: ' tinyint(3) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: go2_30_imagem
+            attributes: ' varchar(150)  NOT NULL  DEFAULT '''' '
+        -
+            name: go2_10_acessos
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: go2_12_ativo
+            attributes: ' tinyint(4)  NOT NULL  DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: go2_10_id
+            unique: true
+        sec_10_id:
+            columns: sec_10_id
+            unique: false

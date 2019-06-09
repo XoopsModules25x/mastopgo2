@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Mastopgo2;
+<?php
+
+namespace XoopsModules\Mastopgo2;
 
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
@@ -86,7 +88,7 @@ class FormSelectImage extends \XoopsFormSelect
         }
         $imgcatHandler = xoops_getHandler('imagecategory');
         $catlist       = $imgcatHandler->getList($group, 'imgcat_read', 1);
-        if (is_array($cat) && count($catlist) > 0) {
+        if ($catlist && is_array($cat)) {
             foreach ($catlist as $k => $v) {
                 if (!in_array($k, $cat)) {
                     unset($catlist[$k]);
@@ -153,7 +155,7 @@ class FormSelectImage extends \XoopsFormSelect
         if (!is_object($xoopsUser)) {
             $group = [XOOPS_GROUP_ANONYMOUS];
         } else {
-            $group =& $xoopsUser->getGroups();
+            $group = &$xoopsUser->getGroups();
         }
         $imgcatHandler = xoops_getHandler('imagecategory');
         $catlist       = $imgcatHandler->getList($group, 'imgcat_write', 1);
@@ -202,7 +204,7 @@ class FormSelectImage extends \XoopsFormSelect
                                               . "' onclick=\"window.open('$browse_url?target="
                                               . $this->getName()
                                               . "','MastopFormImage','resizable=yes,width=500,height=470,left='+(screen.availWidth/2-200)+',top='+(screen.availHeight/2-200)+'');return false;\">" : '';
-        $ret        .= "<br><img id='" . $this->getName() . "_img' src='" . ((!empty($imagem)) ? XOOPS_URL . $imagem : XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/images/spacer.gif') . "'>";
+        $ret        .= "<br><img id='" . $this->getName() . "_img' src='" . (!empty($imagem) ? XOOPS_URL . $imagem : XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/images/spacer.gif') . "'>";
 
         return $ret;
     }

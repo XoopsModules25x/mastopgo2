@@ -12,52 +12,56 @@
 ###
 ### =============================================================
 use Xmf\Request;
-use XoopsModules\Mastopgo2;
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$op = Request::getCmd('op', 'listar', 'GET');
+/** @var \XoopsModules\Mastopgo2\Helper $helper */
+$helper = \XoopsModules\Mastopgo2\Helper::getInstance();
+
+$op = Request::getString('op', 'listar', 'GET');
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
-        $$k = $v;
+        ${$k} = $v;
     }
 }
 
 if (isset($_POST)) {
     foreach ($_POST as $k => $v) {
-        $$k = $v;
+        ${$k} = $v;
     }
 }
 
 switch ($op) {
     case 'section_editar':
         //      mgo_adm_menu();
-        $sec_10_id  = (!empty($sec_10_id)) ? $sec_10_id : 0;
-        $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+        $sec_10_id  = !empty($sec_10_id) ? $sec_10_id : 0;
+//        $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+        $sec_classe =  new \XoopsModules\Mastopgo2\Section($sec_10_id);
         if (empty($sec_10_id) || '' === $sec_classe->getVar('sec_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?op=listar', 3, MGO_ADM_404);
         }
         $form['titulo'] = MGO_ADM_SEC_EDIT;
         $form['op']     = 'salvar';
-        include XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/sec.form.inc.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/sec.form.inc.php';
         $sec_form->display();
         break;
-
     case 'section_deletar':
         //      mgo_adm_menu();
-        $sec_10_id  = (!empty($sec_10_id)) ? $sec_10_id : 0;
-        $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+        $sec_10_id  = !empty($sec_10_id) ? $sec_10_id : 0;
+//        $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+        $sec_classe =  new \XoopsModules\Mastopgo2\Section($sec_10_id);
         if (empty($sec_10_id) || '' === $sec_classe->getVar('sec_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?op=listar', 3, MGO_ADM_404);
         }
         xoops_confirm(['op' => 'section_deletar_ok', 'sec_10_id' => $sec_10_id], 'sec.php', sprintf(MGO_ADM_SEC_CONFIRMA_DEL, $sec_10_id, $sec_classe->getVar('sec_30_nome')));
         break;
-
     case 'section_deletar_ok':
-        $sec_10_id  = (!empty($sec_10_id)) ? $sec_10_id : 0;
-        $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+        $sec_10_id  = !empty($sec_10_id) ? $sec_10_id : 0;
+//        $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+        $sec_classe =  new \XoopsModules\Mastopgo2\Section($sec_10_id);
+//        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+        $go2_classe =  new \XoopsModules\Mastopgo2\Go2();
         if (empty($sec_10_id) || '' === $sec_classe->getVar('sec_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?listar', 3, MGO_ADM_404);
         }
@@ -65,24 +69,25 @@ switch ($op) {
         $sec_classe->delete();
         redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?op=listar', 3, MGO_ADM_SUCESS_DEL);
         break;
-
     case 'novo':
         //mgo_adm_menu();
-        $sec_classe     = mgo_getClass(MGO_MOD_TABELA0);
+//        $sec_classe     = mgo_getClass(MGO_MOD_TABELA0);
+        $sec_classe =  new \XoopsModules\Mastopgo2\Section();
         $form['titulo'] = MGO_ADM_SEC_NEW;
         $form['op']     = 'salvar';
-        include XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/sec.form.inc.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/sec.form.inc.php';
         $sec_form->display();
         break;
-
     case 'salvar':
         if (empty($sec_10_id)) {
-            $sec_classe = mgo_getClass(MGO_MOD_TABELA0);
+//            $sec_classe = mgo_getClass(MGO_MOD_TABELA0);
+            $sec_classe =  new \XoopsModules\Mastopgo2\Section();
         } else {
-            $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+//            $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+            $sec_classe =  new \XoopsModules\Mastopgo2\Section($sec_10_id);
         }
         $sec_classe->setVar('sec_30_nome', $sec_30_nome);
-        if ('' !== $sec_classe->getVar('sec_10_id')) {
+        if (0 !== $sec_classe->getVar('sec_10_id')) {
             $msg = 'UPD';
         } else {
             $msg = 'ADD';
@@ -96,13 +101,15 @@ switch ($op) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php?op=listar', 3, constant('MGO_ADM_SUCESS_' . $msg));
         }
 
-        // no break
+    // no break
     case 'listar':
     default:
         $adminObject->displayNavigation(basename(__FILE__));
 
-        echo (!empty($erro)) ? $erro . '<br>' : '';
-        $sec_classe = mgo_getClass(MGO_MOD_TABELA0);
+        echo !empty($erro) ? $erro . '<br>' : '';
+//        $sec_classe = mgo_getClass(MGO_MOD_TABELA0);
+//        $sec_classe = $helper->getHandler('Section');
+        $sec_classe =  new \XoopsModules\Mastopgo2\Section();
         $sec_10_id  = empty($sec_10_id) ? null : $sec_10_id;
         // Opções
         $c['op']     = 'listar';
@@ -149,10 +156,13 @@ switch ($op) {
         $c['lang']['titulo'] = MGO_ADM_SEC_TITULO;
         echo $sec_classe->administracao(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/sec.php', $c);
 
-        $sec_classe     = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+        $sec_classe =  new \XoopsModules\Mastopgo2\Section($sec_10_id);
+
+//        $sec_classe     = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
         $form['titulo'] = (empty($sec_10_id) ? MGO_ADM_SEC_NEW : MGO_ADM_SEC_EDIT);
         $form['op']     = 'salvar';
-        include XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/sec.form.inc.php';
+
+        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/sec.form.inc.php';
         $sec_form->display();
         break;
 }

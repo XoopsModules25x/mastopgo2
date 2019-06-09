@@ -12,9 +12,12 @@
 ###
 ### =============================================================
 
-require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/funcoes.inc.php';
+require_once __DIR__ . '/preloads/autoloader.php';
 
-include __DIR__ . '/preloads/autoloader.php';
+$moduleDirName      = basename(__DIR__);
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/funcoes.inc.php';
 
 // Dados do Módulo
 $modversion['version']             = '1.04';
@@ -35,7 +38,7 @@ $modversion['modicons32']          = 'assets/images/icons/32';
 $modversion['module_website_url']  = 'www.xoops.org/';
 $modversion['module_website_name'] = 'XOOPS';
 $modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.9';
+$modversion['min_xoops']           = '2.5.10';
 $modversion['min_admin']           = '1.2';
 $modversion['min_db']              = ['mysql' => '5.5'];
 
@@ -81,9 +84,35 @@ $modversion['hasSearch'] = 0;
 // Configurações (Para as preferências do módulo)
 $imgcatHandler                          = xoops_getHandler('imagecategory');
 $catlist                                = array_flip($imgcatHandler->getList([], 'imgcat_read', 1));
-$modversion['config'][1]['name']        = 'mgo_des_img';
-$modversion['config'][1]['title']       = 'MGO_MOD_DSTAC_IMG';
-$modversion['config'][1]['description'] = 'MGO_MOD_DSTAC_IMG_DES';
-$modversion['config'][1]['formtype']    = 'select_multi';
-$modversion['config'][1]['valuetype']   = 'array';
-$modversion['config'][1]['options']     = $catlist;
+
+$modversion['config'][] = [
+    'name'        => 'mgo_des_img',
+    'title'       => 'MGO_MOD_DSTAC_IMG',
+    'description' => 'MGO_MOD_DSTAC_IMG_DES',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'options'     => $catlist,
+];
+/**
+ * Make Sample button visible?
+ */
+$modversion['config'][] = [
+    'name'        => 'displaySampleButton',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
+
+/**
+ * Show Developer Tools?
+ */
+$modversion['config'][] = [
+    'name'        => 'displayDeveloperTools',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS',
+    'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];

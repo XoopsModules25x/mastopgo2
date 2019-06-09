@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Mastopgo2;
+<?php
+
+namespace XoopsModules\Mastopgo2;
 
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
@@ -13,7 +15,7 @@
 ###
 ### =============================================================
 
-require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastopgeral.class.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastopgeral.class.php';
 
 /**
  * Class Go2
@@ -100,16 +102,15 @@ class Go2 extends Mastop
             if (!$imagem) {
                 if (0 == $this->getVar('go2_11_target')) {
                     return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "'>" . $this->getVar('go2_30_link') . '</a>';
-                } else {
-                    return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->getVar('go2_30_link') . '</a>';
                 }
-            } else {
-                if (0 == $this->getVar('go2_11_target')) {
-                    return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "'>" . $this->pegaImagem(true) . '</a>';
-                } else {
-                    return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->pegaImagem(true) . '</a>';
-                }
+
+                return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->getVar('go2_30_link') . '</a>';
             }
+            if (0 == $this->getVar('go2_11_target')) {
+                return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "'>" . $this->pegaImagem(true) . '</a>';
+            }
+
+            return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->pegaImagem(true) . '</a>';
         }
     }
 

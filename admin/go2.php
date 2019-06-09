@@ -16,20 +16,21 @@ use Xmf\Request;
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$op = Request::getCmd('op', 'listar', 'GET');
+$op = Request::getString('op', 'listar', 'GET');
 if (isset($_GET)) {
     foreach ($_GET as $k => $v) {
-        $$k = $v;
+        ${$k} = $v;
     }
 }
 
 if (isset($_POST)) {
     foreach ($_POST as $k => $v) {
-        $$k = $v;
+        ${$k} = $v;
     }
 }
 
-$sec_classe = mgo_getClass(MGO_MOD_TABELA0);
+//$sec_classe = mgo_getClass(MGO_MOD_TABELA0);
+$sec_classe = new \XoopsModules\Mastopgo2\Section();
 $sec_todos  = $sec_classe->pegaTudo();
 $sec_select = [];
 if ($sec_todos) {
@@ -43,39 +44,40 @@ if (Request::hasVar('group_action', 'POST')) {
         case 'group_del':
             if (is_array(Request::getArray('checks', '', 'POST'))) {
                 foreach (Request::getArray('checks', '', 'POST') as $k => $v) {
-                    $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
+                    //                    $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
+                    $go2_classe = new \XoopsModules\Mastopgo2\Go2($k);
                     $go2_classe->delete();
                 }
             }
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_SUCESS_UPD);
             break;
-
         case 'zera_count':
             if (is_array(Request::getArray('checks', '', 'POST'))) {
                 foreach (Request::getArray('checks', '', 'POST') as $k => $v) {
-                    $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
+                    //                    $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
+                    $go2_classe = new \XoopsModules\Mastopgo2\Go2($k);
                     $go2_classe->setVar('go2_10_acessos', 0);
                     $go2_classe->store();
                 }
             }
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_SUCESS_UPD);
             break;
-
         case 'desativa':
             if (is_array(Request::getArray('checks', '', 'POST'))) {
                 foreach (Request::getArray('checks', '', 'POST') as $k => $v) {
-                    $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
+                    //                    $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
+                    $go2_classe = new \XoopsModules\Mastopgo2\Go2($k);
                     $go2_classe->desativar();
                 }
             }
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_SUCESS_UPD);
             break;
-
         case 'ativa':
         default:
             if (is_array(Request::getArray('checks', '', 'POST'))) {
                 foreach (Request::getArray('checks', '', 'POST') as $k => $v) {
-                    $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
+                    //                    $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $k);
+                    $go2_classe = new \XoopsModules\Mastopgo2\Go2($k);
                     $go2_classe->ativar();
                 }
             }
@@ -86,69 +88,71 @@ if (Request::hasVar('group_action', 'POST')) {
 
 switch ($op) {
     case 'ativar':
-        $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_10_id = !empty($go2_10_id) ? $go2_10_id : 0;
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2($go2_10_id);
         if (empty($go2_10_id) || '' === $go2_classe->getVar('go2_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?listar', 3, MGO_ADM_404);
         }
         $go2_classe->ativar();
         redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_SUCESS_UPD);
         break;
-
     case 'desativar':
-        $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_10_id = !empty($go2_10_id) ? $go2_10_id : 0;
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2($go2_10_id);
         if (empty($go2_10_id) || '' === $go2_classe->getVar('go2_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?listar', 1, MGO_ADM_404);
         }
         $go2_classe->desativar();
         redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 1, MGO_ADM_SUCESS_UPD);
         break;
-
     case 'dstac_editar':
-        $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_10_id = !empty($go2_10_id) ? $go2_10_id : 0;
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2($go2_10_id);
         if (empty($go2_10_id) || '' === $go2_classe->getVar('go2_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_404);
         }
         $form['titulo'] = MGO_ADM_GO2_EDIT;
         $form['op']     = 'salvar';
-        include XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/go2.form.inc.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/go2.form.inc.php';
         $go2_form->display();
         break;
-
     case 'dstac_deletar':
-        $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_10_id = !empty($go2_10_id) ? $go2_10_id : 0;
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2($go2_10_id);
         if (empty($go2_10_id) || '' === $go2_classe->getVar('go2_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_404);
         }
         xoops_confirm(['op' => 'dstac_deletar_ok', 'go2_10_id' => $go2_10_id], 'go2.php', sprintf(MGO_ADM_GO2_CONFIRMA_DEL, $go2_10_id, $go2_classe->getVar('go2_30_nome')));
         break;
-
     case 'dstac_deletar_ok':
-        $go2_10_id  = (!empty($go2_10_id)) ? $go2_10_id : 0;
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_10_id = !empty($go2_10_id) ? $go2_10_id : 0;
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2($go2_10_id);
         if (empty($go2_10_id) || '' === $go2_classe->getVar('go2_10_id')) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?listar', 3, MGO_ADM_404);
         }
         $go2_classe->delete();
         redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_SUCESS_DEL);
         break;
-
     case 'novo':
-        $go2_classe     = mgo_getClass(MGO_MOD_TABELA1);
+        //        $go2_classe     = mgo_getClass(MGO_MOD_TABELA1);
+        $go2_classe     = new \XoopsModules\Mastopgo2\Go2();
         $form['titulo'] = MGO_ADM_GO2_NEW;
         $form['op']     = 'salvar';
-        include XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/go2.form.inc.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/go2.form.inc.php';
         $go2_form->display();
         break;
-
     case 'salvar':
         if (empty($go2_10_id)) {
-            $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+            //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+            $go2_classe = new \XoopsModules\Mastopgo2\Go2();
         } else {
-            $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+            //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+            $go2_classe = new \XoopsModules\Mastopgo2\Go2($go2_10_id);
         }
         $go2_classe->setVar('sec_10_id', $sec_10_id);
         $go2_classe->setVar('go2_30_nome', $go2_30_nome);
@@ -170,18 +174,22 @@ switch ($op) {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, constant('MGO_ADM_SUCESS_' . $msg));
         }
 
-        // no break
+    // no break
     case 'listar_dstac':
-        echo (!empty($erro)) ? $erro . '<br>' : '';
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+        echo !empty($erro) ? $erro . '<br>' : '';
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2();
         $go2_10_id  = empty($go2_10_id) ? null : $go2_10_id;
         if (Request::hasVar('sec_10_id')) {
             $sec_10_id                        = Request::getInt('sec_10_id');
             $_SESSION['listar_sec_sec_10_id'] = Request::getInt('sec_10_id');
-            $sec_classe                       = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+            //            $sec_classe                       = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+            $sec_classe = new \XoopsModules\Mastopgo2\Section($sec_10_id);
         } elseif (!empty($_SESSION['listar_sec_sec_10_id'])) {
-            $sec_10_id  = $_SESSION['listar_sec_sec_10_id'];
-            $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+            $sec_10_id = $_SESSION['listar_sec_sec_10_id'];
+            //            $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+            $sec_classe = new \XoopsModules\Mastopgo2\Section($sec_10_id);
+
         } else {
             redirect_header(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php?op=listar', 3, MGO_ADM_404);
         }
@@ -254,23 +262,25 @@ switch ($op) {
         $c['group_action'][3]['valor'] = 'zera_count';
 
         // Tradução
-        $c['lang']['titulo'] = MGO_ADM_GO2_TITULO . " -> <span style='color:red'>" . $sec_classe->getVar('sec_30_nome') . '</span>';
+        $c['lang']['titulo'] = MGO_ADM_GO2_TITULO . " -> <span style='color:#ff0000'>" . $sec_classe->getVar('sec_30_nome') . '</span>';
         echo $go2_classe->administracao(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php', $c);
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2($go2_10_id);
 
         $form['titulo'] = (empty($go2_10_id) ? MGO_ADM_GO2_NEW : MGO_ADM_GO2_EDIT);
         $form['op']     = 'salvar';
 
         $sec_classe->setVar('sec_10_id', 0);
-        include XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/go2.form.inc.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/go2.form.inc.php';
         $go2_form->display();
         break;
     case 'listar':
     default:
         //mgo_adm_menu();
         $adminObject->displayNavigation(basename(__FILE__));
-        echo (!empty($erro)) ? $erro . '<br>' : '';
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+        echo !empty($erro) ? $erro . '<br>' : '';
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2();
         $go2_10_id  = empty($go2_10_id) ? null : $go2_10_id;
 
         // Opções
@@ -342,10 +352,11 @@ switch ($op) {
         // Tradução
         $c['lang']['titulo'] = MGO_ADM_GO2_TITULO;
         echo $go2_classe->administracao(XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/admin/go2.php', $c);
-        $go2_classe     = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        //        $go2_classe = mgo_getClass(MGO_MOD_TABELA1, $go2_10_id);
+        $go2_classe     = new \XoopsModules\Mastopgo2\Go2($go2_10_id);
         $form['titulo'] = (empty($go2_10_id) ? MGO_ADM_GO2_NEW : MGO_ADM_GO2_EDIT);
         $form['op']     = 'salvar';
-        include XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/go2.form.inc.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/go2.form.inc.php';
         $go2_form->display();
         break;
 }

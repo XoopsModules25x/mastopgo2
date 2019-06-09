@@ -12,34 +12,37 @@
 ###
 ### =============================================================
 
-use XoopsModules\Mastopgo2;
+include dirname(__DIR__) . '/preloads/autoloader.php';
 
-// require_once  dirname(__DIR__) . '/class/Helper.php';
-//require_once  dirname(__DIR__) . '/include/common.php';
-$helper = Mastopgo2\Helper::getInstance();
+$moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+/** @var \XoopsModules\Mastopgo2\Helper $helper */
+$helper = \XoopsModules\Mastopgo2\Helper::getInstance();
+$helper->loadLanguage('common');
+$helper->loadLanguage('feedback');
 
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
-$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
-
+if (is_object($helper->getModule())) {
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+}
 
 $adminmenu[] = [
-'title' =>  MGO_ADM_HOME,
-'link' =>  'admin/index.php',
-'icon' =>  $pathIcon32 . '/home.png',
+    'title' => MGO_ADM_HOME,
+    'link'  => 'admin/index.php',
+    'icon'  => $pathIcon32 . '/home.png',
 ];
 
 $adminmenu[] = [
-
-'title' =>  MGO_MOD_MENU_SEC,
-'link' =>  'admin/sec.php',
-'icon' =>  $pathIcon32 . '/category.png',
+    'title' => MGO_MOD_MENU_SEC,
+    'link'  => 'admin/sec.php',
+    'icon'  => $pathIcon32 . '/category.png',
 ];
 
 $adminmenu[] = [
-
-'title' =>  MGO_MOD_MENU_GO2,
-'link' =>  'admin/go2.php',
-'icon' =>  $pathIcon32 . '/alert.png',
+    'title' => MGO_MOD_MENU_GO2,
+    'link'  => 'admin/go2.php',
+    'icon'  => $pathIcon32 . '/alert.png',
 ];
 
 //$adminmenu[] = [
@@ -48,9 +51,30 @@ $adminmenu[] = [
 // $adminmenu[$i]["icon"]  = $pathIcon32.'/block.png';
 //];
 
+// Blocks Admin
 $adminmenu[] = [
+    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS'),
+    'link' => 'admin/blocksadmin.php',
+    'icon' => $pathIcon32 . '/block.png',
+];
 
-'title' =>  MGO_ADM_ABOUT,
-'link' =>  'admin/about.php',
-'icon' =>  $pathIcon32 . '/about.png',
+//Feedback
+$adminmenu[] = [
+    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_FEEDBACK'),
+    'link'  => 'admin/feedback.php',
+    'icon'  => $pathIcon32 . '/mail_foward.png',
+];
+
+if ($helper->getConfig('displayDeveloperTools')) {
+    $adminmenu[] = [
+        'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE'),
+        'link' => 'admin/migrate.php',
+        'icon' => $pathIcon32 . '/database_go.png',
+    ];
+}
+
+$adminmenu[] = [
+    'title' => MGO_ADM_ABOUT,
+    'link'  => 'admin/about.php',
+    'icon'  => $pathIcon32 . '/about.png',
 ];

@@ -13,29 +13,27 @@
 ### =============================================================
 
 
-use Xmf\Module\Admin;
-use XoopsModules\Mastopgo2;
+include dirname(__DIR__) . '/preloads/autoloader.php';
 
-require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
+require  dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-//require_once $GLOBALS['xoops']->path('www/include/cp_functions.php');
-//require_once $GLOBALS['xoops']->path('www/include/cp_header.php');
-//require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
-// require_once  dirname(__DIR__) . '/class/Utility.php';
+/** @var \XoopsModules\Mastopgo2\Helper $helper */
+$helper = \XoopsModules\Mastopgo2\Helper::getInstance();
 
-xoops_loadLanguage('admin', $moduleDirName);
-xoops_loadLanguage('modinfo', $moduleDirName);
-xoops_loadLanguage('main', $moduleDirName);
-require_once  dirname(__DIR__) . '/include/funcoes.inc.php';
-$helper = Mastopgo2\Helper::getInstance();
+// Load language files
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('common');
+
+require_once dirname(__DIR__) . '/include/funcoes.inc.php';
+
 /** @var Xmf\Module\Admin $adminObject */
-$adminObject   = Xmf\Module\Admin::getInstance();
-$pathIcon16    = Admin::iconUrl('', 16);
-$pathIcon32    = Admin::iconUrl('', 32);
-$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+$adminObject   = \Xmf\Module\Admin::getInstance();
 
 $c['lang']['filtros']    = MGO_ADM_FILTROS;
 $c['lang']['exibir']     = MGO_ADM_EXIBIR;
@@ -56,7 +54,7 @@ $c['lang']['group_del_sure'] = MGO_ADM_GRP_DEL_SURE;
 //require_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
 
 /** @var Xmf\Module\Admin $adminObject */
-$adminObject = Xmf\Module\Admin::getInstance();
+$adminObject = \Xmf\Module\Admin::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 

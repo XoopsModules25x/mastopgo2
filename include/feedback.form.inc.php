@@ -29,7 +29,7 @@ $category_select->addOptionArray([
                                      MGO_ADM_TBUGS       => MGO_ADM_TBUGS,
                                      MGO_ADM_TESTIMONIAL => MGO_ADM_TESTIMONIAL,
                                      MGO_ADM_TFEATURES   => MGO_ADM_TFEATURES,
-                                     MGO_ADM_TOTHERS     => MGO_ADM_TOTHERS
+                                     MGO_ADM_TOTHERS     => MGO_ADM_TOTHERS,
                                  ]);
 
 $feedback_category_tray->addElement($category_select);

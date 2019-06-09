@@ -19,7 +19,7 @@
         font-family: Tahoma, Arial, Helvetica, sans-serif;
         font-size: 14px;
         font-weight: normal !important;
-        color: # <{$block.mgo_blo_txtcolor}> !important;
+        color: #<{$block.mgo_blo_txtcolor}> !important;
         text-decoration: none;
     }
 </style>
