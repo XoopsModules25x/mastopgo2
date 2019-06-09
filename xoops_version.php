@@ -20,9 +20,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/include/funcoes.inc.php';
 
 // Dados do Módulo
-$modversion['version']             = '1.04';
-$modversion['module_status']       = 'RC 1';
-$modversion['release_date']        = '2017/06/22';
+$modversion['version']             = '1.10';
+$modversion['module_status']       = 'Beta 1';
+$modversion['release_date']        = '2019/06/09';
 $modversion['name']                = MGO_MOD_NOME;
 $modversion['author']              = 'Fernando Santos (aka topet05)';
 $modversion['description']         = MGO_MOD_DESC;
