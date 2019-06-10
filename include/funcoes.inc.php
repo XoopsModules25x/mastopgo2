@@ -22,11 +22,12 @@ function mgo_getClass($classe, $id = null)
 {
     static $classes;
     if (!isset($classes[$classe])) {
-        if (file_exists($arquivo = XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/' . $classe . '.class.php')) {
-            require_once $arquivo;
-        }
+        //        if (file_exists($arquivo = XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/' . $classe . '.class.php')) {
+        //            require_once $arquivo;
+        //        }
         if (class_exists($classe)) {
-            $classes[$classe] = new $classe($id);
+            $classtemp        = '\XoopsModules\Mastopgo2\\' . $classe;
+            $classes[$classe] = new $classtemp($id);
         }
     } elseif (is_object($classes[$classe]) && !empty($id)) {
         $classes[$classe]->__construct($id);
@@ -42,14 +43,14 @@ function mgo_getClass($classe, $id = null)
  */
 function mgo_getModuleConfig($dirname)
 {
-    static $ModulesConfig;
-    if (!isset($ModulesConfig[$dirname])) {
-        /** @var XoopsModuleHandler $moduleHandler */
+    static $modulesConfig;
+    if (!isset($modulesConfig[$dirname])) {
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler           = xoops_getHandler('module');
         $module                  = $moduleHandler->getByDirname($dirname);
         $configHandler           = xoops_getHandler('config');
-        $ModulesConfig[$dirname] = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        $modulesConfig[$dirname] = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     }
 
-    return isset($ModulesConfig[$dirname]) && is_array($ModulesConfig[$dirname]) ? $ModulesConfig[$dirname] : false;
+    return isset($modulesConfig[$dirname]) && is_array($modulesConfig[$dirname]) ? $modulesConfig[$dirname] : false;
 }

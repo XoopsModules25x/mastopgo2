@@ -12,8 +12,9 @@
 ###
 ### =============================================================
 
-require_once __DIR__ . '/../../mainfile.php';
+require_once dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once __DIR__ . '/header.php';
+
 if (!$_POST) {
     echo '<h1>' . $xoopsModule->getVar('name') . '</h1>';
     echo MGO_MAI_DESC . '<br><br>';
@@ -22,22 +23,23 @@ if (!$_POST) {
 } else {
     if (isset($_POST)) {
         foreach ($_POST as $k => $v) {
-            $$k = $v;
+            ${$k} = $v;
         }
     }
-    $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
-    if (empty($sec_10_id) || $sec_classe->getVar('sec_10_id') === '' || $sec_classe->contaDestaques() == 0) {
+//    $sec_classe = mgo_getClass(MGO_MOD_TABELA0, $sec_10_id);
+    $sec_classe =  new \XoopsModules\Mastopgo2\Section($sec_10_id);
+    if (empty($sec_10_id) || '' == $sec_classe->getVar('sec_10_id') || 0 == $sec_classe->contaDestaques()) {
         xoops_error(sprintf(MGO_MAI_SEC_404, $sec_classe->getVar('sec_30_nome')));
     } else {
         $iframe = '<iframe src="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/tac.php?sec_id=' . $sec_10_id;
-        $iframe .= ($mgo_w !== '100%') ? '&w=' . $mgo_w : '';
-        $iframe .= ($mgo_h != 200) ? '&h=' . (int)$mgo_h : '';
-        $iframe .= ($setas == 0) ? '&noarrows=1' : '';
-        $iframe .= ($barra == 0) ? '&notextbar=1' : '';
-        $iframe .= ($delay != 6) ? '&delay=' . (int)$delay : '';
-        $iframe .= ($barcolor != '333333') ? '&barcolor=' . $barcolor : '';
-        $iframe .= ($textcolor !== 'FFFFFF') ? '&textcolor=' . $textcolor : '';
-        $iframe .= ($transp != 50) ? '&bartransp=' . $transp : '';
+        $iframe .= ('100%' !== $mgo_w) ? '&w=' . $mgo_w : '';
+        $iframe .= (200 != $mgo_h) ? '&h=' . (int)$mgo_h : '';
+        $iframe .= (0 == $setas) ? '&noarrows=1' : '';
+        $iframe .= (0 == $barra) ? '&notextbar=1' : '';
+        $iframe .= (6 != $delay) ? '&delay=' . $delay : '';
+        $iframe .= ('333333' != $barcolor) ? '&barcolor=' . $barcolor : '';
+        $iframe .= ('FFFFFF' !== $textcolor) ? '&textcolor=' . $textcolor : '';
+        $iframe .= (50 != $transp) ? '&bartransp=' . $transp : '';
         $iframe .= '" scrolling="no" frameborder="0" width="' . $mgo_w . '" height="' . $mgo_h . '" marginheight="0" marginwidth="0" align="' . $align . '"></iframe>';
         echo '<h3>' . MGO_MAI_FORM_TITLE . '</h3>';
         echo $iframe;

@@ -1,4 +1,7 @@
-<?PHP
+<?php
+
+namespace XoopsModules\Mastopgo2;
+
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -12,31 +15,30 @@
 ###
 ### =============================================================
 
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/formselect.php';
 
 /**
- * Class MastopFormSelectImage
+ * Class FormSelectImage
  */
-class MastopFormSelectImage extends XoopsFormSelect
+class FormSelectImage extends \XoopsFormSelect
 {
     /**
      * OptGroup
      * @var array
      * @access    private
      */
-    public $_optgroups   = array();
-    public $_optgroupsID = array();
+    public $_optgroups   = [];
+    public $_optgroupsID = [];
 
     /**
      * Construtor
      *
      * @param    string $caption
      * @param    string $name
-     * @param mixed  $value Valor pré-selecionado (ou array de valores).
-     * @param string $cat   Nome da Categoria da biblioteca. Se vazio ou não definido, retorna todas as bibliotecas que o cara pode acessar.
-     * @return MastopFormSelectImage
+     * @param mixed     $value Valor pré-selecionado (ou array de valores).
+     * @param string    $cat   Nome da Categoria da biblioteca. Se vazio ou não definido, retorna todas as bibliotecas que o cara pode acessar.
      * @internal param int $size Número de Linhas. "1" dá um Select List normal de 1 opção.
      */
     public function __construct($caption, $name, $value = null, $cat = null)
@@ -51,7 +53,7 @@ class MastopFormSelectImage extends XoopsFormSelect
      * @param array|string $value opções do Grupo
      * @param string       $name  Nome do Grupo de Opções
      */
-    public function addOptGroup($value = array(), $name = '&nbsp;')
+    public function addOptGroup($value = [], $name = '&nbsp;')
     {
         $this->_optgroups[$name] = $value;
     }
@@ -78,39 +80,39 @@ class MastopFormSelectImage extends XoopsFormSelect
     public function getImageList($cat = null)
     {
         global $xoopsUser;
-        $ret = array();
+        $ret = [];
         if (!is_object($xoopsUser)) {
-            $group = array(XOOPS_GROUP_ANONYMOUS);
+            $group = [XOOPS_GROUP_ANONYMOUS];
         } else {
             $group = $xoopsUser->getGroups();
         }
         $imgcatHandler = xoops_getHandler('imagecategory');
         $catlist       = $imgcatHandler->getList($group, 'imgcat_read', 1);
-        if (is_array($cat) && count($catlist) > 0) {
+        if ($catlist && is_array($cat)) {
             foreach ($catlist as $k => $v) {
                 if (!in_array($k, $cat)) {
                     unset($catlist[$k]);
                 }
             }
         } elseif (is_int($cat)) {
-            $catlist = array_key_exists($cat, $catlist) ? array($cat => $catlist[$cat]) : array();
+            $catlist = array_key_exists($cat, $catlist) ? [$cat => $catlist[$cat]] : [];
         }
         $imageHandler = xoops_getHandler('image');
         foreach ($catlist as $k => $v) {
             $this->_optgroupsID[$v] = $k;
-            $criteria               = new CriteriaCompo(new Criteria('imgcat_id', $k));
-            $criteria->add(new Criteria('image_display', 1));
+            $criteria               = new \CriteriaCompo(new \Criteria('imgcat_id', $k));
+            $criteria->add(new \Criteria('image_display', 1));
             $total = $imageHandler->getCount($criteria);
             if ($total > 0) {
                 $imgcat    = $imgcatHandler->get($k);
                 $storetype = $imgcat->getVar('imgcat_storetype');
-                if ($storetype === 'db') {
+                if ('db' === $storetype) {
                     $images = $imageHandler->getObjects($criteria, false, true);
                 } else {
                     $images = $imageHandler->getObjects($criteria, false, false);
                 }
                 foreach ($images as $i) {
-                    if ($storetype === 'db') {
+                    if ('db' === $storetype) {
                         $ret[$v]['/image.php?id=' . $i->getVar('image_id')] = $i->getVar('image_nicename');
                     } else {
                         $ret[$v]['/uploads/' . $i->getVar('image_name')] = $i->getVar('image_nicename');
@@ -151,9 +153,9 @@ class MastopFormSelectImage extends XoopsFormSelect
     {
         global $xoopsUser;
         if (!is_object($xoopsUser)) {
-            $group = array(XOOPS_GROUP_ANONYMOUS);
+            $group = [XOOPS_GROUP_ANONYMOUS];
         } else {
-            $group =& $xoopsUser->getGroups();
+            $group = &$xoopsUser->getGroups();
         }
         $imgcatHandler = xoops_getHandler('imagecategory');
         $catlist       = $imgcatHandler->getList($group, 'imgcat_write', 1);
@@ -174,7 +176,7 @@ class MastopFormSelectImage extends XoopsFormSelect
                          . "'"
                          . $this->getExtra()
                          . '';
-        if ($this->isMultiple() !== false) {
+        if (false !== $this->isMultiple()) {
             $ret .= " name='" . $this->getName() . "[]' id='" . $this->getName() . "[]' multiple='multiple'>\n";
         } else {
             $ret .= " name='" . $this->getName() . "' id='" . $this->getName() . "'>\n";
@@ -202,7 +204,7 @@ class MastopFormSelectImage extends XoopsFormSelect
                                               . "' onclick=\"window.open('$browse_url?target="
                                               . $this->getName()
                                               . "','MastopFormImage','resizable=yes,width=500,height=470,left='+(screen.availWidth/2-200)+',top='+(screen.availHeight/2-200)+'');return false;\">" : '';
-        $ret        .= "<br><img id='" . $this->getName() . "_img' src='" . ((!empty($imagem)) ? XOOPS_URL . $imagem : XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/images/spacer.gif') . "'>";
+        $ret        .= "<br><img id='" . $this->getName() . "_img' src='" . (!empty($imagem) ? XOOPS_URL . $imagem : XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/images/spacer.gif') . "'>";
 
         return $ret;
     }

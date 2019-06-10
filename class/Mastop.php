@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Mastopgo2;
+
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -15,11 +18,11 @@ use Xmf\Request;
 
 require_once XOOPS_ROOT_PATH . '/kernel/object.php';
 
-if (!class_exists('Mastop_geral')) {
+if (!class_exists('Mastop')) {
     /**
-     * Class Mastop_geral
+     * Class Mastop
      */
-    class Mastop_geral extends XoopsObject
+    class Mastop extends \XoopsObject
     {
         public $db;
         public $tabela;
@@ -30,7 +33,7 @@ if (!class_exists('Mastop_geral')) {
         // construtor da classe
 
         /**
-         * Mastop_geral constructor.
+         * Mastop constructor.
          */
         public function __construct()
         {
@@ -45,27 +48,56 @@ if (!class_exists('Mastop_geral')) {
             if (!$this->cleanVars()) {
                 return false;
             }
-            $myts = MyTextSanitizer::getInstance();
+            $myts = \MyTextSanitizer::getInstance();
             foreach ($this->cleanVars as $k => $v) {
                 $indices[] = $k;
                 $valores[] = $v;
-                //$$k = $v;
+                //${$k} =$v;
             }
 
             if (null === $this->getVar($this->id) || 0 == $this->getVar($this->id)) {
                 $sql = 'INSERT INTO ' . $this->tabela . ' ( ';
-                $sql .= implode(',', $indices);
-                $sql .= ') VALUES (';
-                for ($i = 0, $iMax = count($valores); $i < $iMax; ++$i) {
-                    if (!is_int($valores[$i])) {
-                        $sql .= $this->db->quoteString($valores[$i]);
-                    } else {
-                        $sql .= $valores[$i];
+
+
+                if (0 == $valores[0]){
+//                    $sql .= $indices[1];
+                    for ($i = 1, $iMax = count($indices); $i < $iMax; ++$i) {
+                            $sql .= $indices[$i];
+                        if ($i != (count($indices) - 1)) {
+                            $sql .= ',';
+                        }
                     }
-                    if ($i != (count($valores) - 1)) {
-                        $sql .= ',';
+                } else {
+                   $sql .= implode(', ', $indices);
+                }
+
+                $sql .= ') VALUES (';
+
+                if (0 == $valores[0]){
+                    for ($i = 1, $iMax = count($valores); $i < $iMax; ++$i) {
+                        if (!is_int($valores[$i])) {
+                            $sql .= $this->db->quoteString($valores[$i]);
+                        } else {
+                            $sql .= $valores[$i];
+                        }
+                        if ($i != (count($valores) - 1)) {
+                            $sql .= ',';
+                        }
+                    }
+                } else {
+                    for ($i = 0, $iMax = count($valores); $i < $iMax; ++$i) {
+                        if (!is_int($valores[$i])) {
+                            $sql .= $this->db->quoteString($valores[$i]);
+                        } else {
+                            $sql .= $valores[$i];
+                        }
+                        if ($i != (count($valores) - 1)) {
+                            $sql .= ',';
+                        }
                     }
                 }
+
+
                 $sql .= ')';
             } else {
                 $sql = 'UPDATE ' . $this->tabela . ' SET ';
@@ -90,7 +122,7 @@ if (!class_exists('Mastop_geral')) {
 
                 return false;
             }
-            if (null === $this->getVar($this->id) || $this->getVar($this->id) == 0) {
+            if (null === $this->getVar($this->id) || 0 == $this->getVar($this->id)) {
                 $this->setVar($this->id, $this->db->getInsertId());
 
                 return $this->db->getInsertId();
@@ -110,7 +142,7 @@ if (!class_exists('Mastop_geral')) {
         {
             $set_clause = is_numeric($valor) ? $campo . ' = ' . $valor : $campo . ' = ' . $this->db->quoteString($valor);
             $sql        = 'UPDATE ' . $this->tabela . ' SET ' . $set_clause;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && $criterio instanceof \CriteriaElement) {
                 $sql .= ' ' . $criterio->renderWhere();
             }
             if (!$result = $this->db->query($sql)) {
@@ -125,7 +157,7 @@ if (!class_exists('Mastop_geral')) {
          */
         public function delete()
         {
-            $sql = sprintf('DELETE FROM "%s" WHERE ' . $this->id . ' = "%u"', $this->tabela, $this->getVar($this->id));
+            $sql = sprintf('DELETE FROM `%s` WHERE ' . $this->id . ' = %u', $this->tabela, $this->getVar($this->id));
             if (!$this->db->query($sql)) {
                 return false;
             }
@@ -142,7 +174,7 @@ if (!class_exists('Mastop_geral')) {
         public function deletaTodos($criterio = null)
         {
             $sql = 'DELETE FROM ' . $this->tabela;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && $criterio instanceof \CriteriaElement) {
                 $sql .= ' ' . $criterio->renderWhere();
             }
             if (!$result = $this->db->query($sql)) {
@@ -162,13 +194,13 @@ if (!class_exists('Mastop_geral')) {
         {
             $sql   = 'SELECT * FROM ' . $this->tabela . ' WHERE ' . $this->id . '=' . $id . ' LIMIT 1';
             $myrow = $this->db->fetchArray($this->db->query($sql));
-            if (is_array($myrow) && count($myrow) > 0) {
+            if ($myrow && is_array($myrow)) {
                 $this->assignVars($myrow);
 
                 return true;
-            } else {
-                return false;
             }
+
+            return false;
         }
 
         /**
@@ -180,14 +212,14 @@ if (!class_exists('Mastop_geral')) {
          */
         public function pegaTudo($criterio = null, $objeto = true, $join = null)
         {
-            $ret    = array();
+            $ret    = [];
             $limit  = $start = 0;
             $classe = get_class($this);
             if (!$objeto) {
                 $sql = 'SELECT ' . $this->id . ' FROM ' . $this->tabela;
-                if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+                if (isset($criterio) && $criterio instanceof \CriteriaElement) {
                     $sql .= ' ' . $criterio->renderWhere();
-                    if ($criterio->getSort() !== '') {
+                    if ('' !== $criterio->getSort()) {
                         $sql .= ' ORDER BY ' . $criterio->getSort() . ' ' . $criterio->getOrder();
                     }
                     $limit = $criterio->getLimit();
@@ -196,36 +228,35 @@ if (!class_exists('Mastop_geral')) {
                 $result      = $this->db->query($sql, $limit, $start);
                 $this->total = $this->db->getRowsNum($result);
                 if ($this->total > 0) {
-                    while ($myrow = $this->db->fetchArray($result)) {
+                    while (false !== ($myrow = $this->db->fetchArray($result))) {
                         $ret[] = $myrow[$this->id];
                     }
 
                     return $ret;
-                } else {
-                    return false;
                 }
-            } else {
-                $sql = 'SELECT ' . $this->tabela . '.* FROM ' . $this->tabela . ((!empty($join)) ? ' ' . $join : '');
-                if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
-                    $sql .= ' ' . $criterio->renderWhere();
-                    if ($criterio->getSort() !== '') {
-                        $sql .= ' ORDER BY ' . $criterio->getSort() . ' ' . $criterio->getOrder();
-                    }
-                    $limit = $criterio->getLimit();
-                    $start = $criterio->getStart();
-                }
-                $result      = $this->db->query($sql, $limit, $start);
-                $this->total = $this->db->getRowsNum($result);
-                if ($this->total > 0) {
-                    while ($myrow = $this->db->fetchArray($result)) {
-                        $ret[] = new $classe($myrow);
-                    }
 
-                    return $ret;
-                } else {
-                    return false;
-                }
+                return false;
             }
+            $sql = 'SELECT ' . $this->tabela . '.* FROM ' . $this->tabela . (!empty($join) ? ' ' . $join : '');
+            if (isset($criterio) && $criterio instanceof \CriteriaElement) {
+                $sql .= ' ' . $criterio->renderWhere();
+                if ('' !== $criterio->getSort()) {
+                    $sql .= ' ORDER BY ' . $criterio->getSort() . ' ' . $criterio->getOrder();
+                }
+                $limit = $criterio->getLimit();
+                $start = $criterio->getStart();
+            }
+            $result      = $this->db->query($sql, $limit, $start);
+            $this->total = $this->db->getRowsNum($result);
+            if ($this->total > 0) {
+                while (false !== ($myrow = $this->db->fetchArray($result))) {
+                    $ret[] = new $classe($myrow);
+                }
+
+                return $ret;
+            }
+
+            return false;
         }
 
         /**
@@ -236,13 +267,13 @@ if (!class_exists('Mastop_geral')) {
          */
         public function administracao($url, $campos)
         {
-            $criterio = new CriteriaCompo();
+            $criterio = new \CriteriaCompo();
             if (!empty($campos['precrit']['campo']) && !empty($campos['precrit']['valor'])) {
                 $precrit_hidden = '';
                 $precrit_url    = '';
                 foreach ($campos['precrit']['campo'] as $k => $v) {
                     $hiddens[$v] = $campos['precrit']['valor'][$k];
-                    $criterio->add(new Criteria($v, $campos['precrit']['valor'][$k], '=', $this->tabela));
+                    $criterio->add(new \Criteria($v, $campos['precrit']['valor'][$k], '=', $this->tabela));
                     $precrit_hidden .= "<input type='hidden' name='" . $v . "' value='" . $campos['precrit']['valor'][$k] . "'>";
                     $precrit_url    .= '&' . $v . '=' . $campos['precrit']['valor'][$k];
                 }
@@ -250,10 +281,9 @@ if (!class_exists('Mastop_geral')) {
                 $precrit_hidden = '';
                 $precrit_url    = '';
             }
-            if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST')  && is_array(Request::getArray('checks','', 'POST'))
-                && Request::getString('group_action', '', 'POST') === 'group_del_ok'
-            ) {
-                $chks   = Request::getArray('checks', array(), 'POST');
+            if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST') && is_array(Request::getArray('checks', '', 'POST'))
+                && 'group_del_ok' === Request::getString('group_action', '', 'POST')) {
+                $chks   = Request::getArray('checks', [], 'POST');
                 $classe = get_class($this);
                 foreach ($chks as $k => $v) {
                     $nova = new $classe($k);
@@ -265,10 +295,10 @@ if (!class_exists('Mastop_geral')) {
                     $nova->delete();
                 }
             }
-            if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST') &&  Request::getString('group_action', '', 'POST') === 'group_del'
-                && is_array(Request::getArray('checks','', 'POST'))
-            ) {
-                $chks = Request::getArray('checks', array(), 'POST');
+            if (!empty($campos['checks']) && Request::hasVar('group_action', 'POST')
+                && 'group_del' === Request::getString('group_action', '', 'POST')
+                && is_array(Request::getArray('checks', '', 'POST'))) {
+                $chks = Request::getArray('checks', [], 'POST');
                 foreach ($chks as $k => $v) {
                     $hiddens['checks[' . $k . ']'] = 1;
                 }
@@ -279,28 +309,27 @@ if (!class_exists('Mastop_geral')) {
             }
             $busca_url = '';
             if (Request::hasVar('busca', 'GET')) {
-                foreach (Request::getArray('busca', array(), 'GET') as $k => $v) {
-                    if ($v !== '' && $v != '-1' && in_array($k, $campos['nome'])) {
+                foreach (Request::getArray('busca', [], 'GET') as $k => $v) {
+                    if ('' !== $v && '-1' != $v && in_array($k, $campos['nome'])) {
                         if (is_numeric($v)) {
-                            $criterio->add(new Criteria($k, $v, '=', $this->tabela));
+                            $criterio->add(new \Criteria($k, $v, '=', $this->tabela));
                         } elseif (is_array($v)) {
                             if (!empty($v['dday']) || !empty($v['dmonth']) || !empty($v['dyear']) || !empty($v['aday'])
                                 || !empty($v['amonth'])
-                                || !empty($v['ayear'])
-                            ) {
-                                $dday   = (!empty($v['dday'])) ? $v['dday'] : 1;
-                                $dmonth = (!empty($v['dmonth'])) ? $v['dmonth'] : 1;
-                                $dyear  = (!empty($v['dyear'])) ? $v['dyear'] : 1;
-                                $aday   = (!empty($v['aday'])) ? $v['aday'] : 1;
-                                $amonth = (!empty($v['amonth'])) ? $v['dmonth'] : 1;
-                                $ayear  = (!empty($v['ayear'])) ? $v['ayear'] : date('Y');
+                                || !empty($v['ayear'])) {
+                                $dday   = !empty($v['dday']) ? $v['dday'] : 1;
+                                $dmonth = !empty($v['dmonth']) ? $v['dmonth'] : 1;
+                                $dyear  = !empty($v['dyear']) ? $v['dyear'] : 1;
+                                $aday   = !empty($v['aday']) ? $v['aday'] : 1;
+                                $amonth = !empty($v['amonth']) ? $v['dmonth'] : 1;
+                                $ayear  = !empty($v['ayear']) ? $v['ayear'] : date('Y');
                                 $ddate  = mktime(0, 0, 0, $v['dmonth'], $v['dday'], $v['dyear']);
                                 $adate  = mktime(0, 0, 0, $v['amonth'], $v['aday'], $v['ayear']);
-                                $criterio->add(new Criteria($k, $ddate, '>=', $this->tabela));
-                                $criterio->add(new Criteria($k, $adate, '<=', $this->tabela));
+                                $criterio->add(new \Criteria($k, $ddate, '>=', $this->tabela));
+                                $criterio->add(new \Criteria($k, $adate, '<=', $this->tabela));
                             }
                         } else {
-                            $criterio->add(new Criteria($k, "%$v%", 'LIKE', $this->tabela));
+                            $criterio->add(new \Criteria($k, "%$v%", 'LIKE', $this->tabela));
                         }
                         $busca_url .= (!is_array($v)) ? '&busca[' . $k . ']=' . $v : '&busca['
                                                                                      . $k
@@ -329,22 +358,22 @@ if (!class_exists('Mastop_geral')) {
                     }
                 }
             }
-            $limit = (Request::hasVar('limit', 'GET') && Request::getInt('limit',0 ,'GET') <= 100) ? Request::getInt('limit',0 ,'GET') : 15;
+            $limit = (Request::hasVar('limit', 'GET') && Request::getInt('limit', 0, 'GET') <= 100) ? Request::getInt('limit', 0, 'GET') : 15;
             $criterio->setLimit($limit);
-            $start = Request::getInt('start',0 ,'GET');  ;
+            $start = Request::getInt('start', 0, 'GET');
             $criterio->setStart($start);
-            $order = Request::getInt('order','DESC' ,'GET');
+            $order = Request::getInt('order', 'DESC', 'GET');
             $criterio->setOrder($order);
             $sort = (Request::hasVar('sort', 'GET')
                      && in_array(Request::getString('sort', '', 'GET'), $campos['nome'])) ? $_GET['sort'] : (empty($campos['sort']) ? $campos['nome'][1] : $campos['sort']);
             $criterio->setSort($sort);
-            $form        = (!empty($campos['form'])) ? 1 : 0;
-            $checks      = (!empty($campos['checks'])) ? 1 : 0;
-            $op          = (!empty($campos['op'])) ? $campos['op'] : '';
-            $norder      = ($order === 'ASC') ? 'DESC' : 'ASC';
+            $form        = !empty($campos['form']) ? 1 : 0;
+            $checks      = !empty($campos['checks']) ? 1 : 0;
+            $op          = !empty($campos['op']) ? $campos['op'] : '';
+            $norder      = ('ASC' === $order) ? 'DESC' : 'ASC';
             $colunas     = count($campos['rotulo']);
-            $colunas     = (!empty($campos['checks'])) ? $colunas + 1 : $colunas;
-            $colunas     = (!empty($campos['botoes'])) ? $colunas + 1 : $colunas;
+            $colunas     = !empty($campos['checks']) ? $colunas + 1 : $colunas;
+            $colunas     = !empty($campos['botoes']) ? $colunas + 1 : $colunas;
             $url_colunas = $url . '?op=' . $op . '&limit=' . $limit . '&start=' . $start . $busca_url . $precrit_url;
             $url_full_pg = $url . '?op=' . $op . '&limit=' . $limit . '&sort=' . $sort . '&order=' . $order . $busca_url . $precrit_url;
             $contar      = $this->contar($criterio);
@@ -429,7 +458,7 @@ if (!class_exists('Mastop_geral')) {
               }
             </script>' : '</script>');
 
-            $ret .= (!empty($campos['noadminmenu'])) ? '
+            $ret .= !empty($campos['noadminmenu']) ? '
               <script language="javascript" type="text/javascript">
                 if (window.addEventListener) window.addEventListener("load", esconde_menus, false) else if (window.attachEvent) window.attachEvent("onload", esconde_menus)
               </script>' : '';
@@ -438,17 +467,13 @@ if (!class_exists('Mastop_geral')) {
 
             $ret .= '
 <table width="100%" border="0" cellspacing="0" class="outer">
-<tr><td style="padding:5px; font-size:16px; border: 1px solid #C0C0C0; border-bottom:0px"><div style="font-size:12px; text-align:right; float:right">'
-                    . (empty($campos['nofilters']) ? '<a href="javascript:void(0);"  onclick="exibe_esconde(\'busca\');">'
-                                                     . $campos['lang']['filtros']
-                                                     . '</a>'
-//                                                     .' - <a href="javascript:void(0);"  onclick="esconde_menus();">'
-//                                                     . $campos['lang']['showhidemenu']
-//                                                     . '</a>'
-                                                     .'' : '')
-                    . '</div><b>'
-                    . $campos['lang']['titulo']
-                    . '</b></td></tr>
+<tr><td style="padding:5px; font-size:16px; border: 1px solid #C0C0C0; border-bottom:0px;"><div style="font-size:12px; text-align:right; float:right;">' . (empty($campos['nofilters']) ? '<a href="javascript:void(0);"  onclick="exibe_esconde(\'busca\');">'
+                                                                                                                                                                                          . $campos['lang']['filtros']
+                                                                                                                                                                                          . '</a>'
+                                                                                                                                                                                          //                                                     .' - <a href="javascript:void(0);"  onclick="esconde_menus();">'
+                                                                                                                                                                                          //                                                     . $campos['lang']['showhidemenu']
+                                                                                                                                                                                          //                                                     . '</a>'
+                                                                                                                                                                                          . '' : '') . '</div><b>' . $campos['lang']['titulo'] . '</b></td></tr>
 <tr><td class="outer" style="background-color: #F3F2F2;"><div style="text-align: center;">';
             $ret .= "<form action='"
                     . $url
@@ -462,8 +487,8 @@ if (!class_exists('Mastop_geral')) {
                     . $campos['lang']['por_pagina']
                     . '</b>';
             if (Request::hasVar('busca', 'GET')) {
-                foreach (Request::getArray('busca', array(), 'GET')  as $k => $v) {
-                    if ($v !== '' && $v != '-1' && !is_array($v)) {
+                foreach (Request::getArray('busca', [], 'GET') as $k => $v) {
+                    if ('' !== $v && '-1' != $v && !is_array($v)) {
                         $ret .= "<input type='hidden' name='busca[" . $k . "]' value='" . $v . "'>";
                     } elseif (is_array($v)) {
                         $ret .= "<input type='hidden' name='busca[" . $k . "][dday]' value='" . $v['dday'] . "'>";
@@ -478,11 +503,7 @@ if (!class_exists('Mastop_geral')) {
             $ret .= "<input type='hidden' name='op' value='" . $op . "'><input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'>";
             $ret .= "&nbsp;&nbsp;&nbsp;<input type='image' src='../assets/images/envia.gif' style='border:0; background-color:transparent' align='absmiddle'></form>";
             $ret .= "<table width='100%' border='0' cellspacing='0'>";
-            $ret .= "<tbody><tr><td colspan='"
-                    . $colunas
-                    . "' align='right'>"
-                    . sprintf($campos['lang']['exibindo'], $start + 1, ((($start + $limit) < $contar) ? $start + $limit : $contar), $contar)
-                    . '</td></tr></tbody>';
+            $ret .= "<tbody><tr><td colspan='" . $colunas . "' align='right'>" . sprintf($campos['lang']['exibindo'], $start + 1, ((($start + $limit) < $contar) ? $start + $limit : $contar), $contar) . '</td></tr></tbody>';
             $ret .= "<tbody><tr class='hd'>";
             $ret .= $checks ? "<td align='center'><input type='checkbox' name='checkAll' id='checkAll' onclick='changecheck();'></td>" : '';
             foreach ($campos['rotulo'] as $k => $v) {
@@ -504,10 +525,10 @@ if (!class_exists('Mastop_geral')) {
                                                                                                                                                                                                . ".png align='absmiddle'>" : '')
                                                                                                                                                                  . '</a></td>' : $v . '</td>');
             }
-            $ret .= (!empty($campos['botoes'])) ? "<td align='center'>" . $campos['lang']['acao'] . '</td>' : '';
+            $ret .= !empty($campos['botoes']) ? "<td align='center'>" . $campos['lang']['acao'] . '</td>' : '';
             $ret .= '</tr></tbody>';
             if (empty($campos['nofilters'])) {
-                $ret .= "<form action='" . $url . "' method='GET' name='form_busca'><tbody><tr id='busca' " . ((Request::hasVar('busca', 'GET')) ? '' : "style='display:none'") . " class='neutro'>";
+                $ret .= "<form action='" . $url . "' method='GET' name='form_busca'><tbody><tr id='busca' " . (Request::hasVar('busca', 'GET') ? '' : "style='display:none'") . " class='neutro'>";
                 $ret .= $checks ? '<td>&nbsp;</td>' : '';
                 foreach ($campos['rotulo'] as $k => $v) {
                     $ret .= "<td align='center' nowrap='nowrap'>";
@@ -518,36 +539,36 @@ if (!class_exists('Mastop_geral')) {
                             $ret .= "<input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dday]' size='2' maxlength='2' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dday']) ? (Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dday']) : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dday'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['dday'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dmonth]' size='2' maxlength='2' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dmonth']) ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dmonth'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dmonth'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['dmonth'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][dyear]' size='2' maxlength='4' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dyear']) ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['dyear'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['dyear'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['dyear'] : '')
                                     . '><br>';
                             $ret .= "<input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][aday]' size='2' maxlength='2' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['aday']) ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['aday'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['aday'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['aday'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][amonth]' size='2' maxlength='2' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['amonth']) ? Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['amonth'] : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['amonth'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['amonth'] : '')
                                     . "> <input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "][ayear]' size='2' maxlength='4' value="
-                                    . ((Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['ayear']) ? (Request::getArray('busca', array(), 'GET')[$campos['nome'][$k]]['ayear']) : '')
+                                    . (Request::hasVar('busca', 'GET')[$campos['nome'][$k]]['ayear'] ? Request::getArray('busca', [], 'GET')[$campos['nome'][$k]]['ayear'] : '')
                                     . '>';
                             break;
                         case 'select':
                             $ret .= "<select name='busca[" . $campos['nome'][$k] . "]'><option value='-1'>" . _SELECT . '</option>';
                             foreach ($campos['options'][$k] as $x => $y) {
                                 $ret .= "<option value='" . $x . "'";
-                                $ret .= (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]])
-                                         && Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] == $x) ? ' selected' : '';
+                                $ret .= (isset(Request::getArray('busca', [], 'GET') [$campos['nome'][$k]])
+                                         && Request::getArray('busca', [], 'GET') [$campos['nome'][$k]] == $x) ? ' selected' : '';
                                 $ret .= '>' . $y . '</option>';
                             }
                             $ret .= '</select>';
@@ -555,12 +576,12 @@ if (!class_exists('Mastop_geral')) {
                         case 'simnao':
                             $ret .= "<select name='busca[" . $campos['nome'][$k] . "]'><option value='-1'>" . _SELECT . '</option>';
                             $ret .= "<option value='1'";
-                            $ret .= (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]])
-                                     && Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] == 1) ? ' selected' : '';
+                            $ret .= (isset(Request::getArray('busca', [], 'GET') [$campos['nome'][$k]])
+                                     && 1 == Request::getArray('busca', [], 'GET') [$campos['nome'][$k]]) ? ' selected' : '';
                             $ret .= '>' . _YES . '</option>';
                             $ret .= "<option value='0'";
-                            $ret .= (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]])
-                                     && Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] == 0) ? ' selected' : '';
+                            $ret .= (isset(Request::getArray('busca', [], 'GET') [$campos['nome'][$k]])
+                                     && 0 == Request::getArray('busca', [], 'GET') [$campos['nome'][$k]]) ? ' selected' : '';
                             $ret .= '>' . _NO . '</option>';
                             $ret .= '</select>';
                             break;
@@ -569,37 +590,28 @@ if (!class_exists('Mastop_geral')) {
                             $ret .= "<input type='text' name='busca["
                                     . $campos['nome'][$k]
                                     . "]' value='"
-                                    . (isset(Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]]) ? Request::getArray('busca', array(), 'GET') [$campos['nome'][$k]] : '')
+                                    . (isset(Request::getArray('busca', [], 'GET') [$campos['nome'][$k]]) ? Request::getArray('busca', [], 'GET') [$campos['nome'][$k]] : '')
                                     . "' size='"
                                     . (isset($campos['tamanho'][$k]) ? $campos['tamanho'][$k] : 20)
-                                    . "'/>";
+                                    . "'>";
                     }
                     if (empty($campos['botoes']) && $k == count($campos['rotulo'])) {
                         $ret .= " <input type='image' src='../assets/images/envia.gif' style='border:0; background-color:transparent' align='absmiddle'>";
                     }
                     $ret .= '</td>';
                 }
-                $ret .= (!empty($campos['botoes'])) ? "<td align='center'><input type='image' src='../assets/images/envia.gif' style='border:0; background-color:transparent'></td>" : '';
+                $ret .= !empty($campos['botoes']) ? "<td align='center'><input type='image' src='../assets/images/envia.gif' style='border:0; background-color:transparent'></td>" : '';
                 $ret .= '</tr></tbody>';
-                $ret .= $precrit_hidden
-                        . "<input type='hidden' name='op' value='"
-                        . $op
-                        . "'><input type='hidden' name='sort' value='"
-                        . $sort
-                        . "'><input type='hidden' name='order' value='"
-                        . $order
-                        . "'><input type='hidden' name='limit' value='"
-                        . $limit
-                        . "'></form>";
+                $ret .= $precrit_hidden . "<input type='hidden' name='op' value='" . $op . "'><input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'></form>";
             }
             $registros = empty($campos['join']) ? $this->pegaTudo($criterio) : $this->pegaTudo($criterio, true, $campos['join']);
-            if (!$registros || count($registros) == 0) {
+            if (!$registros || 0 == count($registros)) {
                 $ret .= "<tbody><tr><td colspan='" . $colunas . "'><h2>" . $campos['lang']['semresult'] . '</h2></td></tr></tbody>';
                 $ret .= "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='left'>" . $this->paginar($url_full_pg, $criterio, $precrit_url) . '</td></tr></tbody>';
             } else {
                 $ret .= ($form || $checks) ? "<form action='" . $url . "' method='POST' name='update_form' id='update_form' " . ($checks ? "onsubmit='return verificaChecks()'" : '') . '>' : '';
                 foreach ($registros as $reg) {
-                    $eod = (!isset($eod) || $eod === 'fundo1') ? 'fundo2' : 'fundo1';
+                    $eod = (!isset($eod) || 'fundo1' === $eod) ? 'fundo2' : 'fundo1';
                     $ret .= "<tbody><tr id='tr_reg_" . $reg->getVar($reg->id) . "' class='" . $eod . "' onmouseover='this.className=\"neutro\";' onmouseout='this.className=\"" . $eod . "\"'>";
                     $ret .= $checks ? "<td align='center'><input type='checkbox' name='checks["
                                       . $reg->getVar($reg->id)
@@ -619,9 +631,8 @@ if (!class_exists('Mastop_geral')) {
                                 $ret .= empty($campos['show'][$l]) ? $reg->getVar($campos['nome'][$l]) : eval('return ' . $campos['show'][$l] . ';');
                                 break;
                             case 'date':
-                                $ret .= (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : (($reg->getVar($campos['nome'][$l]) != 0
-                                                                                                                       && $reg->getVar($campos['nome'][$l]) !== '') ? date(_SHORTDATESTRING,
-                                                                                                                                                                           $reg->getVar($campos['nome'][$l])) : ''));
+                                $ret .= (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : ((0 != $reg->getVar($campos['nome'][$l])
+                                                                                                                       && '' !== $reg->getVar($campos['nome'][$l])) ? date(_SHORTDATESTRING, $reg->getVar($campos['nome'][$l])) : ''));
                                 break;
                             case 'select':
                                 if ($form && empty($campos['show'][$l])) {
@@ -642,26 +653,26 @@ if (!class_exists('Mastop_geral')) {
                                 if ($form && empty($campos['show'][$l])) {
                                     $ret .= "<select name='campos[" . $reg->getVar($reg->id) . '][' . $campos['nome'][$l] . "]'>";
                                     $ret .= "<option value='1'";
-                                    $ret .= ($reg->getVar($campos['nome'][$l]) == 1) ? ' selected' : '';
+                                    $ret .= (1 == $reg->getVar($campos['nome'][$l])) ? ' selected' : '';
                                     $ret .= '>' . _YES . '</option>';
                                     $ret .= "<option value='0'";
-                                    $ret .= ($reg->getVar($campos['nome'][$l]) == 0) ? ' selected' : '';
+                                    $ret .= (0 == $reg->getVar($campos['nome'][$l])) ? ' selected' : '';
                                     $ret .= '>' . _NO . '</option>';
                                     $ret .= '</select>';
                                 } elseif (!empty($campos['show'][$l])) {
                                     $ret .= eval('return ' . $campos['show'][$l] . ';');
                                 } else {
-                                    $ret .= ($reg->getVar($campos['nome'][$l]) == 1) ? _YES : (($reg->getVar($campos['nome'][$l]) == 0) ? _NO : $reg->getVar($campos['nome'][$l]));
+                                    $ret .= (1 == $reg->getVar($campos['nome'][$l])) ? _YES : ((0 == $reg->getVar($campos['nome'][$l])) ? _NO : $reg->getVar($campos['nome'][$l]));
                                 }
                                 break;
                             case 'text':
                             default:
 
-//                                                            $bong = $campos['nome'][$l];
-//                                                            $bong2 = $reg->getVar($campos['nome'][$l]);
-//                                                            echo $bong . '---- 1 <br><br>';
-//                                                            echo $bong2 .'---- 2<br><br>';
-//                                                            echo 'show: ' . $campos['show'][$l] . '---- 3<br><br><br>';
+                                //                                                            $bong = $campos['nome'][$l];
+                                //                                                            $bong2 = $reg->getVar($campos['nome'][$l]);
+                                //                                                            echo $bong . '---- 1 <br><br>';
+                                //                                                            echo $bong2 .'---- 2<br><br>';
+                                //                                                            echo 'show: ' . $campos['show'][$l] . '---- 3<br><br><br>';
 
                                 $ret .= ($form && empty($campos['show'][$l])) ? ("<input type='text' name='campos["
                                                                                  . $reg->getVar($reg->id)
@@ -671,10 +682,9 @@ if (!class_exists('Mastop_geral')) {
                                                                                  . $reg->getVar($campos['nome'][$l])
                                                                                  . "' size='"
                                                                                  . (isset($campos['tamanho'][$l]) ? $campos['tamanho'][$l] : 20)
-                                                                                 . "'/>")
+                                                                                 . "'>")
 
                                     : (!empty($campos['show'][$l]) ? eval('return ' . $campos['show'][$l] . ';') : $reg->getVar($campos['nome'][$l]));
-
                         }
 
                         $ret .= '</td>';
@@ -684,19 +694,7 @@ if (!class_exists('Mastop_geral')) {
                         $ret .= "<td nowrap='nowrap'>";
                         if (is_array($campos['botoes'])) {
                             foreach ($campos['botoes'] as $b) {
-                                $ret .= "<a href='"
-                                        . $b['link']
-                                        . '&'
-                                        . $reg->id
-                                        . '='
-                                        . $reg->getVar($reg->id)
-                                        . "' title='"
-                                        . $b['texto']
-                                        . "'><img src='"
-                                        . $b['imagem']
-                                        . "' alt='"
-                                        . $b['texto']
-                                        . "'></a> ";
+                                $ret .= "<a href='" . $b['link'] . '&' . $reg->id . '=' . $reg->getVar($reg->id) . "' title='" . $b['texto'] . "'><img src='" . $b['imagem'] . "' alt='" . $b['texto'] . "'></a> ";
                             }
                         }
                         $ret .= '</td>';
@@ -705,19 +703,10 @@ if (!class_exists('Mastop_geral')) {
                 }
                 if ($form || $checks) {
                     $ret .= "<tbody><tr><td colspan='" . $colunas . "'>";
-                    $ret .= $precrit_hidden
-                            . "<input type='hidden' name='sort' value='"
-                            . $sort
-                            . "'><input type='hidden' name='order' value='"
-                            . $order
-                            . "'><input type='hidden' name='limit' value='"
-                            . $limit
-                            . "'><input type='hidden' name='start' value='"
-                            . $start
-                            . "'>";
+                    $ret .= $precrit_hidden . "<input type='hidden' name='sort' value='" . $sort . "'><input type='hidden' name='order' value='" . $order . "'><input type='hidden' name='limit' value='" . $limit . "'><input type='hidden' name='start' value='" . $start . "'>";
                     if (Request::hasVar('busca', 'GET')) {
-                        foreach (Request::getArray('busca', array(), 'GET')  as $k => $v) {
-                            if ($v !== '' && $v != '-1' && !is_array($v)) {
+                        foreach (Request::getArray('busca', [], 'GET') as $k => $v) {
+                            if ('' !== $v && '-1' != $v && !is_array($v)) {
                                 $ret .= "<input type='hidden' name='busca[" . $k . "]' value='" . $v . "'>";
                             } elseif (is_array($v)) {
                                 $ret .= "<input type='hidden' name='busca[" . $k . "][dday]' value='" . $v['dday'] . "'>";
@@ -732,7 +721,7 @@ if (!class_exists('Mastop_geral')) {
                     $ret .= "<input type='hidden' name='op' value='" . $op . "'>&nbsp;<br>";
                     if ($checks) {
                         $ret .= $campos['lang']['group_action'] . " <select name='group_action' id='group_action'><option value='0'>" . _SELECT . '</option>';
-                        $ret .= (!empty($campos['group_del'])) ? "<option value='group_del'>" . $campos['lang']['group_del'] . '</option>' : '';
+                        $ret .= !empty($campos['group_del']) ? "<option value='group_del'>" . $campos['lang']['group_del'] . '</option>' : '';
                         if (!empty($campos['group_action'])) {
                             foreach ($campos['group_action'] as $grp) {
                                 $ret .= "<option value='" . $grp['valor'] . "'>" . $grp['texto'] . '</option>';
@@ -742,8 +731,7 @@ if (!class_exists('Mastop_geral')) {
                     }
                     $ret .= "<input type='submit' value='" . _SUBMIT . "'><br>&nbsp;</td></tr></tbody></form>";
                 }
-                $ret .= (!empty($campos['soma'])) ? "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='right'>Total: R$ " . number_format($this->soma($criterio, $campos['soma']), 2, ',',
-                                                                                                                                                    '.') . '</td></tr></tbody>' : '';
+                $ret .= !empty($campos['soma']) ? "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='right'>Total: R$ " . number_format($this->soma($criterio, $campos['soma']), 2, ',', '.') . '</td></tr></tbody>' : '';
                 $ret .= "<tbody><tr class='bx'><td colspan='" . $colunas . "' align='left'>" . $this->paginar($url_full_pg, $criterio, $precrit_url) . '</td></tr></tbody>';
             }
             $ret .= '</table></div></td></tr></table><br>';
@@ -759,7 +747,7 @@ if (!class_exists('Mastop_geral')) {
         public function contar($criterio = null)
         {
             $sql = 'SELECT COUNT(*) FROM ' . $this->tabela;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && $criterio instanceof \CriteriaElement) {
                 $sql .= ' ' . $criterio->renderWhere();
             }
             $result = $this->db->query($sql);
@@ -777,10 +765,10 @@ if (!class_exists('Mastop_geral')) {
          *
          * @return int
          */
-        public function soma($criterio = null, $campo)
+        public function soma($criterio, $campo)
         {
             $sql = 'SELECT SUM(' . $campo . ') FROM ' . $this->tabela;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && $criterio instanceof \CriteriaElement) {
                 $sql .= ' ' . $criterio->renderWhere();
             }
             $result = $this->db->query($sql);
@@ -806,10 +794,10 @@ if (!class_exists('Mastop_geral')) {
             $ret   = '';
             $order = 'up';
             $sort  = $this->id;
-            if (isset($criterio) && is_subclass_of($criterio, 'criteriaelement')) {
+            if (isset($criterio) && $criterio instanceof \CriteriaElement) {
                 $limit = $criterio->getLimit();
                 $start = $criterio->getStart();
-                if ($criterio->getSort() !== '') {
+                if ('' !== $criterio->getSort()) {
                     $order = $criterio->getOrder();
                     $sort  = $criterio->getSort();
                 }
@@ -818,22 +806,22 @@ if (!class_exists('Mastop_geral')) {
                 $start = 0;
             }
             $todos = $this->contar($criterio);
-            $total = ($todos % $limit == 0) ? ($todos / $limit) : (int)($todos / $limit) + 1;
+            $total = (0 == $todos % $limit) ? ($todos / $limit) : (int)($todos / $limit) + 1;
             $pg    = $start ? (int)($start / $limit) + 1 : 1;
-            $ret   .= (Request::hasVar('busca', 'GET')) ? "<input type=button value='"
-                                                 . _ALL
-                                                 . "' onclick=\"document.location= '"
-                                                 . Request::getString('PHP_SELF', '', 'SERVER')
-                                                 . '?limit='
-                                                 . $limit
-                                                 . '&order='
-                                                 . $order
-                                                 . '&sort='
-                                                 . $sort
-                                                 . '&op='
-                                                 . $GLOBALS['op']
-                                                 . $precrit_url
-                                                 . "'\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            $ret   .= Request::hasVar('busca', 'GET') ? "<input type=button value='"
+                                                        . _ALL
+                                                        . "' onclick=\"document.location= '"
+                                                        . Request::getString('PHP_SELF', '', 'SERVER')
+                                                        . '?limit='
+                                                        . $limit
+                                                        . '&order='
+                                                        . $order
+                                                        . '&sort='
+                                                        . $sort
+                                                        . '&op='
+                                                        . $GLOBALS['op']
+                                                        . $precrit_url
+                                                        . "'\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
             for ($i = 1; $i <= $total; ++$i) {
                 $start = $limit * ($i - 1);
                 if ($i == $pg) {
@@ -847,7 +835,7 @@ if (!class_exists('Mastop_geral')) {
                 } elseif ($i < ($pg + 10)) {
                     $ret .= (" <A HREF='" . $link . '&start=' . $start . "'>" . $i . '</a> ');
                 } else {
-                    $ret .= (". . . <A HREF='" . $link . '&start=' . (($todos % $limit == 0) ? $todos - $limit : $todos - ($todos % $limit)) . "'>" . $total . '</a>');
+                    $ret .= (". . . <A HREF='" . $link . '&start=' . ((0 == $todos % $limit) ? $todos - $limit : $todos - ($todos % $limit)) . "'>" . $total . '</a>');
                     break;
                 }
                 if ($i != $total) {

@@ -4,4 +4,4 @@ Developed by Fernando Santos (topet05), fernando@mastop.com.br
 www.mastop.com.br
 Copyright: Mastop InfoDigital © 2003-2007
 
-Updated to XOOPS 2.5.0 Standard GUI by Michael Beck (Mamba)
+Updated to XOOPS 2.5.x Standard GUI by Michael Beck (Mamba)

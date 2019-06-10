@@ -1,0 +1,27 @@
+-
+    go2_10_id: '1'
+    sec_10_id: '2'
+    go2_30_nome: Ship
+    go2_30_link: 'https://xoops.org'
+    go2_11_target: '0'
+    go2_30_imagem: /uploads/mastopgo2/images/img5cfb52f0b2d62.jpg
+    go2_10_acessos: '0'
+    go2_12_ativo: '1'
+-
+    go2_10_id: '2'
+    sec_10_id: '3'
+    go2_30_nome: Horses
+    go2_30_link: 'http://Xoops.org'
+    go2_11_target: '0'
+    go2_30_imagem: /uploads/mastopgo2/images/img5cfb52f35e44f.jpg
+    go2_10_acessos: '0'
+    go2_12_ativo: '1'
+-
+    go2_10_id: '3'
+    sec_10_id: '1'
+    go2_30_nome: 'Africa Sunset'
+    go2_30_link: 'https://www.bookallsafaris.com/news/african-sunsets-safari'
+    go2_11_target: '0'
+    go2_30_imagem: /uploads/mastopgo2/images/img5cfb52f2acecc.jpg
+    go2_10_acessos: '0'
+    go2_12_ativo: '1'

@@ -22,7 +22,7 @@ Requirements
 
 Install/uninstall
 ------------------
-No special measures necessary, follow the standard installation process – extract the /mastop_go2 folder into the ../modules directory. Install the module through Admin -> System Module -> Modules.
+No special measures necessary, follow the standard installation process – extract the /mastopgo2 folder into the ../modules directory. Install the module through Admin -> System Module -> Modules.
 
 Detailed instructions on installing modules are available in the XOOPS Operations Manual (http://goo.gl/adT2i)
 
@@ -35,7 +35,7 @@ During the installation there will be inserted a "General" section. It's possibl
 * Spotlight registration
 
 You can add an image, section, exibition text and URL for each spotlight. Further you can define if the spotlight URL should be opend in a new window or not.
-The spotlight management area has group actions, enable/disable spotlights and an exclusive class called MastopFormSelectImage that acts together with Xoops image libray making it easier to choose and send images.
+The spotlight management area has group actions, enable/disable spotlights and an exclusive class called FormSelectImage that acts together with Xoops image libray making it easier to choose and send images.
 
 * Spotlight exhibition block
 

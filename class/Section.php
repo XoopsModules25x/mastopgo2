@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Mastopgo2;
+
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -11,20 +14,23 @@
 ### =============================================================
 ###
 ### =============================================================
-require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastop_geral.class.php';
+
+use XoopsModules\Mastopgo2;
+
+//require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastopgeral.class.php';
 
 /**
- * Class Mgo_sec_section
+ * Class Section
  */
-class Mgo_sec_section extends Mastop_geral
+class Section extends Mastop
 {
     /**
-     * Mgo_sec_section constructor.
+     * Section constructor.
      * @param null $id
      */
     public function __construct($id = null)
     {
-        $this->db     = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db     = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->tabela = $this->db->prefix(MGO_MOD_TABELA0);
         $this->id     = 'sec_10_id';
         $this->initVar('sec_10_id', XOBJ_DTYPE_INT, 0);
@@ -64,22 +70,23 @@ class Mgo_sec_section extends Mastop_geral
      */
     public function montaGaleria($altura, $section = 0, $setas = 1, $barra = 1, $delay = 6, $transp = 50, $largura = '100%')
     {
-        if ($section == 0) {
-            $criterio = new CriteriaCompo(new Criteria('go2_12_ativo', 1));
+        if (0 == $section) {
+            $criterio = new \CriteriaCompo(new \Criteria('go2_12_ativo', 1));
         } else {
-            $criterio = new CriteriaCompo(new Criteria('sec_10_id', $section));
-            $criterio->add(new Criteria('go2_12_ativo', 1));
+            $criterio = new \CriteriaCompo(new \Criteria('sec_10_id', $section));
+            $criterio->add(new \Criteria('go2_12_ativo', 1));
         }
-        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+//        $go2_classe = mgo_getClass(MGO_MOD_TABELA1);
+        $go2_classe = new \XoopsModules\Mastopgo2\Go2();
         $dstacs     = $go2_classe->pegaTudo($criterio);
         if (is_int($largura)) {
-            $largura = $largura . 'px';
+            $largura .= 'px';
         }
         if ($dstacs) {
             $ret = '
 <script src="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/galeria/scripts/mootools.js" type="text/javascript"></script>
 <script src="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/galeria/scripts/jd.js" type="text/javascript"></script>
-<link rel="stylesheet" href="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/galeria/css/jd.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="' . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/assets/js/galeria/css/jd.css" type="text/css" media="screen">
 <style type="text/css">
 #dstacs_' . $section . '
 {
@@ -94,8 +101,8 @@ border: 0;
 function start_dstacs_' . $section . '() {
 var dstacs_' . $section . ' = new gallery($("dstacs_' . $section . '"), {
 timed: ' . ((count($dstacs) > 1) ? 'true' : 'false') . ',
-showArrows: ' . (($setas == 1) ? 'true' : 'false') . ',
-showInfopane: ' . (($barra == 1) ? 'true' : 'false') . ',
+showArrows: ' . ((1 == $setas) ? 'true' : 'false') . ',
+showInfopane: ' . ((1 == $barra) ? 'true' : 'false') . ',
 delay: ' . ($delay * 1000) . ',
 slideInfoZoneOpacity: ' . (($transp > 0) ? '0.' . (int)((100 - $transp) / 10) : '1') . ',
 embedLinks: true,
@@ -105,16 +112,16 @@ randomize: true
 window.onDomReady(start_dstacs_' . $section . ');
 </script>
 <!-- Mastop Go2 - http://www.mastop.com.br/produtos/go2/ -->
-			';
+            ';
             $ret .= '<div align="center"><div id="dstacs_' . $section . '">';
             foreach ($dstacs as $v) {
-                if ($v->getVar('go2_11_target') == 0) {
+                if (0 == $v->getVar('go2_11_target')) {
                     $target = '';
                 } else {
                     $target = "target='_blank'";
                 }
                 $ret .= '<div class="imageElement">';
-                $ret .= ($v->getVar('go2_30_nome') != '') ? '<h3><a href="' . $v->pegaLink(false, false) . '" title="' . $v->getVar('go2_30_nome') . '" ' . $target . ' class="open">' . $v->getVar('go2_30_nome') . '</a></h3>' : '<h3>&nbsp;</h3>';
+                $ret .= ('' != $v->getVar('go2_30_nome')) ? '<h3><a href="' . $v->pegaLink(false, false) . '" title="' . $v->getVar('go2_30_nome') . '" ' . $target . ' class="open">' . $v->getVar('go2_30_nome') . '</a></h3>' : '<h3>&nbsp;</h3>';
                 $ret .= '<p></p>';
                 $ret .= $v->pegaLink(true);
                 $ret .= '</div>';
@@ -122,8 +129,8 @@ window.onDomReady(start_dstacs_' . $section . ');
             $ret .= '</div></div>';
 
             return $ret;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

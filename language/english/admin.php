@@ -81,7 +81,7 @@ define('MGO_ADM_FEEDSUCCESS', 'Feedback sent successfully!');
 //1.01
 define('AM_TOPPAGE', 'Top Page');
 define('AM_ALLPAGES', 'All Pages');
-define('AM_BADMIN', 'Page');
+define('AM_BADMIN', 'Blocks administration');
 define('AM_TITLE', 'Title');
 define('AM_SIDE', 'Side');
 define('AM_WEIGHT', 'Weight');

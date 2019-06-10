@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Mastopgo2;
+
 ### =============================================================
 ### Mastop InfoDigital - Paixão por Internet
 ### =============================================================
@@ -12,12 +15,12 @@
 ###
 ### =============================================================
 
-require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastop_geral.class.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . MGO_MOD_DIR . '/class/mastopgeral.class.php';
 
 /**
- * Class Mgo_go2_go2
+ * Class Go2
  */
-class Mgo_go2_go2 extends Mastop_geral
+class Go2 extends Mastop
 {
     /**
      * mgo_go2_go2 constructor.
@@ -25,7 +28,7 @@ class Mgo_go2_go2 extends Mastop_geral
      */
     public function __construct($id = null)
     {
-        $this->db     = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db     = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->tabela = $this->db->prefix(MGO_MOD_TABELA1);
         $this->id     = 'go2_10_id';
         $this->initVar('go2_10_id', XOBJ_DTYPE_INT, 0);
@@ -91,24 +94,23 @@ class Mgo_go2_go2 extends Mastop_geral
     public function pegaLink($imagem = false, $html = true)
     {
         if (!$html) {
-            if ($this->getVar('go2_30_link') === '') {
+            if ('' === $this->getVar('go2_30_link')) {
             } else {
                 return XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id);
             }
         } else {
             if (!$imagem) {
-                if ($this->getVar('go2_11_target') == 0) {
+                if (0 == $this->getVar('go2_11_target')) {
                     return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "'>" . $this->getVar('go2_30_link') . '</a>';
-                } else {
-                    return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->getVar('go2_30_link') . '</a>';
                 }
-            } else {
-                if ($this->getVar('go2_11_target') == 0) {
-                    return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "'>" . $this->pegaImagem(true) . '</a>';
-                } else {
-                    return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->pegaImagem(true) . '</a>';
-                }
+
+                return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->getVar('go2_30_link') . '</a>';
             }
+            if (0 == $this->getVar('go2_11_target')) {
+                return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "'>" . $this->pegaImagem(true) . '</a>';
+            }
+
+            return "<a href='" . XOOPS_URL . '/modules/' . MGO_MOD_DIR . '/go2.php?tac=' . $this->getVar($this->id) . "' title='" . $this->getVar('go2_30_nome') . "' target='_blank'>" . $this->pegaImagem(true) . '</a>';
         }
     }
 

@@ -20,7 +20,7 @@ modinfo.php
 -----------
 define('MI_MGO_NAME', 'Mastop Go2');
 define('MI_MGO_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('MI_MGO_HELP_HEADER', __DIR__.'/help/helpheader.html');
+define('MI_MGO_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
 define('MI_MGO_BACK_2_ADMIN', 'Back to Administration of ');
 define('MI_MGO_OVERVIEW', 'Overview');
 //define('MI_MGO_HELP_DIR', __DIR__);
@@ -50,6 +50,6 @@ define("_AM_VISIBLEIN", "Visible In");
 define("_AM_ACTION", "Action");
 
 // Text for Admin footer
-define("_AM_ADMIN_FOOTER", "<div class='center smallsmall italic pad5'>Mastop Go2 is maintained by the <a class='tooltip' rel='external' href='http://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
+define("_AM_ADMIN_FOOTER", "<div class='center smallsmall italic pad5'>Mastop Go2 is maintained by the <a class='tooltip' rel='external' href='https://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
 
 define("MGO_ADM_NONATIVO", "Inactive");

@@ -16,7 +16,7 @@
     extract the xoopspolls folder into the ../modules directory. Install the
     module through Admin -> System Module -> Modules. <br><br>
     Detailed instructions on installing modules are available in the
-    <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a>
+    <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">XOOPS Operations Manual</a>
     <br><br>
 
     <h4 class="odd">OPERATING INSTRUCTIONS</h4><br>
@@ -35,16 +35,16 @@
     v) Ensure that relevant user groups have access rights to a) the Polls
     module and b) the Polls block so that they can see it and vote. Detailed
     instructions on configuring the access rights for user groups are
-    available in the <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">XOOPS
+    available in the <a href="https://xoops.gitbook.io/xoops-operations-guide/" target="_blank">XOOPS
     Operations
     Manual</a><br><br>
 
     <h4 class="odd">TUTORIAL</h4> <br>
 
     <p class="even">
-        Tutorial has been started, but we might need your help! Please check out the status of the tutorial <a href="https://www.gitbook.com/book/xoops/mastop_go2-tutorial/" target="_blank">here </a>.
-        <br><br>To contribute to this Tutorial, <a href="https://github.com/XoopsDocs/mastop_go2-tutorial/" target="_blank">please fork it on GitHub</a>.
-        <br> This document describes our <a href="https://www.gitbook.com/book/xoops/xoops-documentation-process/details/" target="_blank">Documentation Process</a> and it will help you to understand
+        Tutorial has been started, but we might need your help! Please check out the status of the tutorial <a href="https://xoops.gitbook.io/mastopgo2-tutorial/" target="_blank">here </a>.
+        <br><br>To contribute to this Tutorial, <a href="https://github.com/XoopsDocs/mastopgo2-tutorial/" target="_blank">please fork it on GitHub</a>.
+        <br> This document describes our <a href="https://xoops.gitbook.io/xoops-documentation-process/details/" target="_blank">Documentation Process</a> and it will help you to understand
         how to contribute.
         <br><br>
         There are more XOOPS Tutorials, so check them out in our <a href="https://www.gitbook.com/@xoops/" target="_blank">XOOPS Tutorial Repository on GitBook</a>.
@@ -58,12 +58,12 @@
 
     <h4 class="odd">SUPPORT</h4> <br>
     <p class="even">
-        If you have questions about this module and need help, you can visit our <a href="http://xoops.org/modules/newbb/viewforum.php?forum=28/" target="_blank">Support Forums on XOOPS Website</a>
+        If you have questions about this module and need help, you can visit our <a href="https://xoops.org/modules/newbb/viewforum.php?forum=28/" target="_blank">Support Forums on XOOPS Website</a>
     </p>
 
     <h4 class="odd">DEVELOPMENT</h4> <br>
     <p class="even">
-        This module is Open Source and we would love your help in making it better! You can fork this module on <a href="https://github.com/XoopsModulesArchive/mastop_go2"
+        This module is Open Source and we would love your help in making it better! You can fork this module on <a href="https://github.com/XoopsModulesArchive/mastopgo2"
                                                                                                                    target="_blank">GitHub</a><br><br>
         But there is more happening on GitHub:<br><br>
         - <a href="https://github.com/xoops" target="_blank">XOOPS Core</a> <br>
